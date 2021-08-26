@@ -5,28 +5,22 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 
-public class HealingItem {
+public class HealingItem extends Item{
 
-    private final String name;
-    private final double healHP;
-    private final double healMP;
+    private final int healHP;
+    private final int healMP;
 
-    private HealingItem(String name, double healHP, double healMP){
-        this.name = name;
+    private HealingItem(String name, int healHP, int healMP){
+        super(name);
         this.healHP = healHP;
         this.healMP = healMP;
     }
 
-
-    public String getName() {
-        return name;
-    }
-
-    public double getHealHP() {
+    public int getHealHP() {
         return healHP;
     }
 
-    public double getHealMP() {
+    public int getHealMP() {
         return healMP;
     }
 
@@ -34,13 +28,13 @@ public class HealingItem {
         Object obj = new JSONParser().parse(new FileReader(file));
         JSONObject jo = (JSONObject) obj;
         String name = (String) jo.get("name");
-        double healHP = (double) jo.get("healHP");
-        double healMP = (double) jo.get("healMP");
+        int healHP = (int)(long) jo.get("healHP");
+        int healMP = (int)(long)jo.get("healMP");
 
         return new HealingItem(name, healHP, healMP);
     }
 
-    public static HealingItem getInstance(String name, double healHP, double healMP){
+    public static HealingItem getInstance(String name, int healHP, int healMP){
         return new HealingItem(name, healHP, healMP);
     }
 }
