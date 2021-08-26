@@ -4,7 +4,7 @@ import java.io.FileReader;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
-public class MagicalWeapon {
+public class MagicalWeapon implements Weapon {
 
     private final String name;
     private final double magicPowerIncrease;

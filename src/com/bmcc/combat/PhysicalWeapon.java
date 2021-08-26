@@ -4,7 +4,7 @@ import java.io.FileReader;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
-public class PhysicalWeapon {
+public class PhysicalWeapon implements Weapon{
 
     private final String name;
     private final double damage;
