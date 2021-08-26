@@ -4,17 +4,13 @@ import java.io.FileReader;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
-public class PhysicalWeapon {
-
-    private final String name;
+public class PhysicalWeapon extends Weapon{
     private final double damage;
 
     private PhysicalWeapon(String name, double damage){
-        this.name = name;
+        super(name);
         this.damage = damage;
     }
-
-    public String getName(){return this.name;}
 
     public double getDamage(){return this.damage;}
 
