@@ -5,21 +5,15 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 
-public class HealingItem {
+public class HealingItem extends Item{
 
-    private final String name;
     private final double healHP;
     private final double healMP;
 
     private HealingItem(String name, double healHP, double healMP){
-        this.name = name;
+        super(name);
         this.healHP = healHP;
         this.healMP = healMP;
-    }
-
-
-    public String getName() {
-        return name;
     }
 
     public double getHealHP() {
