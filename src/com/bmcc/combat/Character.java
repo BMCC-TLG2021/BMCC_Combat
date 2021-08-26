@@ -6,10 +6,10 @@ public class Character {
     private int magicPoint;
     private int defensePower;
     private int attackPower;
-    private Weapon weapon;
+    private PhysicalWeapon weapon;
 
     // Constructors
-    public Character(String name, int hitPoint, int manaPoint, int defensePower, int attackPower, Weapon weapon) {
+    public Character(String name, int hitPoint, int manaPoint, int defensePower, int attackPower, PhysicalWeapon weapon) {
         this.name = name;
         this.hitPoint = hitPoint;
         this.magicPoint = manaPoint;
@@ -61,7 +61,7 @@ public class Character {
         return attackPower;
     }
 
-    public Weapon getWeapon() {
+    public PhysicalWeapon getWeapon() {
         return weapon;
     }
 
