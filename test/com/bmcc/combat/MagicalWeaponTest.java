@@ -9,7 +9,7 @@ public class MagicalWeaponTest {
     MagicalWeapon sampleMagicalWeapon;
     @Before
     public void setUp() throws Exception {
-        sampleMagicalWeapon = MagicalWeapon.getInstance("testing wand", 1.5);
+        sampleMagicalWeapon = MagicalWeapon.getInstance("testing wand", 1);
     }
 
     @Test
@@ -19,14 +19,14 @@ public class MagicalWeaponTest {
 
     @Test
     public void getMagicPowerIncrease() {
-        assertEquals(1.5, sampleMagicalWeapon.getMagicPowerIncrease(),1);
+        assertEquals(1, sampleMagicalWeapon.getMagicPowerIncrease());
     }
 
     @Test
     public void getInstanceFromJson() throws Exception {
         sampleMagicalWeapon = MagicalWeapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
         assertEquals("Harry Potter's wand", sampleMagicalWeapon.getName());
-        assertEquals(3.0, sampleMagicalWeapon.getMagicPowerIncrease(),1);
+        assertEquals(3, sampleMagicalWeapon.getMagicPowerIncrease());
     }
 
 }
