@@ -7,7 +7,7 @@ import java.util.*;
 public class GameInput {
     private static String userInput;
     private static Scanner scanner = new Scanner(System.in);
-    private static final String[] validCommands = {"START GAME", "END GAME", "ATTACK ENEMY"};
+    private static final String[] validCommands = {"START GAME", "USE MAGIC", "END GAME", "ATTACK ENEMY"};
 
     // Ingest user input
     public static String getUserInput(String prompt) throws NoSuchElementException, IllegalStateException {
