@@ -6,16 +6,16 @@ public class Character {
     private int magicPoint;
     private int defensePower;
     private int attackPower;
-    private PhysicalWeapon weapon;
+    private Weapon weapon;
+    private Magic magic;
 
     // Constructors
-    public Character(String name, int hitPoint, int manaPoint, int defensePower, int attackPower, PhysicalWeapon weapon) {
+    public Character(String name, int hitPoint, int manaPoint, int defensePower, int attackPower) {
         this.name = name;
         this.hitPoint = hitPoint;
         this.magicPoint = manaPoint;
         this.defensePower = defensePower;
         this.attackPower = attackPower;
-        this.weapon = weapon;
     }
 
     // Business methods
@@ -32,12 +32,30 @@ public class Character {
         hitPoint -= points;
     }
 
-    private void reduceMagicPoint() {
+    boolean reduceMagicPoint() {
         if (getMagicPoint() >= 20) {
             magicPoint -= 20;
-        } else {
-            throw new IllegalArgumentException("Magic point is not enough");
+            return true;
         }
+        return false;
+    }
+
+    public int getTotalPhysicalAttackPower() {
+        if (this.getWeapon() instanceof PhysicalWeapon) {
+            return this.attackPower + ((PhysicalWeapon) this.getWeapon()).getDamage();
+        }
+        else {
+            return this.attackPower;
+        }
+    }
+
+    public int getTotalMagicalPower() {
+        if (this.getWeapon() instanceof MagicalWeapon) {
+            double damageBuffer = ((MagicalWeapon) this.getWeapon()).getMagicPowerIncrease();
+            int originalDamage = this.getMagic().getDamage();
+            return (int) damageBuffer * originalDamage;
+        }
+        return this.getMagic().getDamage();
     }
 
     // Getters
@@ -61,8 +79,20 @@ public class Character {
         return attackPower;
     }
 
-    public PhysicalWeapon getWeapon() {
+    public Magic getMagic() {
+        return magic;
+    }
+
+    public Weapon getWeapon() {
         return weapon;
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+
+    public void setMagic(Magic magic) {
+        this.magic = magic;
     }
 
     @Override

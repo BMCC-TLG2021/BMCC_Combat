@@ -4,17 +4,14 @@ import java.io.FileReader;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
-public class MagicalWeapon {
+public class MagicalWeapon extends Weapon{
 
-    private final String name;
     private final double magicPowerIncrease;
 
     private MagicalWeapon(String name, double magicPowerIncrease){
-        this.name = name;
+        super(name);
         this.magicPowerIncrease = magicPowerIncrease;
     }
-
-    public String getName(){return this.name;}
 
     public double getMagicPowerIncrease(){return this.magicPowerIncrease;}
 
