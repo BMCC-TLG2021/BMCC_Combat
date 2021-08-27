@@ -8,26 +8,36 @@ public class GameOutput {
 
     public static void showCharacterStatus(Character userPlayer, Character enemyPlayer) {
         String userName = userPlayer.getName();
+        String userOccupation = userPlayer.getOccupation();
+        String userRace = userPlayer.getRace();
         int userHitPoint = userPlayer.getHitPoint();
         int userMagicPoint = userPlayer.getMagicPoint();
         int userDefensePower = userPlayer.getDefensePower();
         int userAttackPower = userPlayer.getAttackPower();
 
         String enemyName = enemyPlayer.getName();
+        String enemyOccupation = userPlayer.getOccupation();
+        String enemyRace = userPlayer.getRace();
         int enemyHitPoint = enemyPlayer.getHitPoint();
         int enemyMagicPoint = enemyPlayer.getMagicPoint();
         int enemyDefensePower = enemyPlayer.getDefensePower();
         int enemyAttackPower = enemyPlayer.getAttackPower();
 
-        System.out.printf("%30s %30s", userName, enemyName);
+
+        System.out.printf("%30s %30s %30s", "Name", userName, enemyName);
         System.out.println();
-        System.out.printf("%30s %30s", userHitPoint, enemyHitPoint);
+        System.out.printf("%30s %30s %30s", "Occupation", userOccupation, enemyOccupation);
         System.out.println();
-        System.out.printf("%30s %30s", userMagicPoint, enemyMagicPoint);
+        System.out.printf("%30s %30s %30s", "Race", userRace, enemyRace);
         System.out.println();
-        System.out.printf("%30s %30s", userDefensePower, enemyDefensePower);
+        System.out.printf("%30s %30s %30s", "Hit Point", userHitPoint, enemyHitPoint);
         System.out.println();
-        System.out.printf("%30s %30s", userAttackPower, enemyAttackPower);
+        System.out.printf("%30s %30s %30s", "Magic Point", userMagicPoint, enemyMagicPoint);
+        System.out.println();
+        System.out.printf("%30s %30s %30s", "Defense Power", userDefensePower, enemyDefensePower);
+        System.out.println();
+        System.out.printf("%30s %30s %30s", "Attack Power", userAttackPower, enemyAttackPower);
+        System.out.println();
         System.out.println();
 
     }

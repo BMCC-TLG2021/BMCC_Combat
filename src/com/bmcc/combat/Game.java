@@ -16,10 +16,11 @@ public class Game {
     }
 
     private void setPlayers() throws Exception {
-        String userName = GameInput.getUserInput("Please enter name for your character:");
+        Character userPlayer = Character.getInstanceFromJsonFile("asset/samplePlayerCharacter.json");
+        Character enemyPlayer = Character.getInstanceFromJsonFile("asset/sampleEnemyCharacter.json");
 
-        Character userPlayer = new Character(userName, 100, 100, 10, 30);
-        Character enemyPlayer = new Character("KING", 100, 100, 12, 50);
+        String userName = GameInput.getUserInput("Please enter name for your character:");
+        userPlayer.setName(userName);
 
         PhysicalWeapon pWeapon = PhysicalWeapon.getInstanceFromJson("asset/samplePhysicalWeapon.json");
         MagicalWeapon mWeapon = MagicalWeapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
@@ -84,7 +85,8 @@ public class Game {
     private void attackEnemy(Character userPlayer, Character enemyPlayer) throws InterruptedException {
         int damagePoint = userPlayer.getTotalPhysicalAttackPower() - enemyPlayer.getDefensePower();
         enemyPlayer.damage(damagePoint);
-        GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
+        //GameOutput.showActionDamage();
+        //GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
 
 
         if (enemyPlayer.getHitPoint() > 0) {
@@ -98,6 +100,7 @@ public class Game {
 
         int enemyDamagePoint = enemyPlayer.getTotalPhysicalAttackPower() - userPlayer.getDefensePower();
         userPlayer.damage(enemyDamagePoint);
+        //GameOutput.showActionDamage();
         GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
     }
 
