@@ -6,14 +6,14 @@ import java.util.*;
 
 public class GameInput {
     private static String userInput;
-    private static Scanner scanner = new Scanner(System.in);
-    private static final String[] validCommands = {"START GAME", "USE MAGIC", "END GAME", "ATTACK ENEMY"};
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final String[] validCommands = {"ATTACK ENEMY", "USE MAGIC", "END GAME"};
 
     // Ingest user input
     public static String getUserInput(String prompt) throws NoSuchElementException, IllegalStateException {
         try {
             System.out.println(prompt);
-            userInput = scanner.nextLine();
+            userInput = scanner.nextLine().toUpperCase();
         } catch (NoSuchElementException | IllegalStateException e) {
             e.printStackTrace();
         }
@@ -30,6 +30,7 @@ public class GameInput {
         return isValidInput;
       }
 
+      // check if inputs are valid
       private static boolean isValidCommand(String input) {
         boolean isValid = false;
         for (String validCommand : validCommands) {
@@ -40,13 +41,14 @@ public class GameInput {
         return isValid;
       }
 
+
+      // looping to check for valid commands
       public static String getCommand() {
-        String userInput = getUserInput("Please enter a command");
+        String userInput = getUserInput("Please enter a command from below list:\n" + Arrays.toString(validCommands));
         while (!parseUserInput(userInput)) {
             System.out.println("Valid commands: " + Arrays.toString(validCommands));
             userInput = getUserInput("Please put valid command");
         }
          return userInput;
       }
-
 }
