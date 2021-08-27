@@ -1,5 +1,7 @@
 package com.bmcc.combat;
 
+import java.sql.SQLOutput;
+
 public class Game {
     private Character character;
 
@@ -10,7 +12,12 @@ public class Game {
 
     private void welcomeUser() {
         GameOutput.welcomePlayer();
+        System.out.println();
+        System.out.println();
+        GameOutput.attackShowGraphics();
+        System.out.println();
         GameOutput.showInstructions();
+
     }
 
     private void setPlayers() throws Exception {
