@@ -1,0 +1,9 @@
+{
+  "name":"Kethoth Murnyethara",
+  "occupation": "Cleric",
+  "race": "Human",
+  "hitPoint": 125,
+  "magicPoint": 245,
+  "defensePower": 35,
+  "attackPower": 20
+}
