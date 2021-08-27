@@ -21,10 +21,11 @@ public class Game {
     }
 
     private void setPlayers() throws Exception {
-        String userName = GameInput.getUserInput("Please enter name for your character:");
+        Character userPlayer = Character.getInstanceFromJsonFile("asset/samplePlayerCharacter.json");
+        Character enemyPlayer = Character.getInstanceFromJsonFile("asset/sampleEnemyCharacter.json");
 
-        Character userPlayer = new Character(userName, 100, 100, 10, 30);
-        Character enemyPlayer = new Character("KING", 100, 100, 12, 25);
+        String userName = GameInput.getUserInput("Please enter name for your character:");
+        userPlayer.setName(userName);
 
         PhysicalWeapon pWeapon = PhysicalWeapon.getInstanceFromJson("asset/samplePhysicalWeapon.json");
         MagicalWeapon mWeapon = MagicalWeapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
@@ -40,20 +41,34 @@ public class Game {
 
 
     private void controlFlow(Character userPlayer, Character enemyPlayer) throws Exception {
-        while (true) {
+        int userPlayerHP = userPlayer.getHitPoint();
+        int enemyPlayerHP = enemyPlayer.getHitPoint();
+
+        while (userPlayerHP > 0 && enemyPlayerHP > 0) {
             String command = GameInput.getCommand();
             switch (command) {
                 case "ATTACK ENEMY":
                     attackEnemy(userPlayer, enemyPlayer);
+                    userPlayerHP = userPlayer.getHitPoint();
+                    enemyPlayerHP = enemyPlayer.getHitPoint();
                     break;
                 case "USE MAGIC":
                     useMagic(userPlayer, enemyPlayer);
+                    userPlayerHP = userPlayer.getHitPoint();
+                    enemyPlayerHP = enemyPlayer.getHitPoint();
                     break;
                 case "END GAME":
                     System.out.println("GoodBye.....");
                     System.exit(0);
             }
         }
+        if (enemyPlayerHP <= 0) {
+            System.out.println(userPlayer.getName() + " Win!");
+
+        } else {
+            System.out.println(userPlayer.getName() + " Fail!");
+        }
+        System.exit(0);
     }
 
     private void useMagic(Character userPlayer, Character enemyPlayer) throws InterruptedException {
@@ -66,27 +81,34 @@ public class Game {
             System.out.println("Player does not have enough Magic Power..");
         }
 
-        Thread.sleep(3000);
-
-        int enemyDamagePoint = enemyPlayer.getTotalPhysicalAttackPower() - userPlayer.getDefensePower();
-        userPlayer.damage(enemyDamagePoint);
-        System.out.println(userPlayer);
-        System.out.println(enemyPlayer);
+        if (enemyPlayer.getHitPoint() > 0) {
+            letEnemyAttack(userPlayer, enemyPlayer);
+        }
     }
 
 
     private void attackEnemy(Character userPlayer, Character enemyPlayer) throws InterruptedException {
         int damagePoint = userPlayer.getTotalPhysicalAttackPower() - enemyPlayer.getDefensePower();
         enemyPlayer.damage(damagePoint);
-        System.out.println(userPlayer);
-        System.out.println(enemyPlayer);
-        Thread.sleep(3000);
+        //GameOutput.showActionDamage();
+        //GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
+
+
+        if (enemyPlayer.getHitPoint() > 0) {
+            letEnemyAttack(userPlayer, enemyPlayer);
+        }
+    }
+
+
+    private void letEnemyAttack(Character userPlayer, Character enemyPlayer) throws InterruptedException {
+        Thread.sleep(1500);
 
         int enemyDamagePoint = enemyPlayer.getTotalPhysicalAttackPower() - userPlayer.getDefensePower();
         userPlayer.damage(enemyDamagePoint);
-        System.out.println(userPlayer);
-        System.out.println(enemyPlayer);
+        //GameOutput.showActionDamage();
+        GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
     }
+
 
 //    private void decideWinner()
 }
