@@ -3,11 +3,6 @@ package com.bmcc.combat;
 public class Game {
     private Character character;       // character?? maybe player
 
-
-    public void test(){
-        //my test
-    }
-
     public void startGame() throws Exception {
 
         GameOutput.welcomePlayer();
