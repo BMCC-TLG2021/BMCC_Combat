@@ -1,7 +1,14 @@
 package com.bmcc.combat;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.FileReader;
+
 public class Character {
     private String name;
+    private String occupation;
+    private String race;
     private int hitPoint;
     private int magicPoint;
     private int defensePower;
@@ -10,10 +17,12 @@ public class Character {
     private Magic magic;
 
     // Constructors
-    public Character(String name, int hitPoint, int manaPoint, int defensePower, int attackPower) {
+    public Character(String name, String occupation, String race,int hitPoint, int magicPoint, int defensePower, int attackPower) {
         this.name = name;
+        this.occupation = occupation;
+        this.race = race;
         this.hitPoint = hitPoint;
-        this.magicPoint = manaPoint;
+        this.magicPoint = magicPoint;
         this.defensePower = defensePower;
         this.attackPower = attackPower;
     }
@@ -62,6 +71,9 @@ public class Character {
     public String getName() {
         return name;
     }
+    public String getOccupation() {return occupation;}
+
+    public String getRace() {return race;}
 
     public int getHitPoint() {
         return hitPoint;
@@ -106,4 +118,25 @@ public class Character {
                 ", weapon=" + weapon +
                 '}';
     }
+
+    public static Character getInstanceFromJsonFile(String fileName) throws Exception {
+        Object obj = new JSONParser().parse(new FileReader(fileName));
+        JSONObject jo = (JSONObject) obj;
+        String name = (String) jo.get("name");
+        String occupation = (String) jo.get("occupation");
+        String race = (String) jo.get("race");
+        int hitPoint = (int)(long) jo.get("hitPoint");
+        int magicPoint = (int)(long) jo.get("magicPoint");
+        int defensePower = (int)(long) jo.get("defensePower");
+        int attackPower = (int)(long) jo.get("attackPower");
+
+        return new Character(name, occupation, race, hitPoint,magicPoint,defensePower,attackPower);
+    }
+
+    public static Character getInstance(String name, String occupation, String race,int hitPoint,
+                                 int magicPoint, int defensePower, int attackPower){
+        return new Character(name, occupation, race, hitPoint,magicPoint,defensePower,attackPower);
+    }
+
+
 }
