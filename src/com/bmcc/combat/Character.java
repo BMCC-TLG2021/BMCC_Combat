@@ -28,14 +28,6 @@ public class Character {
     }
 
     // Business methods
-    public int physicalAttack() {
-        return getAttackPower();
-    }
-
-    // TODO 1: implement this method
-    public int magicAttack() {
-        return 0;
-    }
 
     public void damage(int points) {
         if (hitPoint < points) {
