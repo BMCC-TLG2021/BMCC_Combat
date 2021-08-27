@@ -1,0 +1,9 @@
+{
+  "name":"Gardain Dankil",
+  "occupation": "Fighter",
+  "race": "Dwarf",
+  "hitPoint": 255,
+  "magicPoint": 45,
+  "defensePower": 55,
+  "attackPower": 56
+}
