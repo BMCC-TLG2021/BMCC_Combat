@@ -24,21 +24,34 @@ public class GameOutput {
         int enemyAttackPower = enemyPlayer.getAttackPower();
 
 
-        System.out.printf("%30s %30s %30s", "Name", userName, enemyName);
-        System.out.println();
-        System.out.printf("%30s %30s %30s", "Occupation", userOccupation, enemyOccupation);
-        System.out.println();
-        System.out.printf("%30s %30s %30s", "Race", userRace, enemyRace);
-        System.out.println();
-        System.out.printf("%30s %30s %30s", "Hit Point", userHitPoint, enemyHitPoint);
-        System.out.println();
-        System.out.printf("%30s %30s %30s", "Magic Point", userMagicPoint, enemyMagicPoint);
-        System.out.println();
-        System.out.printf("%30s %30s %30s", "Defense Power", userDefensePower, enemyDefensePower);
-        System.out.println();
-        System.out.printf("%30s %30s %30s", "Attack Power", userAttackPower, enemyAttackPower);
-        System.out.println();
-        System.out.println();
+//        System.out.printf("%30s %30s %30s", "Name", userName, enemyName);
+//        System.out.println();
+//        System.out.printf("%30s %30s %30s", "Occupation", userOccupation, enemyOccupation);
+//        System.out.println();
+//        System.out.printf("%30s %30s %30s", "Race", userRace, enemyRace);
+//        System.out.println();
+//        System.out.printf("%30s %30s %30s", "Hit Point", userHitPoint, enemyHitPoint);
+//        System.out.println();
+//        System.out.printf("%30s %30s %30s", "Magic Point", userMagicPoint, enemyMagicPoint);
+//        System.out.println();
+//        System.out.printf("%30s %30s %30s", "Defense Power", userDefensePower, enemyDefensePower);
+//        System.out.println();
+//        System.out.printf("%30s %30s %30s", "Attack Power", userAttackPower, enemyAttackPower);
+//        System.out.println();
+//        System.out.println();
+
+
+        TableBuilder st = new TableBuilder();
+        //st.setRightAlign(true);//if true then cell text is right aligned
+        st.setShowVerticalLines(true);//if false (default) then no vertical lines are shown
+        st.setHeaders("You", userName, "Enemy", enemyName);//optional - if not used then there will be no header and horizontal lines
+        st.addRow("Occupation", userOccupation, "", enemyOccupation);
+        st.addRow("Race", userRace, "", enemyRace);
+        st.addRow("Hit Point", ""+userHitPoint, "", ""+enemyHitPoint);
+        st.addRow("Magic Point", ""+userMagicPoint, "", ""+enemyMagicPoint);
+        st.addRow("Defense Power", ""+userDefensePower, "", ""+enemyDefensePower);
+        st.addRow("Attack Power", ""+userAttackPower, "", ""+enemyAttackPower);
+        st.print();
 
     }
 
