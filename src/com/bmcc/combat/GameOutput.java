@@ -31,4 +31,19 @@ public class GameOutput {
         }
     }
 
+    public static void attackShowGraphics() {
+        try {
+            String menu = Files.readString(Path.of("asset/fight.txt"));
+            System.out.println(menu);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
 }
