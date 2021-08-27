@@ -16,8 +16,8 @@ public class GameOutput {
         int userAttackPower = userPlayer.getAttackPower();
 
         String enemyName = enemyPlayer.getName();
-        String enemyOccupation = userPlayer.getOccupation();
-        String enemyRace = userPlayer.getRace();
+        String enemyOccupation = enemyPlayer.getOccupation();
+        String enemyRace = enemyPlayer.getRace();
         int enemyHitPoint = enemyPlayer.getHitPoint();
         int enemyMagicPoint = enemyPlayer.getMagicPoint();
         int enemyDefensePower = enemyPlayer.getDefensePower();
@@ -55,8 +55,12 @@ public class GameOutput {
 
     }
 
-    public static void showActionDamage(Character attacker, Character victim, String attackMethod, int damagePoint) {
-
+    public static void showActionDamage(Character attacker, Character victim, int damagePoint) {
+        System.out.println(attacker.getName() + " Attacked " + victim.getName());
+        if (damagePoint < 0) {
+            damagePoint = 0;
+        }
+        System.out.println(attacker.getName() + " Created " + damagePoint + " Damage to " + victim.getName());
     }
 
     public static void welcomePlayer() {
@@ -77,9 +81,12 @@ public class GameOutput {
         }
     }
 
-    public static void attackShowGraphics() {
+    public static void attackShowGraphics(String path) {
+        // clear console magic only works for Mac / linux
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         try {
-            String menu = Files.readString(Path.of("asset/fight.txt"));
+            String menu = Files.readString(Path.of(path));
             System.out.println(menu);
         } catch (IOException e) {
             e.printStackTrace();

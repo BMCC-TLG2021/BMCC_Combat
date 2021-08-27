@@ -3,40 +3,44 @@ package com.bmcc.combat;
 import java.sql.SQLOutput;
 
 public class Game {
-    private Character character;
+    private Character userPlayer;
+    private Character enemyPlayer;
 
     public void play() throws Exception {
         welcomeUser();
         setPlayers();
+        controlFlow(userPlayer, enemyPlayer);
     }
 
     private void welcomeUser() {
         GameOutput.welcomePlayer();
         System.out.println();
         System.out.println();
-        GameOutput.attackShowGraphics();
         System.out.println();
         GameOutput.showInstructions();
 
     }
 
     private void setPlayers() throws Exception {
-        Character userPlayer = Character.getInstanceFromJsonFile("asset/samplePlayerCharacter.json");
-        Character enemyPlayer = Character.getInstanceFromJsonFile("asset/sampleEnemyCharacter.json");
+        // Create player by using external JSON file
+        userPlayer = Character.getInstanceFromJsonFile("asset/samplePlayerCharacter.json");
+        enemyPlayer = Character.getInstanceFromJsonFile("asset/sampleEnemyCharacter.json");
 
+        //
         String userName = GameInput.getUserInput("Please enter name for your character:");
         userPlayer.setName(userName);
 
+        // Create weapon by using external JSON file
         PhysicalWeapon pWeapon = PhysicalWeapon.getInstanceFromJson("asset/samplePhysicalWeapon.json");
         MagicalWeapon mWeapon = MagicalWeapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
 
-//        userPlayer.setWeapon(pWeapon);
+        // Set user player's weapon and magic skill
         userPlayer.setWeapon(mWeapon);
         Magic magic = Magic.getInstanceFromJsonFile("asset/sampleMagic.json");
-
         userPlayer.setMagic(magic);
 
-        controlFlow(userPlayer, enemyPlayer);
+        // Set enemy player's weapon
+        enemyPlayer.setWeapon(pWeapon);
     }
 
 
@@ -76,7 +80,9 @@ public class Game {
 
         if (userPlayer.reduceMagicPoint()) {
             enemyPlayer.damage(damagePoint);
-            System.out.println("Magic Worked!!");
+            GameOutput.attackShowGraphics("asset/fight.txt");
+            GameOutput.showActionDamage(userPlayer, enemyPlayer, damagePoint);
+            GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
         } else {
             System.out.println("Player does not have enough Magic Power..");
         }
@@ -89,9 +95,13 @@ public class Game {
 
     private void attackEnemy(Character userPlayer, Character enemyPlayer) throws InterruptedException {
         int damagePoint = userPlayer.getTotalPhysicalAttackPower() - enemyPlayer.getDefensePower();
-        enemyPlayer.damage(damagePoint);
-        //GameOutput.showActionDamage();
-        //GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
+        if (damagePoint > 0) {
+            enemyPlayer.damage(damagePoint);
+
+        }
+        GameOutput.attackShowGraphics("asset/fight.txt");
+        GameOutput.showActionDamage(userPlayer, enemyPlayer, damagePoint);
+        GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
 
 
         if (enemyPlayer.getHitPoint() > 0) {
@@ -104,8 +114,11 @@ public class Game {
         Thread.sleep(1500);
 
         int enemyDamagePoint = enemyPlayer.getTotalPhysicalAttackPower() - userPlayer.getDefensePower();
-        userPlayer.damage(enemyDamagePoint);
-        //GameOutput.showActionDamage();
+        if (enemyDamagePoint > 0) {
+            userPlayer.damage(enemyDamagePoint);
+        }
+        GameOutput.attackShowGraphics("asset/fight2.txt");
+        GameOutput.showActionDamage(enemyPlayer, userPlayer, enemyDamagePoint);
         GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
     }
 

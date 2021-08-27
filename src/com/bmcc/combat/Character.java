@@ -17,7 +17,7 @@ public class Character {
     private Magic magic;
 
     // Constructors
-    public Character(String name, String occupation, String race,int hitPoint, int magicPoint, int defensePower, int attackPower) {
+    private Character(String name, String occupation, String race,int hitPoint, int magicPoint, int defensePower, int attackPower) {
         this.name = name;
         this.occupation = occupation;
         this.race = race;
@@ -38,7 +38,11 @@ public class Character {
     }
 
     public void damage(int points) {
-        hitPoint -= points;
+        if (hitPoint < points) {
+            hitPoint = 0;
+        } else {
+            hitPoint -= points;
+        }
     }
 
     boolean reduceMagicPoint() {
@@ -62,7 +66,7 @@ public class Character {
         if (this.getWeapon() instanceof MagicalWeapon) {
             double damageBuffer = ((MagicalWeapon) this.getWeapon()).getMagicPowerIncrease();
             int originalDamage = this.getMagic().getDamage();
-            return (int) damageBuffer * originalDamage;
+            return (int) ((damageBuffer + 1)* originalDamage);
         }
         return this.getMagic().getDamage();
     }
