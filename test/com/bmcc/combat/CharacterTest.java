@@ -35,28 +35,37 @@ public class CharacterTest {
     }
 
     @Test
-    public void reduceMagicPoint() {
+    public void reduceMagicPoint_withEnoughMP() {
         boolean result = sampleCharacter.reduceMagicPoint();
         assertEquals(80,sampleCharacter.getMagicPoint());
         assertTrue(result);
     }
+    @Test
+    public void reduceMagicPoint_withNotEnoughMP() {
+        sampleCharacter.reduceMagicPoint();
+        sampleCharacter.reduceMagicPoint();
+        sampleCharacter.reduceMagicPoint();
+        sampleCharacter.reduceMagicPoint();
+        sampleCharacter.reduceMagicPoint();
+        boolean result = sampleCharacter.reduceMagicPoint();
+        assertEquals(0,sampleCharacter.getMagicPoint());
+        assertFalse(result);
+    }
+
 
     @Test
     public void getTotalPhysicalAttackPower() {
+        int actual = sampleCharacter.getTotalPhysicalAttackPower();
+        assertEquals(30, actual);
     }
 
     @Test
     public void getTotalMagicalPower() {
+        sampleCharacter.setWeapon(sampleMagicalWeapon);
+        int actual = sampleCharacter.getTotalMagicalPower();
+        assertEquals(60, sampleCharacter.getTotalMagicalPower());
     }
 
-
-    @Test
-    public void setWeapon() {
-    }
-
-    @Test
-    public void setMagic() {
-    }
 
     @Test
     public void getInstanceFromJsonFile() throws Exception {
