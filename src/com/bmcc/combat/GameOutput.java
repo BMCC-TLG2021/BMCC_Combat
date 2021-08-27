@@ -6,7 +6,30 @@ import java.nio.file.Path;
 
 public class GameOutput {
 
-    public static void showCharacterStatus(Character character) {
+    public static void showCharacterStatus(Character userPlayer, Character enemyPlayer) {
+        String userName = userPlayer.getName();
+        int userHitPoint = userPlayer.getHitPoint();
+        int userMagicPoint = userPlayer.getMagicPoint();
+        int userDefensePower = userPlayer.getDefensePower();
+        int userAttackPower = userPlayer.getAttackPower();
+
+        String enemyName = enemyPlayer.getName();
+        int enemyHitPoint = enemyPlayer.getHitPoint();
+        int enemyMagicPoint = enemyPlayer.getMagicPoint();
+        int enemyDefensePower = enemyPlayer.getDefensePower();
+        int enemyAttackPower = enemyPlayer.getAttackPower();
+
+        System.out.printf("%30s %30s", userName, enemyName);
+        System.out.println();
+        System.out.printf("%30s %30s", userHitPoint, enemyHitPoint);
+        System.out.println();
+        System.out.printf("%30s %30s", userMagicPoint, enemyMagicPoint);
+        System.out.println();
+        System.out.printf("%30s %30s", userDefensePower, enemyDefensePower);
+        System.out.println();
+        System.out.printf("%30s %30s", userAttackPower, enemyAttackPower);
+        System.out.println();
+
     }
 
     public static void showActionDamage(Character attacker, Character victim, String attackMethod, int damagePoint) {
