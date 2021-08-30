@@ -10,6 +10,16 @@ public class GameAudio {
     public static void PlayWelcomeAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
         Scanner scanner = new Scanner(System.in);
 
+        File file = new File("asset/Cartoon.wav");
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioStream);
+        clip.start();
+
+    }
+    public static void PlayAttackAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+        Scanner scanner = new Scanner(System.in);
+
         File file = new File("asset/RagingStreets.wav");
         AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
         Clip clip = AudioSystem.getClip();
@@ -17,6 +27,5 @@ public class GameAudio {
         clip.start();
 
     }
-
 }
 
