@@ -1,6 +1,7 @@
 package com.bmcc.model.equipment;
 
 public class Equipment {
+
     private final String name;
     private int integrity;
     private final String desc;
