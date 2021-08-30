@@ -1,19 +1,26 @@
 package com.bmcc.controller;
 
 import com.bmcc.model.character.Character;
+import com.bmcc.model.equipment.Armor;
+import com.bmcc.model.item.Item;
 import com.bmcc.model.skill.Magic;
 import com.bmcc.util.GameInput;
 import com.bmcc.util.GameOutput;
 import com.bmcc.model.equipment.Weapon;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Game {
     private Character userPlayer;
     private Character enemyPlayer;
+    private List<Character> characterList;
+    private List<Weapon> weaponList;
+    private List<Armor> armorList;
+    private List<Item> itemList;
 
-    private final Character[] charArray = {Character.getInstance("TEST", "Worker", "Boss", 100, 100, 100, 100),
+    private Character[] charArray = {Character.getInstance("TEST", "Worker", "Boss", 100, 100, 100, 100),
             Character.getInstance("KNIGHT", "Worker", "Boss", 100, 100, 100, 100)};
 
     public void play() throws Exception {
@@ -22,6 +29,12 @@ public class Game {
         setPlayers();
         controlFlow(userPlayer, enemyPlayer);
     }
+
+    private void initGame(){
+        // todo: init character, weapon, armor, item and magic lists
+        characterList = Character.getCharacterListFromJsonFile("asset/sampleCharacters.json");
+    }
+
 
     private void welcomeUser() {
         GameOutput.welcomePlayer();
