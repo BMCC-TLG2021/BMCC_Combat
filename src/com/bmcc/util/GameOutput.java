@@ -5,6 +5,7 @@ import com.bmcc.model.character.Character;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class GameOutput {
 
@@ -83,10 +84,10 @@ public class GameOutput {
         }
     }
 
-    public static void displayAllCharacters(Character[] charArray) {
+    public static void displayAllCharacters(List<Character> characterList) {
         System.out.println();
         System.out.println("List of Characters: ");
-        for (Character charItem : charArray) {
+        for (Character charItem : characterList) {
             System.out.println(
                             "[ name=" + charItem.getName() +
                             ", Race=" + charItem.getRace() +

@@ -14,7 +14,7 @@ public class GameInput {
     public static String getUserInput(String prompt) throws NoSuchElementException, IllegalStateException {
         try {
             System.out.println(prompt);
-            userInput = scanner.nextLine().toUpperCase();
+            userInput = scanner.nextLine();
         } catch (NoSuchElementException | IllegalStateException e) {
             e.printStackTrace();
         }
@@ -42,7 +42,7 @@ public class GameInput {
         return isValid;
     }
 
-    public static boolean isValidCharacter(String input, Character[] characters) {
+    public static boolean isValidCharacter(String input, List<Character> characters) {
         boolean isValidCharacter = false;
         for (Character item : characters) {
             if (item.getName().equals(input)) {
