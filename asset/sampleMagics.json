@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Lunar Flare",
+    "damage": 150
+  },
+  {
+    "name": "Solar Flare",
+    "damage": 180
+  },
+  {
+    "name": "Storm Bolt",
+    "damage": 130
+  },
+  {
+    "name": "Bloodlust",
+    "damage": 155
+  },
+  {
+    "name": "Carrion Swarm",
+    "damage": 120
+  }
+]
