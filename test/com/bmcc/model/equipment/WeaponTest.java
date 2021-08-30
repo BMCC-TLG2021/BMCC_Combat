@@ -1,16 +1,20 @@
 package com.bmcc.model.equipment;
 
-import com.bmcc.model.equipment.MagicalWeapon;
+import com.bmcc.model.equipment.Weapon;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class MagicalWeaponTest {
-    MagicalWeapon sampleMagicalWeapon;
+public class WeaponTest {
+    Weapon sampleMagicalWeapon;
+    Weapon samplePhysicalWeapon;
     @Before
     public void setUp() throws Exception {
-        sampleMagicalWeapon = MagicalWeapon.getInstance("testing wand", 1);
+        sampleMagicalWeapon = Weapon.getInstance("testing wand", 3,"A test weapon",
+                10, 0.5);
+        samplePhysicalWeapon = Weapon.getInstance("test soward",10,"A testing soward",
+                50, 0.0);
     }
 
     @Test
