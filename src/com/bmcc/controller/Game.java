@@ -1,8 +1,8 @@
 package com.bmcc.controller;
 
 import com.bmcc.model.character.Character;
-import com.bmcc.model.item.MagicalWeapon;
-import com.bmcc.model.item.PhysicalWeapon;
+import com.bmcc.model.equipment.MagicalWeapon;
+import com.bmcc.model.equipment.PhysicalWeapon;
 import com.bmcc.model.skill.Magic;
 import com.bmcc.util.GameInput;
 import com.bmcc.util.GameOutput;

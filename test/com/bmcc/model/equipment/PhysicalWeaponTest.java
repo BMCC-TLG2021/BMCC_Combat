@@ -1,6 +1,6 @@
-package com.bmcc.controller;
+package com.bmcc.model.equipment;
 
-import com.bmcc.model.item.PhysicalWeapon;
+import com.bmcc.model.equipment.PhysicalWeapon;
 import org.junit.Before;
 import org.junit.Test;
 

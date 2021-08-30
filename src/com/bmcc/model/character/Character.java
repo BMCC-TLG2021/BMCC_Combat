@@ -1,8 +1,8 @@
 package com.bmcc.model.character;
 
-import com.bmcc.model.item.MagicalWeapon;
-import com.bmcc.model.item.PhysicalWeapon;
-import com.bmcc.model.item.Weapon;
+import com.bmcc.model.equipment.MagicalWeapon;
+import com.bmcc.model.equipment.PhysicalWeapon;
+import com.bmcc.model.equipment.Weapon;
 import com.bmcc.model.skill.Magic;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
