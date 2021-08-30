@@ -1,7 +1,5 @@
 package com.bmcc.model.character;
 
-import com.bmcc.model.equipment.MagicalWeapon;
-import com.bmcc.model.equipment.PhysicalWeapon;
 import com.bmcc.model.equipment.Weapon;
 import com.bmcc.model.skill.Magic;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -70,21 +68,16 @@ public class Character {
     }
 
     public int getTotalPhysicalAttackPower() {
-        if (this.getWeapon() instanceof PhysicalWeapon) {
-            return this.attackPower + ((PhysicalWeapon) this.getWeapon()).getDamage();
-        }
-        else {
-            return this.attackPower;
-        }
+        return this.attackPower + this.getWeapon().getPhysicalDamage();
+
     }
 
     public int getTotalMagicalPower() {
-        if (this.getWeapon() instanceof MagicalWeapon) {
-            double damageBuffer = ((MagicalWeapon) this.getWeapon()).getMagicPowerIncrease();
-            int originalDamage = this.getMagic().getDamage();
-            return (int) ((damageBuffer + 1)* originalDamage);
-        }
-        return this.getMagic().getDamage();
+
+        double damageBuffer = this.getWeapon().getMagicPowerIncrease();
+        int originalDamage = this.getMagic().getDamage();
+        return (int) ((damageBuffer + 1)* originalDamage);
+
     }
 
     // Getters

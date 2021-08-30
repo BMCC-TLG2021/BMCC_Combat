@@ -1,11 +1,10 @@
 package com.bmcc.controller;
 
 import com.bmcc.model.character.Character;
-import com.bmcc.model.equipment.MagicalWeapon;
-import com.bmcc.model.equipment.PhysicalWeapon;
 import com.bmcc.model.skill.Magic;
 import com.bmcc.util.GameInput;
 import com.bmcc.util.GameOutput;
+import com.bmcc.model.equipment.Weapon;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -43,8 +42,8 @@ public class Game {
         userPlayer.setName(userName);
 
         // Create weapon by using external JSON file
-        PhysicalWeapon pWeapon = PhysicalWeapon.getInstanceFromJson("asset/samplePhysicalWeapon.json");
-        MagicalWeapon mWeapon = MagicalWeapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
+        Weapon pWeapon = Weapon.getInstanceFromJson("asset/samplePhysicalWeapon.json");
+        Weapon mWeapon = Weapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
 
         // Set user player's weapon and magic skill
         userPlayer.setWeapon(mWeapon);
