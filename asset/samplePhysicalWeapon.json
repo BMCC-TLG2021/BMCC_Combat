@@ -1,4 +1,7 @@
 {
   "name": "Bad Ass Axe",
-  "damage": 22
+  "integrity": 5,
+  "desc": "A powerful axe",
+  "physicalDamage": 25,
+  "magicPowerIncrease": 0.0
 }
