@@ -1,4 +1,4 @@
-package com.bmcc.controller;
+package com.bmcc.model.item;
 
 import com.bmcc.model.item.HealingItem;
 import org.junit.Before;

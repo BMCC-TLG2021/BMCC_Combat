@@ -1,4 +1,4 @@
-package com.bmcc.model.item;
+package com.bmcc.model.equipment;
 
 import java.io.FileReader;
 
