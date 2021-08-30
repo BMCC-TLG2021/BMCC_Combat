@@ -1,4 +1,6 @@
-package com.bmcc.combat;
+package com.bmcc.util;
+
+import com.bmcc.model.character.Character;
 
 import java.io.IOException;
 import java.nio.file.Files;

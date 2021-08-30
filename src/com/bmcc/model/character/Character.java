@@ -1,5 +1,9 @@
-package com.bmcc.combat;
+package com.bmcc.model.character;
 
+import com.bmcc.model.item.MagicalWeapon;
+import com.bmcc.model.item.PhysicalWeapon;
+import com.bmcc.model.item.Weapon;
+import com.bmcc.model.skill.Magic;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -37,7 +41,7 @@ public class Character {
         }
     }
 
-    boolean reduceMagicPoint() {
+    public boolean reduceMagicPoint() {
         if (getMagicPoint() >= 20) {
             magicPoint -= 20;
             return true;

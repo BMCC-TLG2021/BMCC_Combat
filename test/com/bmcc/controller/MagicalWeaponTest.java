@@ -1,5 +1,6 @@
-package com.bmcc.combat;
+package com.bmcc.controller;
 
+import com.bmcc.model.item.MagicalWeapon;
 import org.junit.Before;
 import org.junit.Test;
 

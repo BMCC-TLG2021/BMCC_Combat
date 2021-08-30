@@ -1,10 +1,11 @@
-package com.bmcc.combat;
+package com.bmcc.model.item;
 
 import java.io.FileReader;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
-public class PhysicalWeapon extends Weapon{
+public class PhysicalWeapon extends Weapon {
     private final int damage;
 
     private PhysicalWeapon(String name, int damage){
