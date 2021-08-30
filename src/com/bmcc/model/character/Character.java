@@ -4,20 +4,35 @@ import com.bmcc.model.item.MagicalWeapon;
 import com.bmcc.model.item.PhysicalWeapon;
 import com.bmcc.model.item.Weapon;
 import com.bmcc.model.skill.Magic;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.File;
 import java.io.FileReader;
+import java.util.Arrays;
+import java.util.List;
 
 public class Character {
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("occupation")
     private String occupation;
+    @JsonProperty("race")
     private String race;
+    @JsonProperty("hitPoint")
     private int hitPoint;
+    @JsonProperty("magicPoint")
     private int magicPoint;
+    @JsonProperty("defensePower")
     private int defensePower;
+    @JsonProperty("attackPower")
     private int attackPower;
+    @JsonIgnore
     private Weapon weapon;
+    @JsonIgnore
     private Magic magic;
 
     // Constructors
@@ -136,6 +151,17 @@ public class Character {
         int attackPower = (int)(long) jo.get("attackPower");
 
         return new Character(name, occupation, race, hitPoint,magicPoint,defensePower,attackPower);
+    }
+
+    public static List<Character> getCharacterListFromJsonFile(String fileName) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            List<Character> characterList = Arrays.asList(mapper.readValue(new File(fileName), Character[].class));
+            return characterList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static Character getInstance(String name, String occupation, String race,int hitPoint,
