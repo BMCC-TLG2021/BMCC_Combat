@@ -1,4 +1,4 @@
-package com.bmcc.combat;
+package com.bmcc.util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

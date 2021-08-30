@@ -1,4 +1,6 @@
-package com.bmcc.combat;
+package com.bmcc.client;
+
+import com.bmcc.controller.Game;
 
 public class Main {
     public static void main(String[] args) throws Exception {

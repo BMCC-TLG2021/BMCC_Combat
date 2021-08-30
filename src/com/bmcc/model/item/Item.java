@@ -1,4 +1,4 @@
-package com.bmcc.combat;
+package com.bmcc.model.item;
 
 public class Item {
     private String name;

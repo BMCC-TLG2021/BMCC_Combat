@@ -1,4 +1,4 @@
-package com.bmcc.combat;
+package com.bmcc.model.skill;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

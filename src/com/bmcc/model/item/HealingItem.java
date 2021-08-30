@@ -1,11 +1,11 @@
-package com.bmcc.combat;
+package com.bmcc.model.item;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 
-public class HealingItem extends Item{
+public class HealingItem extends Item {
 
     private final int healHP;
     private final int healMP;
