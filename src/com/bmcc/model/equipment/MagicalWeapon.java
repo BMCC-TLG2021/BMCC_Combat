@@ -8,6 +8,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
@@ -19,11 +20,13 @@ public class MagicalWeapon extends Weapon {
     private MagicalWeapon(@JsonProperty("name") String name, @JsonProperty("magicPowerIncrease") double magicPowerIncrease){
         super(name);
         this.magicPowerIncrease = magicPowerIncrease;
+
     }
 
-    public double getMagicPowerIncrease(){return this.magicPowerIncrease;}
+    public double getMagicPowerIncrease(){return super.getMagicPowerIncrease();}
 
     public static MagicalWeapon getInstanceFromJson(String file) throws Exception {
+
         Object obj = new JSONParser().parse(new FileReader(file));
         JSONObject jo = (JSONObject) obj;
         String name = (String) jo.get("name");
@@ -45,6 +48,7 @@ public class MagicalWeapon extends Weapon {
 
     public static MagicalWeapon getInstance(String name, double magicPowerIncrease){
         return new MagicalWeapon(name, magicPowerIncrease);
+
     }
 
 }

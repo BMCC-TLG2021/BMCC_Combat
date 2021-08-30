@@ -1,4 +1,7 @@
 {
   "name": "Harry Potter's wand",
+  "integrity": 5,
+  "desc": "A great powerful wand",
+  "physicalDamage": 5,
   "magicPowerIncrease": 0.5
 }

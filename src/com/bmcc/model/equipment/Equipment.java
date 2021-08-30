@@ -1,17 +1,26 @@
 package com.bmcc.model.equipment;
 
-public abstract class Equipment {
-    private String name;
+public class Equipment {
+    private final String name;
     private int integrity;
-    private String desc;
+    private final String desc;
 
+
+    Equipment(String name, int integrity, String desc) {
+        this.name = name;
+        this.integrity = integrity;
+        this.desc = desc;
+    }
 
     public String getName(){
         return this.name;
     };
+
+
     public int getIntegrity(){
         return this.integrity;
     };
+
     public String getDesc(){
         return this.desc;
     }
@@ -21,8 +30,5 @@ public abstract class Equipment {
             this.integrity -= 1;
         }
     }
-
-    public abstract int getDamage();
-
 
 }
