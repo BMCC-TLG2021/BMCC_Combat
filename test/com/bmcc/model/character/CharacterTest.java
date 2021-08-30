@@ -1,8 +1,6 @@
 package com.bmcc.model.character;
 
-import com.bmcc.model.character.Character;
-import com.bmcc.model.equipment.MagicalWeapon;
-import com.bmcc.model.equipment.PhysicalWeapon;
+import com.bmcc.model.equipment.Weapon;
 import com.bmcc.model.skill.Magic;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,15 +11,17 @@ import static org.junit.Assert.*;
 
 public class CharacterTest {
     Character sampleCharacter;
-    PhysicalWeapon samplePhysicalWeapon;
-    MagicalWeapon sampleMagicalWeapon;
+    Weapon samplePhysicalWeapon;
+    Weapon sampleMagicalWeapon;
     Magic sampleMagic;
     @Before
     public void setUp() throws Exception {
         sampleCharacter = Character.getInstance("test name","test job", "test race",
                 100,100,10,10);
-        samplePhysicalWeapon = PhysicalWeapon.getInstance("test physical weapon", 20);
-        sampleMagicalWeapon = MagicalWeapon.getInstance("test magical weapon", 0.5);
+        samplePhysicalWeapon = Weapon.getInstance("test physical weapon", 20, "A test p weapon",
+                20, 0.0);
+        sampleMagicalWeapon = Weapon.getInstance("test magical weapon", 5, "A test m weapon",
+                5, 0.5);
         sampleMagic = Magic.getInstance("test magic", 40);
         sampleCharacter.setWeapon(samplePhysicalWeapon);
         sampleCharacter.setMagic(sampleMagic);

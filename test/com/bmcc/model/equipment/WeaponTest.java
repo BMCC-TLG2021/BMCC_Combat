@@ -29,7 +29,7 @@ public class WeaponTest {
 
     @Test
     public void getInstanceFromJson() throws Exception {
-        sampleMagicalWeapon = MagicalWeapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
+        sampleMagicalWeapon = Weapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
         assertEquals("Harry Potter's wand", sampleMagicalWeapon.getName());
         assertEquals(3, sampleMagicalWeapon.getMagicPowerIncrease());
     }

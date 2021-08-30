@@ -1,6 +1,8 @@
 package com.bmcc.model.character;
 
+import com.bmcc.model.equipment.Armor;
 import com.bmcc.model.equipment.Weapon;
+import com.bmcc.model.item.Item;
 import com.bmcc.model.skill.Magic;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,8 +33,11 @@ public class Character {
     @JsonIgnore
     private Weapon weapon;
     @JsonIgnore
+    private Armor armor;
+    @JsonIgnore
     private Magic magic;
-
+    @JsonIgnore
+    private List<Item> itemList;
     // Constructors
     private Character(String name, String occupation, String race,int hitPoint, int magicPoint, int defensePower, int attackPower) {
         this.name = name;
@@ -155,6 +160,7 @@ public class Character {
         try {
             ObjectMapper mapper = new ObjectMapper();
             List<Character> characterList = Arrays.asList(mapper.readValue(new File(fileName), Character[].class));
+
             return characterList;
         } catch (Exception e) {
             e.printStackTrace();
