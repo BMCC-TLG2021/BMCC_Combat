@@ -49,10 +49,10 @@ public class GameOutput {
         st.setHeaders("You", userName, "Enemy", enemyName);//optional - if not used then there will be no header and horizontal lines
         st.addRow("Occupation", userOccupation, "", enemyOccupation);
         st.addRow("Race", userRace, "", enemyRace);
-        st.addRow("Hit Point", ""+userHitPoint, "", ""+enemyHitPoint);
-        st.addRow("Magic Point", ""+userMagicPoint, "", ""+enemyMagicPoint);
-        st.addRow("Defense Power", ""+userDefensePower, "", ""+enemyDefensePower);
-        st.addRow("Attack Power", ""+userAttackPower, "", ""+enemyAttackPower);
+        st.addRow("Hit Point", "" + userHitPoint, "", "" + enemyHitPoint);
+        st.addRow("Magic Point", "" + userMagicPoint, "", "" + enemyMagicPoint);
+        st.addRow("Defense Power", "" + userDefensePower, "", "" + enemyDefensePower);
+        st.addRow("Attack Power", "" + userAttackPower, "", "" + enemyAttackPower);
         st.print();
 
     }
@@ -83,6 +83,19 @@ public class GameOutput {
         }
     }
 
+    public static void displayAllCharacters(Character[] charArray) {
+        System.out.println();
+        System.out.println("List of Characters: ");
+        for (Character charItem : charArray) {
+            System.out.println(
+                            "[ name=" + charItem.getName() +
+                            ", Race=" + charItem.getRace() +
+                            ", Occupation=" + charItem.getOccupation() +
+                            " ]");
+        }
+        System.out.println();
+    }
+
     public static void attackShowGraphics(String path) {
         // clear console magic only works for Mac / linux
         System.out.print("\033[H\033[2J");
@@ -94,11 +107,6 @@ public class GameOutput {
             e.printStackTrace();
         }
     }
-
-
-
-
-
 
 
 }

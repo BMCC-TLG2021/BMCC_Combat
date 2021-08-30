@@ -1,4 +1,4 @@
-package com.bmcc.controller;
+package com.bmcc.model.skill;
 
 import com.bmcc.model.skill.Magic;
 import org.junit.Before;

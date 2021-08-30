@@ -1,12 +1,17 @@
 package com.bmcc.controller;
 
 import com.bmcc.model.character.Character;
-import com.bmcc.model.item.MagicalWeapon;
-import com.bmcc.model.item.PhysicalWeapon;
+import com.bmcc.model.equipment.Armor;
+import com.bmcc.model.item.Item;
 import com.bmcc.model.skill.Magic;
 import com.bmcc.util.GameAudio;
 import com.bmcc.util.GameInput;
 import com.bmcc.util.GameOutput;
+import com.bmcc.model.equipment.Weapon;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -15,16 +20,26 @@ import java.io.IOException;
 public class Game {
     private Character userPlayer;
     private Character enemyPlayer;
+    private List<Character> characterList;
+    private List<Weapon> weaponList;
+    private List<Armor> armorList;
+    private List<Item> itemList;
+
+    private Character[] charArray = {Character.getInstance("TEST", "Worker", "Boss", 100, 100, 100, 100),
+            Character.getInstance("KNIGHT", "Worker", "Boss", 100, 100, 100, 100)};
 
     public void play() throws Exception {
 
         welcomeUser();
+        pickCharacter();
         setPlayers();
 
 
         controlFlow(userPlayer, enemyPlayer);
-    }
 
+    private void initGame(){
+        // todo: init character, weapon, armor, item and magic lists
+        characterList = Character.getCharacterListFromJsonFile("asset/sampleCharacters.json")
 
 
     private void welcomeUser() {
@@ -38,16 +53,16 @@ public class Game {
 
     private void setPlayers() throws Exception {
         // Create player by using external JSON file
-        userPlayer = Character.getInstanceFromJsonFile("asset/samplePlayerCharacter.json");
-        enemyPlayer = Character.getInstanceFromJsonFile("asset/sampleEnemyCharacter.json");
+//        userPlayer = Character.getInstanceFromJsonFile("asset/samplePlayerCharacter.json");
+//        enemyPlayer = Character.getInstanceFromJsonFile("asset/sampleEnemyCharacter.json");
 
-        //
+        // Let user pick custom name for their character
         String userName = GameInput.getUserInput("Please enter name for your character:");
         userPlayer.setName(userName);
 
         // Create weapon by using external JSON file
-        PhysicalWeapon pWeapon = PhysicalWeapon.getInstanceFromJson("asset/samplePhysicalWeapon.json");
-        MagicalWeapon mWeapon = MagicalWeapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
+        Weapon pWeapon = Weapon.getInstanceFromJson("asset/samplePhysicalWeapon.json");
+        Weapon mWeapon = Weapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
 
         // Set user player's weapon and magic skill
         userPlayer.setWeapon(mWeapon);
@@ -56,6 +71,29 @@ public class Game {
 
         // Set enemy player's weapon
         enemyPlayer.setWeapon(pWeapon);
+    }
+
+
+    private void pickCharacter() {
+        Random random = new Random();
+        int randInt = random.nextInt(charArray.length);
+        Character randChar = charArray[randInt];
+
+        String characterInput = "";
+
+        while (!GameInput.isValidCharacter(characterInput, charArray)) {
+            GameOutput.displayAllCharacters(charArray);
+            characterInput = GameInput.getUserInput("Please select your character from above list:");
+
+            for (Character aChar : charArray) {
+                if (aChar.getName().equals(characterInput)) {
+                    userPlayer = aChar;
+                    enemyPlayer = randChar;
+                }
+            }
+        }
+        System.out.println("Great!! You picked: " + userPlayer.getName());
+        System.out.println("And you are playing against: " + enemyPlayer.getName());
     }
 
 

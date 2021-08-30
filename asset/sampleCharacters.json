@@ -1,0 +1,20 @@
+[
+  {
+    "name":"Kethoth Murnyethara",
+    "occupation": "Cleric",
+    "race": "Human",
+    "hitPoint": 125,
+    "magicPoint": 245,
+    "defensePower": 35,
+    "attackPower": 20
+  },
+  {
+    "name":"Gardain Dankil",
+    "occupation": "Fighter",
+    "race": "Dwarf",
+    "hitPoint": 255,
+    "magicPoint": 45,
+    "defensePower": 55,
+    "attackPower": 56
+  }
+]
