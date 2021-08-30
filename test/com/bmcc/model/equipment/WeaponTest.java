@@ -4,6 +4,8 @@ import com.bmcc.model.equipment.Weapon;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class WeaponTest {
@@ -18,20 +20,27 @@ public class WeaponTest {
     }
 
     @Test
-    public void getName() {
-        assertEquals("testing wand", sampleMagicalWeapon.getName());
-    }
-
-    @Test
-    public void getMagicPowerIncrease() {
-        assertEquals(1, sampleMagicalWeapon.getMagicPowerIncrease());
+    public void reduceIntegrity(){
+        sampleMagicalWeapon.reduceIntegrity();
+        assertEquals(sampleMagicalWeapon.getIntegrity(), 2);
     }
 
     @Test
     public void getInstanceFromJson() throws Exception {
         sampleMagicalWeapon = Weapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
         assertEquals("Harry Potter's wand", sampleMagicalWeapon.getName());
-        assertEquals(3, sampleMagicalWeapon.getMagicPowerIncrease());
+        assertEquals(0.5, sampleMagicalWeapon.getMagicPowerIncrease(), 1);
     }
+
+    @Test
+    public void getWeaponListFromJsonFile() throws Exception {
+        List<Weapon> sampleWeaponList = Weapon.getWeaponListFromJsonFile("asset/sampleWeapons.json");
+        Weapon physicalWeapon = sampleWeaponList.get(0);
+        Weapon magicalWeapon = sampleWeaponList.get(1);
+        assertEquals(physicalWeapon.getName(), "Bad Ass Axe");
+        assertEquals(physicalWeapon.getPhysicalDamage(), 25);
+        assertEquals(magicalWeapon.getName(), "Harry Potter's wand");
+    }
+
 
 }

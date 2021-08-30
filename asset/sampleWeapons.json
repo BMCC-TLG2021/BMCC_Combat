@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Bad Ass Axe",
+    "integrity": 5,
+    "desc": "A powerful axe",
+    "physicalDamage": 25,
+    "magicPowerIncrease": 0.0
+  },
+  {
+    "name": "Harry Potter's wand",
+    "integrity": 5,
+    "desc": "A great powerful wand",
+    "physicalDamage": 5,
+    "magicPowerIncrease": 0.5
+  }
+]
