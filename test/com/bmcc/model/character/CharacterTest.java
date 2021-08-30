@@ -7,6 +7,8 @@ import com.bmcc.model.skill.Magic;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class CharacterTest {
@@ -78,5 +80,17 @@ public class CharacterTest {
         assertEquals("Cleric", sampleCharacter.getOccupation());
         assertEquals("Human", sampleCharacter.getRace());
         assertEquals(125,sampleCharacter.getHitPoint());
+    }
+
+    @Test
+    public void getCharacterListFromJsonFile() {
+        List<Character> characterList = Character.getCharacterListFromJsonFile("asset/sampleCharacters.json");
+        Character character2 = characterList.get(1);
+        assertEquals("Gardain Dankil", character2.getName());
+        assertEquals("Fighter", character2.getOccupation());
+        assertEquals("Dwarf", character2.getRace());
+        assertEquals(255, character2.getHitPoint());
+        assertEquals(null, character2.getWeapon());
+        assertEquals(null, character2.getMagic());
     }
 }
