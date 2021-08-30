@@ -27,5 +27,19 @@ public class GameAudio {
         clip.start();
 
     }
+    public static void PlayMajicAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+        Scanner scanner = new Scanner(System.in);
+
+        File file = new File("asset/BSC.wav");
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioStream);
+        clip.start();
+
+    }
+
+
+
+
 }
 
