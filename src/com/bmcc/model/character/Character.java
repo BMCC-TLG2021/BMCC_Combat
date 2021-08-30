@@ -46,6 +46,11 @@ public class Character {
         this.attackPower = attackPower;
     }
 
+    // jackson use this default constructor to create object
+    private Character() {
+
+    }
+
     // Business methods
 
     public void damage(int points) {
