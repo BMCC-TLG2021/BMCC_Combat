@@ -4,18 +4,28 @@ import com.bmcc.model.character.Character;
 import com.bmcc.model.item.MagicalWeapon;
 import com.bmcc.model.item.PhysicalWeapon;
 import com.bmcc.model.skill.Magic;
+import com.bmcc.util.GameAudio;
 import com.bmcc.util.GameInput;
 import com.bmcc.util.GameOutput;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
 public class Game {
     private Character userPlayer;
     private Character enemyPlayer;
 
     public void play() throws Exception {
+
         welcomeUser();
         setPlayers();
+
+
         controlFlow(userPlayer, enemyPlayer);
     }
+
+
 
     private void welcomeUser() {
         GameOutput.welcomePlayer();
