@@ -13,7 +13,7 @@ public class GameInput {
     // Ingest user input
     public static String getUserInput(String prompt) throws NoSuchElementException, IllegalStateException {
         try {
-            System.out.println(prompt);
+            System.out.println(ConsoleColors.YELLOW_BOLD + prompt + ConsoleColors.RESET);
             userInput = scanner.nextLine();
         } catch (NoSuchElementException | IllegalStateException e) {
             e.printStackTrace();
@@ -24,7 +24,7 @@ public class GameInput {
     // parse user input
     public static boolean parseUserInput(String userInput) {
         boolean isValidInput = false;
-        String parsedInput = userInput.trim().toUpperCase();
+        String parsedInput = userInput.trim();
         if (isValidCommand(parsedInput)) {
             isValidInput = true;
         }
@@ -35,7 +35,7 @@ public class GameInput {
     private static boolean isValidCommand(String input) {
         boolean isValid = false;
         for (String validCommand : validCommands) {
-            if (input.equals(validCommand)) {
+            if (input.equalsIgnoreCase(validCommand)) {
                 isValid = true;
             }
         }
@@ -45,7 +45,7 @@ public class GameInput {
     public static boolean isValidCharacter(String input, List<Character> characters) {
         boolean isValidCharacter = false;
         for (Character item : characters) {
-            if (item.getName().equals(input)) {
+            if (item.getName().equalsIgnoreCase(input)) {
                 isValidCharacter = true;
             }
         }
@@ -54,10 +54,11 @@ public class GameInput {
 
     // looping to check for valid commands
     public static String getCommand() {
-        String userInput = getUserInput("Please enter a command from below list:\n" + Arrays.toString(validCommands));
+        String userInput = getUserInput(ConsoleColors.YELLOW_BOLD + "Please enter a command from below list:\n"
+                +ConsoleColors.RESET + Arrays.toString(validCommands));
         while (!parseUserInput(userInput)) {
             System.out.println("Valid commands: " + Arrays.toString(validCommands));
-            userInput = getUserInput("Please put valid command");
+            userInput = getUserInput(ConsoleColors.YELLOW_BOLD + "Please enter a valid command" + ConsoleColors.RESET);
         }
         return userInput;
     }

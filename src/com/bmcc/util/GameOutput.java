@@ -48,7 +48,8 @@ public class GameOutput {
         TableBuilder st = new TableBuilder();
         //st.setRightAlign(true);//if true then cell text is right aligned
         st.setShowVerticalLines(true);//if false (default) then no vertical lines are shown
-        st.setHeaders("You", userName, "Enemy", enemyName);//optional - if not used then there will be no header and horizontal lines
+        st.setHeaders(ConsoleColors.GREEN_BOLD + "You", userName, ConsoleColors.RESET
+                + ConsoleColors.RED + "Enemy", enemyName + ConsoleColors.RESET);//optional - if not used then there will be no header and horizontal lines
         st.addRow("Occupation", userOccupation, "", enemyOccupation);
         st.addRow("Race", userRace, "", enemyRace);
         st.addRow("Hit Point", "" + userHitPoint, "", "" + enemyHitPoint);
@@ -56,7 +57,31 @@ public class GameOutput {
         st.addRow("Defense Power", "" + userDefensePower, "", "" + enemyDefensePower);
         st.addRow("Attack Power", "" + userAttackPower, "", "" + enemyAttackPower);
         st.print();
+    }
 
+    public static void displayCharacterList(List<Character> characterList) {
+        TableBuilder st = new TableBuilder();
+        st.setShowVerticalLines(true);
+        for(Character achar : characterList) {
+            st.addRow("name: " + achar.getName());
+            st.addRow("Occupation: " + achar.getOccupation());
+            st.print();
+        }
+    }
+
+
+    public static void displayAllCharacters(List<Character> characterList) {
+        System.out.println();
+        System.out.println(ConsoleColors.GREEN_BOLD + "List of Characters: \n"
+                + "--------------------" + ConsoleColors.RESET);
+        for (Character charItem : characterList) {
+            System.out.println(
+                    "[ name=" + charItem.getName() +
+                            ", Race=" + charItem.getRace() +
+                            ", Occupation=" + charItem.getOccupation() +
+                            " ]");
+        }
+        System.out.println();
     }
 
     public static  void showActionDamage(Character attacker, Character victim, int damagePoint) {
@@ -66,7 +91,7 @@ public class GameOutput {
         System.out.println("************************************************************");
         System.out.println("************************************************************");
         System.out.println("*                                                          *");
-        System.out.println("*"+(attacker.getName() + " Attacked " + victim.getName())+"*");
+        System.out.println("*"+(attacker.getName() + ConsoleColors.RED_BOLD + " ATTACKED " + ConsoleColors.RESET + victim.getName())+"*");
         System.out.println("*                                                          *");
         System.out.println("************************************************************");
         System.out.println("************************************************************");
@@ -84,24 +109,19 @@ public class GameOutput {
                 System.out.println("*****************************************************************************************");
                 System.out.println("*****************************************************************************************");
                 System.out.println("*                                                                                       *");
-                System.out.println("*"+(attacker.getName() + " Created " + damagePoint + " Damage to " + victim.getName())+"*");
+                System.out.println("*"+(attacker.getName() + ConsoleColors.RED_BOLD + " CREATED " + damagePoint + " Damage to "
+                + ConsoleColors.RESET + victim.getName())+"*");
                 System.out.println("*                                                                                       *");
                 System.out.println("*****************************************************************************************");
                 System.out.println("*****************************************************************************************");
                 System.out.println();
-
-
-
-
-
-
 
     }
 
     public static void welcomePlayer() {
         try {
             String welcomeBanner = Files.readString(Path.of("asset/BMCC.txt"));
-            System.out.println(welcomeBanner);
+            System.out.println(ConsoleColors.GREEN_BOLD + welcomeBanner + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,19 +136,6 @@ public class GameOutput {
         }
     }
 
-    public static void displayAllCharacters(List<Character> characterList) {
-        System.out.println();
-        System.out.println("List of Characters: ");
-        for (Character charItem : characterList) {
-            System.out.println(
-                            "[ name=" + charItem.getName() +
-                            ", Race=" + charItem.getRace() +
-                            ", Occupation=" + charItem.getOccupation() +
-                            " ]");
-        }
-        System.out.println();
-    }
-
     public static void attackShowGraphics(String path) {
         // clear console magic only works for Mac / linux
         System.out.print("\033[H\033[2J");
@@ -140,6 +147,5 @@ public class GameOutput {
             e.printStackTrace();
         }
     }
-
 
 }

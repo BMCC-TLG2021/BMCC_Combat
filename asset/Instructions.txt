@@ -1,13 +1,10 @@
-
-
-
 Instructions on How to play BMCC-COMBAT
-
-1. Enter your player name.
-2. Pick a player from player list.
+----------------------------------------
+1. Pick a player from player list.
+2. Enter your player name.
 3. Pick 3 weapons from the weapon list.
 4. Start fight
-   * You can use physical attack or majical attack. 
+   * You can use physical attack or magical attack.
    * You can only use one weapon at a time. 
    * You can only carry 3 weapons at a time. 
    * Your get one attack per round. 
