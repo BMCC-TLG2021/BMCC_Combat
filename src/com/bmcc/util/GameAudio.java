@@ -27,7 +27,7 @@ public class GameAudio {
         clip.start();
 
     }
-    public static void PlayMajicAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+    public static void PlayMagicalAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
         Scanner scanner = new Scanner(System.in);
 
         File file = new File("asset/BSC.wav");
