@@ -5,8 +5,10 @@ import com.bmcc.model.equipment.Weapon;
 
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameOutput {
@@ -22,7 +24,7 @@ public class GameOutput {
         String userWeaponName = "";
         int userWeaponIntegrity = 0;
         Weapon userWeapon = userPlayer.getWeapon();
-        if (userWeapon != null){
+        if (userWeapon != null) {
             userWeaponName = userWeapon.getName();
             userWeaponIntegrity = userWeapon.getIntegrity();
         }
@@ -38,28 +40,10 @@ public class GameOutput {
         String enemyWeaponName = "";
         int enemyWeaponIntegrity = 0;
         Weapon enemyWeapon = enemyPlayer.getWeapon();
-        if (enemyWeapon != null){
+        if (enemyWeapon != null) {
             enemyWeaponName = enemyWeapon.getName();
             enemyWeaponIntegrity = enemyWeapon.getIntegrity();
         }
-
-
-//        System.out.printf("%30s %30s %30s", "Name", userName, enemyName);
-//        System.out.println();
-//        System.out.printf("%30s %30s %30s", "Occupation", userOccupation, enemyOccupation);
-//        System.out.println();
-//        System.out.printf("%30s %30s %30s", "Race", userRace, enemyRace);
-//        System.out.println();
-//        System.out.printf("%30s %30s %30s", "Hit Point", userHitPoint, enemyHitPoint);
-//        System.out.println();
-//        System.out.printf("%30s %30s %30s", "Magic Point", userMagicPoint, enemyMagicPoint);
-//        System.out.println();
-//        System.out.printf("%30s %30s %30s", "Defense Power", userDefensePower, enemyDefensePower);
-//        System.out.println();
-//        System.out.printf("%30s %30s %30s", "Attack Power", userAttackPower, enemyAttackPower);
-//        System.out.println();
-//        System.out.println();
-
 
         TableBuilder st = new TableBuilder();
         //st.setRightAlign(true);//if true then cell text is right aligned
@@ -79,36 +63,49 @@ public class GameOutput {
     public static void displayCharacterList(List<Character> characterList) {
         TableBuilder st = new TableBuilder();
         st.setShowVerticalLines(true);
-        for(Character achar : characterList) {
-            st.addRow("name: " + achar.getName());
-            st.addRow("Occupation: " + achar.getOccupation());
-            st.print();
+        int i = 1;
+        st.setHeaders("ID", "Name", "Occupation", "Race", "Hit Point", "Magic Point", "Defense Power", "Attack Power");
+        for (Character aChar : characterList) {
+            String[] characterAttributes = new String[8];
+            characterAttributes[0] = "" + i;
+            i++;
+            characterAttributes[1] = aChar.getName();
+            characterAttributes[2] = aChar.getOccupation();
+            characterAttributes[3] = aChar.getRace();
+            characterAttributes[4] = "" + aChar.getHitPoint();
+            characterAttributes[5] = "" + aChar.getMagicPoint();
+            characterAttributes[6] = "" + aChar.getTotalDefensePower();
+            characterAttributes[7] = "" + aChar.getAttackPower();
+            st.addRow(characterAttributes);
         }
+        st.print();
     }
 
+    public static void displayWeaponList(List<Weapon> weaponList) {
+        TableBuilder st = new TableBuilder();
+        st.setShowVerticalLines(true);
+        int i = 1;
+        st.setHeaders("ID", "Name", "Physical damage");
+        for (Weapon weapon: weaponList) {
+            String[] weaponAttributes =  new String[3];
+            weaponAttributes[0] = "" + i;
+            i++;
+            weaponAttributes[1] = weapon.getName();
+            weaponAttributes[2] = "" + weapon.getPhysicalDamage();
 
-    public static void displayAllCharacters(List<Character> characterList) {
-        System.out.println();
-        System.out.println(ConsoleColors.GREEN_BOLD + "List of Characters: \n"
-                + "--------------------" + ConsoleColors.RESET);
-        for (Character charItem : characterList) {
-            System.out.println(
-                    "[ name=" + charItem.getName() +
-                            ", Race=" + charItem.getRace() +
-                            ", Occupation=" + charItem.getOccupation() +
-                            " ]");
+            st.addRow(weaponAttributes);
         }
-        System.out.println();
+        st.print();
     }
 
-    public static  void showActionDamage(Character attacker, Character victim, int damagePoint) {
+    public static void showActionDamage(Character attacker, Character victim, int damagePoint) {
         System.out.println();
         System.out.println();
         System.out.println();
         System.out.println("************************************************************");
         System.out.println("************************************************************");
         System.out.println("*                                                          *");
-        System.out.println("*"+(attacker.getName() + ConsoleColors.RED_BOLD + " ATTACKED " + ConsoleColors.RESET + victim.getName())+"*");
+        System.out.println("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " ATTACKED " + ConsoleColors.RESET + victim.getName()) + "*");
         System.out.println("*                                                          *");
         System.out.println("************************************************************");
         System.out.println("************************************************************");
@@ -120,18 +117,18 @@ public class GameOutput {
         }
 
 
-                System.out.println();
-                System.out.println();
-                System.out.println();
-                System.out.println("*****************************************************************************************");
-                System.out.println("*****************************************************************************************");
-                System.out.println("*                                                                                       *");
-                System.out.println("*"+(attacker.getName() + ConsoleColors.RED_BOLD + " CREATED " + damagePoint + " Damage to "
-                + ConsoleColors.RESET + victim.getName())+"*");
-                System.out.println("*                                                                                       *");
-                System.out.println("*****************************************************************************************");
-                System.out.println("*****************************************************************************************");
-                System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("*****************************************************************************************");
+        System.out.println("*****************************************************************************************");
+        System.out.println("*                                                                                       *");
+        System.out.println("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " CREATED " + damagePoint + " Damage to "
+                + ConsoleColors.RESET + victim.getName()) + "*");
+        System.out.println("*                                                                                       *");
+        System.out.println("*****************************************************************************************");
+        System.out.println("*****************************************************************************************");
+        System.out.println();
 
     }
 

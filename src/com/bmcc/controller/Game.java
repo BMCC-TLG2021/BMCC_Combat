@@ -62,11 +62,11 @@ public class Game {
 
     private void renameCharacter() throws Exception {
         String setCharacterName = null;
-        while (!("no".equalsIgnoreCase(setCharacterName) || "yes".equalsIgnoreCase(setCharacterName))){
+        while (!("no".equalsIgnoreCase(setCharacterName) || "yes".equalsIgnoreCase(setCharacterName))) {
             setCharacterName = GameInput.getUserInput("Do you want to re-name your character? (yes or no) ");
         }
 
-        if ("yes".equalsIgnoreCase(setCharacterName)){
+        if ("yes".equalsIgnoreCase(setCharacterName)) {
             // Let user pick custom name for their character
             String userName = GameInput.getUserInput("Please enter name for your character:");
             userPlayer.setName(userName);
@@ -74,45 +74,44 @@ public class Game {
     }
 
 
-    private void pickCharacter () {
-        String characterInput = "";
-
-        while (!GameInput.isValidCharacter(characterInput, characterList)) {
-            GameOutput.displayAllCharacters(characterList);
-            characterInput = GameInput.getUserInput("Please select your character ID from above list:");
-
-            for (Character aChar : characterList) {
-                if (aChar.getName().equals(characterInput)) {
-                    userPlayer = aChar;
-                }
+    private void pickCharacter() {
+        GameOutput.displayCharacterList(characterList);
+        int userInput = 0;
+        while (userInput < 1 || userInput > characterList.size()) {
+            try {
+                String message = String.format("Please select a character ID from above list: ");
+                userInput = Integer.parseInt(GameInput.getUserInput(message));
+            } catch (Exception ignored) {
             }
         }
+        userPlayer = characterList.get(userInput - 1);
         System.out.println("Great!! You picked: " + userPlayer.getName());
     }
 
 
-    private void pickEquipment(Character player, String type){
+    private void pickEquipment(Character player, String type) {
         int listSize = 0;
-        if ("weapon".equalsIgnoreCase(type)){
-            displayList(weaponList);
+        if ("weapon".equalsIgnoreCase(type)) {
+            GameOutput.displayWeaponList(weaponList);
             listSize = weaponList.size();
-        } else if ("armor".equalsIgnoreCase(type)){
+        } else if ("armor".equalsIgnoreCase(type)) {
             displayList(armorList);
             listSize = armorList.size();
         }
 
         int userInput = 0;
-        while (userInput <1 || userInput > listSize){
+        while (userInput < 1 || userInput > listSize) {
             try {
                 String message = String.format("Please choose your %s from the list. (input number only)", type);
                 userInput = Integer.parseInt(GameInput.getUserInput(message));
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
 
-        if ("weapon".equalsIgnoreCase(type)){
-            player.setWeapon(weaponList.get(userInput-1));
-        } else if ("armor".equalsIgnoreCase(type)){
-            player.setArmor(armorList.get(userInput-1));
+        if ("weapon".equalsIgnoreCase(type)) {
+            player.setWeapon(weaponList.get(userInput - 1));
+        } else if ("armor".equalsIgnoreCase(type)) {
+            player.setArmor(armorList.get(userInput - 1));
         }
     }
 
@@ -124,30 +123,30 @@ public class Game {
         System.out.println("And you are playing against: " + enemyPlayer.getName());
     }
 
-    private void setEnemyPlayer(){
+    private void setEnemyPlayer() {
         enemyPlayer.setWeapon(randomPicker(weaponList));
 
         enemyPlayer.setArmor((randomPicker(armorList)));
     }
 
-    private <T> void displayList(List<T> itemList){
+    private <T> void displayList(List<T> itemList) {
         int index = 1;
-        for (T item : itemList){
+        for (T item : itemList) {
             System.out.println("\nIndex: " + index);
-            if (item instanceof Equipment){
-                System.out.println("Name: "+ ((Equipment)item).getName());
-                System.out.println("Desc: "+ ((Equipment)item).getDesc());
-                System.out.println("Integrity: "+((Equipment)item).getIntegrity());
+            if (item instanceof Equipment) {
+                System.out.println("Name: " + ((Equipment) item).getName());
+                System.out.println("Desc: " + ((Equipment) item).getDesc());
+                System.out.println("Integrity: " + ((Equipment) item).getIntegrity());
             }
-            if (item instanceof Weapon){
+            if (item instanceof Weapon) {
                 System.out.println("Physical Damage: " + ((Weapon) item).getPhysicalDamage());
-                System.out.println("magicPowerIncrease: " + ((Weapon) item).getMagicPowerIncrease()*100 + "%");
+                System.out.println("magicPowerIncrease: " + ((Weapon) item).getMagicPowerIncrease() * 100 + "%");
             }
             index++;
         }
     }
 
-    private <T> T randomPicker(List<T> listOfThings){
+    private <T> T randomPicker(List<T> listOfThings) {
         Random random = new Random();
         int randInt = random.nextInt(listOfThings.size());
         return listOfThings.get(randInt);
