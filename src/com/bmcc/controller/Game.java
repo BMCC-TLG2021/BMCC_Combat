@@ -27,7 +27,8 @@ public class Game {
         welcomeUser();
         pickCharacter();
         createEnemyCharacter();
-//        pickWeapon();
+        pickWeapon(userPlayer);
+        pickWeapon(enemyPlayer);
         setPlayers();
         controlFlow(userPlayer, enemyPlayer);
     }
@@ -62,36 +63,50 @@ public class Game {
             userPlayer.setName(userName);
         }
 
+        // Create weapon by using external JSON file
+        Weapon pWeapon = Weapon.getInstanceFromJson("asset/samplePhysicalWeapon.json");
+        Weapon mWeapon = Weapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
 
-                // Create weapon by using external JSON file
-                Weapon pWeapon = Weapon.getInstanceFromJson("asset/samplePhysicalWeapon.json");
-                Weapon mWeapon = Weapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
+        // Set user player's weapon and magic skill
+        userPlayer.setWeapon(mWeapon);
+        Magic magic = Magic.getInstanceFromJsonFile("asset/sampleMagic.json");
+        userPlayer.setMagic(magic);
 
-                // Set user player's weapon and magic skill
-                userPlayer.setWeapon(mWeapon);
-                Magic magic = Magic.getInstanceFromJsonFile("asset/sampleMagic.json");
-                userPlayer.setMagic(magic);
-
-                // Set enemy player's weapon
-                enemyPlayer.setWeapon(pWeapon);
-            }
+        // Set enemy player's weapon
+        enemyPlayer.setWeapon(pWeapon);
+    }
 
 
-            private void pickCharacter () {
-                String characterInput = "";
+    private void pickCharacter () {
+        String characterInput = "";
 
-                while (!GameInput.isValidCharacter(characterInput, characterList)) {
-                    GameOutput.displayAllCharacters(characterList);
-                    characterInput = GameInput.getUserInput("Please select your character from above list:");
+        while (!GameInput.isValidCharacter(characterInput, characterList)) {
+            GameOutput.displayAllCharacters(characterList);
+            characterInput = GameInput.getUserInput("Please select your character ID from above list:");
 
-                    for (Character aChar : characterList) {
-                        if (aChar.getName().equals(characterInput)) {
-                            userPlayer = aChar;
-                        }
-                    }
+            for (Character aChar : characterList) {
+                if (aChar.getName().equals(characterInput)) {
+                    userPlayer = aChar;
                 }
-                System.out.println("Great!! You picked: " + userPlayer.getName());
             }
+        }
+        System.out.println("Great!! You picked: " + userPlayer.getName());
+    }
+
+    private void pickWeapon(Character player){
+
+        displayWeaponList(weaponList);
+
+        int userInput = 0;
+        while (userInput <=1 || userInput > weaponList.size()){
+            try {
+                userInput = Integer.parseInt(GameInput.getUserInput(
+                        "Please choose your weapon from the above listed weapons."));
+            } catch (Exception ignored) {}
+        }
+
+        player.setWeapon(weaponList.get(userInput-1));
+    }
 
     private void createEnemyCharacter() {
         while (enemyPlayer == null || enemyPlayer.equals(userPlayer)) {
@@ -151,5 +166,13 @@ public class Game {
         Attacks.physicalAttack(enemyPlayer, userPlayer);
     }
 
+    private void displayWeaponList(List<Weapon> weaponList){
+        int index = 1;
+        for (Weapon weapon : weaponList){
+            System.out.println("\nIndex: " + index);
+            System.out.println("Name: "+weapon.getName());
+            System.out.println("Physical damage:"+weapon.getPhysicalDamage());
+        }
+    }
 }
 
