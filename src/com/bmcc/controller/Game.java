@@ -2,6 +2,7 @@ package com.bmcc.controller;
 
 import com.bmcc.model.character.Character;
 import com.bmcc.model.equipment.Armor;
+import com.bmcc.model.equipment.Equipment;
 import com.bmcc.model.item.Item;
 import com.bmcc.model.skill.Magic;
 import com.bmcc.util.GameAudio;
@@ -20,6 +21,7 @@ public class Game {
     private List<Weapon> weaponList;
     private List<Armor> armorList;
     private List<Item> itemList;
+    private List<Magic> magicList;
 
 
     public void play() throws Exception {
@@ -27,9 +29,17 @@ public class Game {
         welcomeUser();
         pickCharacter();
         createEnemyCharacter();
-        pickWeapon(userPlayer);
-        setPlayers();
-        controlFlow(userPlayer, enemyPlayer);
+        pickEquipment(userPlayer, "weapon");
+        pickEquipment(userPlayer, "armor");
+        pickMagics(userPlayer);
+        renameCharacter();
+        setEnemyPlayer();
+        CoreLogic.controlFlow(userPlayer, enemyPlayer);
+    }
+
+    private void pickMagics(Character userPlayer) throws Exception {
+        Magic magic = Magic.getInstanceFromJsonFile("asset/sampleMagic.json");
+        userPlayer.setMagic(magic);
     }
 
 
@@ -37,7 +47,7 @@ public class Game {
         // todo: init character, weapon, armor, item and magic lists
         characterList = Character.getCharacterListFromJsonFile("asset/sampleCharacters.json");
         weaponList = Weapon.getWeaponListFromJsonFile("asset/sampleWeapons.json");
-
+        armorList = Armor.getArmorListFromJsonFile("asset/sampleArmors.json");
     }
 
     private void welcomeUser() throws Exception {
@@ -50,7 +60,7 @@ public class Game {
     }
 
 
-    private void setPlayers() throws Exception {
+    private void renameCharacter() throws Exception {
         String setCharacterName = null;
         while (!("no".equalsIgnoreCase(setCharacterName) || "yes".equalsIgnoreCase(setCharacterName))){
             setCharacterName = GameInput.getUserInput("Do you want to re-name your character? (yes or no) ");
@@ -61,15 +71,6 @@ public class Game {
             String userName = GameInput.getUserInput("Please enter name for your character:");
             userPlayer.setName(userName);
         }
-
-        // Create weapon by using external JSON file
-        Weapon pWeapon = Weapon.getInstanceFromJson("asset/samplePhysicalWeapon.json");
-
-        Magic magic = Magic.getInstanceFromJsonFile("asset/sampleMagic.json");
-        userPlayer.setMagic(magic);
-
-        // Set enemy player's weapon
-        enemyPlayer.setWeapon(pWeapon);
     }
 
 
@@ -89,89 +90,67 @@ public class Game {
         System.out.println("Great!! You picked: " + userPlayer.getName());
     }
 
-    private void pickWeapon(Character player){
 
-        displayWeaponList(weaponList);
+    private void pickEquipment(Character player, String type){
+        int listSize = 0;
+        if ("weapon".equalsIgnoreCase(type)){
+            displayList(weaponList);
+            listSize = weaponList.size();
+        } else if ("armor".equalsIgnoreCase(type)){
+            displayList(armorList);
+            listSize = armorList.size();
+        }
 
         int userInput = 0;
-        while (userInput <1 || userInput > weaponList.size()){
+        while (userInput <1 || userInput > listSize){
             try {
-                userInput = Integer.parseInt(GameInput.getUserInput(
-                        "Please choose your weapon from the above listed weapons."));
+                String message = String.format("Please choose your %s from the list. (input number only)", type);
+                userInput = Integer.parseInt(GameInput.getUserInput(message));
             } catch (Exception ignored) {}
         }
 
-        player.setWeapon(weaponList.get(userInput-1));
+        if ("weapon".equalsIgnoreCase(type)){
+            player.setWeapon(weaponList.get(userInput-1));
+        } else if ("armor".equalsIgnoreCase(type)){
+            player.setArmor(armorList.get(userInput-1));
+        }
     }
+
 
     private void createEnemyCharacter() {
         while (enemyPlayer == null || enemyPlayer.equals(userPlayer)) {
-            Random random = new Random();
-            int randInt = random.nextInt(characterList.size());
-            enemyPlayer = characterList.get(randInt);
+            enemyPlayer = randomPicker(characterList);
         }
         System.out.println("And you are playing against: " + enemyPlayer.getName());
     }
 
+    private void setEnemyPlayer(){
+        enemyPlayer.setWeapon(randomPicker(weaponList));
 
-    private void controlFlow(Character userPlayer, Character enemyPlayer) throws Exception {
-        int userPlayerHP = userPlayer.getHitPoint();
-        int enemyPlayerHP = enemyPlayer.getHitPoint();
-
-        while (userPlayerHP > 0 && enemyPlayerHP > 0) {
-
-
-            String command = GameInput.getCommand();
-            switch (command) {
-                case "ATTACK ENEMY":
-                    Attacks.physicalAttack(userPlayer,enemyPlayer);
-                    break;
-                case "USE MAGIC":
-                    Attacks.magicalAttack(userPlayer, enemyPlayer,userPlayer.getMagic());
-                    break;
-                case "END GAME":
-                    System.out.println("GoodBye.....");
-                    System.exit(0);
-            }
-            userPlayerHP = userPlayer.getHitPoint();
-            enemyPlayerHP = enemyPlayer.getHitPoint();
-            checkWins(userPlayerHP, enemyPlayerHP);
-
-            GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
-
-            // enemy player attack back.
-            enemyAttack();
-            userPlayerHP = userPlayer.getHitPoint();
-            enemyPlayerHP = enemyPlayer.getHitPoint();
-            checkWins(userPlayerHP, enemyPlayerHP);
-            GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
-        }
+        enemyPlayer.setArmor((randomPicker(armorList)));
     }
 
-    private void checkWins(int userPlayerHP, int enemyPlayerHP){
-        if (enemyPlayerHP <= 0) {
-            System.out.println(userPlayer.getName() + " Win!");
-            System.exit(0);
-        } else if (userPlayerHP <= 0) {
-            System.out.println(userPlayer.getName() + " Fail!");
-            System.exit(0);
-        }
-    }
-
-
-    private void enemyAttack() throws InterruptedException {
-        Thread.sleep(3000);
-        Attacks.physicalAttack(enemyPlayer, userPlayer);
-    }
-
-    private void displayWeaponList(List<Weapon> weaponList){
+    private <T> void displayList(List<T> itemList){
         int index = 1;
-        for (Weapon weapon : weaponList){
+        for (T item : itemList){
             System.out.println("\nIndex: " + index);
-            System.out.println("Name: "+weapon.getName());
-            System.out.println("Physical damage:"+weapon.getPhysicalDamage());
+            if (item instanceof Equipment){
+                System.out.println("Name: "+ ((Equipment)item).getName());
+                System.out.println("Desc: "+ ((Equipment)item).getDesc());
+                System.out.println("Integrity: "+((Equipment)item).getIntegrity());
+            }
+            if (item instanceof Weapon){
+                System.out.println("Physical Damage: " + ((Weapon) item).getPhysicalDamage());
+                System.out.println("magicPowerIncrease: " + ((Weapon) item).getMagicPowerIncrease()*100 + "%");
+            }
             index++;
         }
+    }
+
+    private <T> T randomPicker(List<T> listOfThings){
+        Random random = new Random();
+        int randInt = random.nextInt(listOfThings.size());
+        return listOfThings.get(randInt);
     }
 }
 

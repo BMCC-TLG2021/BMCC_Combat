@@ -1,5 +1,6 @@
 package com.bmcc.model.equipment;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -10,7 +11,10 @@ import java.util.List;
 public class Armor extends Equipment{
     private final int defenceIncrease;
 
-    private Armor(String name, int integrity, String desc, int defenceIncrease) {
+    private Armor(@JsonProperty("name") String name,
+                  @JsonProperty("integrity") int integrity,
+                  @JsonProperty("desc") String desc,
+                  @JsonProperty("defenceIncrease") int defenceIncrease) {
         super(name, integrity, desc);
         this.defenceIncrease = defenceIncrease;
     }
@@ -29,11 +33,9 @@ public class Armor extends Equipment{
     }
 
 
-    public List<Armor> getArmorListFromJsonFile(String filePath) throws IOException {
-
+    public static List<Armor> getArmorListFromJsonFile(String filePath) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         return Arrays.asList(mapper.readValue(new File(filePath), Armor[].class));
     }
-
 
 }
