@@ -73,16 +73,23 @@ public class Character {
     }
 
     public int getTotalPhysicalAttackPower() {
-        return this.attackPower + this.getWeapon().getPhysicalDamage();
+        if (this.getWeapon() != null){
+            return this.attackPower + this.getWeapon().getPhysicalDamage();
+        } else {
+            return this.attackPower;
+        }
+
 
     }
 
     public int getTotalMagicalPower() {
-
-        double damageBuffer = this.getWeapon().getMagicPowerIncrease();
         int originalDamage = this.getMagic().getDamage();
-        return (int) ((damageBuffer + 1)* originalDamage);
-
+        if (this.getWeapon() != null) {
+            double damageBuffer = this.getWeapon().getMagicPowerIncrease();
+            return (int) ((damageBuffer + 1) * originalDamage);
+        } else {
+            return originalDamage;
+        }
     }
 
     // Getters

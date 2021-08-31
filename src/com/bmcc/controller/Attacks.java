@@ -20,8 +20,6 @@ public class Attacks {
         GameOutput.attackShowGraphics("asset/fight.txt");
         GameOutput.showActionDamage(attacker, victim, damagePoint);
 
-        System.out.println("Attacker's weapon integrity is: " + attacker.getWeapon().getIntegrity());
-//        System.out.println("victim's armor integrity is: " + attacker.getWeapon().getIntegrity());
     }
 
     public static void magicalAttack(Character attacker, Character victim, Magic magic){
@@ -39,8 +37,6 @@ public class Attacks {
         } else {
             System.out.println("Player does not have enough Magic Power..");
         }
-
-        System.out.println("Attacker's weapon integrity is: " + attacker.getWeapon().getIntegrity());
     }
 
     private static void updateEquipmentIntegrity(Character player, Equipment equipment, String target){
