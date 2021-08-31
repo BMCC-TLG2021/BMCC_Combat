@@ -19,7 +19,7 @@ public class GameOutput {
         String userRace = userPlayer.getRace();
         int userHitPoint = userPlayer.getHitPoint();
         int userMagicPoint = userPlayer.getMagicPoint();
-        int userDefensePower = userPlayer.getDefensePower();
+        int userDefensePower = userPlayer.getTotalDefensePower();
         int userAttackPower = userPlayer.getAttackPower();
         String userWeaponName = "";
         int userWeaponIntegrity = 0;
@@ -35,7 +35,7 @@ public class GameOutput {
         String enemyRace = enemyPlayer.getRace();
         int enemyHitPoint = enemyPlayer.getHitPoint();
         int enemyMagicPoint = enemyPlayer.getMagicPoint();
-        int enemyDefensePower = enemyPlayer.getDefensePower();
+        int enemyDefensePower = enemyPlayer.getTotalDefensePower();
         int enemyAttackPower = enemyPlayer.getAttackPower();
         String enemyWeaponName = "";
         int enemyWeaponIntegrity = 0;

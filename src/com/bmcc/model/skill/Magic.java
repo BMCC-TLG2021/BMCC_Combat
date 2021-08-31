@@ -40,8 +40,7 @@ public class Magic {
     public static List<Magic> getMagicListFromJsonFile(String fileName) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            List<Magic> magicList = Arrays.asList(mapper.readValue(new File(fileName), Magic[].class));
-            return magicList;
+            return Arrays.asList(mapper.readValue(new File(fileName), Magic[].class));
         } catch(Exception e) {
             e.printStackTrace();
         }

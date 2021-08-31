@@ -13,7 +13,7 @@ public class Attacks {
         // reduce victim's armor integrity
         updateEquipmentIntegrity(victim, victim.getArmor(), "armor");
 
-        int damagePoint = attacker.getTotalPhysicalAttackPower() - victim.getDefensePower();
+        int damagePoint = attacker.getTotalPhysicalAttackPower() - victim.getTotalDefensePower();
         if (damagePoint > 0) {
             victim.damage(damagePoint);
         }
