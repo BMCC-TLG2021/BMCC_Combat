@@ -83,7 +83,11 @@ public class Character {
     }
 
     public int getTotalMagicalPower() {
-        int originalDamage = this.getMagic().getDamage();
+        int originalDamage = 0;
+        if (this.getMagic() != null){
+            originalDamage = this.getMagic().getDamage();
+        }
+
         if (this.getWeapon() != null) {
             double damageBuffer = this.getWeapon().getMagicPowerIncrease();
             return (int) ((damageBuffer + 1) * originalDamage);

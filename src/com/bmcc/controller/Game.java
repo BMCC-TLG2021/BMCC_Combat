@@ -21,6 +21,7 @@ public class Game {
     private List<Weapon> weaponList;
     private List<Armor> armorList;
     private List<Item> itemList;
+    private List<Magic> magicList;
 
 
     public void play() throws Exception {
@@ -30,8 +31,15 @@ public class Game {
         createEnemyCharacter();
         pickEquipment(userPlayer, "weapon");
         pickEquipment(userPlayer, "armor");
-        setPlayers();
-        controlFlow(userPlayer, enemyPlayer);
+        pickMagics(userPlayer);
+        renameCharacter();
+        setEnemyPlayer();
+        CoreLogic.controlFlow(userPlayer, enemyPlayer);
+    }
+
+    private void pickMagics(Character userPlayer) throws Exception {
+        Magic magic = Magic.getInstanceFromJsonFile("asset/sampleMagic.json");
+        userPlayer.setMagic(magic);
     }
 
 
@@ -52,7 +60,7 @@ public class Game {
     }
 
 
-    private void setPlayers() throws Exception {
+    private void renameCharacter() throws Exception {
         String setCharacterName = null;
         while (!("no".equalsIgnoreCase(setCharacterName) || "yes".equalsIgnoreCase(setCharacterName))){
             setCharacterName = GameInput.getUserInput("Do you want to re-name your character? (yes or no) ");
@@ -63,15 +71,6 @@ public class Game {
             String userName = GameInput.getUserInput("Please enter name for your character:");
             userPlayer.setName(userName);
         }
-
-        // Create weapon by using external JSON file
-        Weapon pWeapon = Weapon.getInstanceFromJson("asset/samplePhysicalWeapon.json");
-
-        Magic magic = Magic.getInstanceFromJsonFile("asset/sampleMagic.json");
-        userPlayer.setMagic(magic);
-
-        // Set enemy player's weapon
-        enemyPlayer.setWeapon(pWeapon);
     }
 
 
@@ -125,49 +124,10 @@ public class Game {
         System.out.println("And you are playing against: " + enemyPlayer.getName());
     }
 
+    private void setEnemyPlayer(){
+        enemyPlayer.setWeapon(randomPicker(weaponList));
 
-    private void controlFlow(Character userPlayer, Character enemyPlayer) throws Exception {
-
-        while (userPlayer.getHitPoint() > 0 && enemyPlayer.getHitPoint() > 0) {
-
-            String command = GameInput.getCommand();
-            switch (command) {
-                case "ATTACK ENEMY":
-                    Attacks.physicalAttack(userPlayer,enemyPlayer);
-                    break;
-                case "USE MAGIC":
-                    Attacks.magicalAttack(userPlayer, enemyPlayer,userPlayer.getMagic());
-                    break;
-                case "END GAME":
-                    System.out.println("GoodBye.....");
-                    System.exit(0);
-            }
-            checkWins(userPlayer.getHitPoint(), enemyPlayer.getHitPoint());
-
-            GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
-
-            // enemy player attack back.
-            enemyAttack();
-            checkWins(userPlayer.getHitPoint(), enemyPlayer.getHitPoint());
-
-            GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
-        }
-    }
-
-    private void checkWins(int userPlayerHP, int enemyPlayerHP){
-        if (enemyPlayerHP <= 0) {
-            System.out.println(userPlayer.getName() + " Win!");
-            System.exit(0);
-        } else if (userPlayerHP <= 0) {
-            System.out.println(userPlayer.getName() + " Fail!");
-            System.exit(0);
-        }
-    }
-
-
-    private void enemyAttack() throws InterruptedException {
-        Thread.sleep(3000);
-        Attacks.physicalAttack(enemyPlayer, userPlayer);
+        enemyPlayer.setArmor((randomPicker(armorList)));
     }
 
     private <T> void displayList(List<T> itemList){
