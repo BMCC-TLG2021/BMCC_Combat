@@ -125,6 +125,13 @@ public class Character {
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
+    public Armor getArmor() {
+        return armor;
+    }
+
+    public void setArmor(Armor armor) {
+        this.armor = armor;
+    }
 
     public void setMagic(Magic magic) {
         this.magic = magic;
@@ -159,9 +166,8 @@ public class Character {
     public static List<Character> getCharacterListFromJsonFile(String fileName) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            List<Character> characterList = Arrays.asList(mapper.readValue(new File(fileName), Character[].class));
 
-            return characterList;
+            return Arrays.asList(mapper.readValue(new File(fileName), Character[].class));
         } catch (Exception e) {
             e.printStackTrace();
         }
