@@ -74,7 +74,7 @@ public class GameOutput {
             characterAttributes[3] = aChar.getRace();
             characterAttributes[4] = "" + aChar.getHitPoint();
             characterAttributes[5] = "" + aChar.getMagicPoint();
-            characterAttributes[6] = "" + aChar.getDefensePower();
+            characterAttributes[6] = "" + aChar.getTotalDefensePower();
             characterAttributes[7] = "" + aChar.getAttackPower();
             st.addRow(characterAttributes);
         }
