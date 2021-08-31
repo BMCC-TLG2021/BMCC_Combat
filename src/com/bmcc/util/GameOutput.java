@@ -2,6 +2,7 @@ package com.bmcc.util;
 
 import com.bmcc.model.character.Character;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -59,19 +60,42 @@ public class GameOutput {
     }
 
     public static  void showActionDamage(Character attacker, Character victim, int damagePoint) {
-        String showActionDamageNotice = "       " +
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("************************************************************");
+        System.out.println("************************************************************");
+        System.out.println("*                                                          *");
+        System.out.println("*"+(attacker.getName() + " Attacked " + victim.getName())+"*");
+        System.out.println("*                                                          *");
+        System.out.println("************************************************************");
+        System.out.println("************************************************************");
+        System.out.println();
+        System.out.println();
 
-              "****************************************************************" +
-              "*                                                              *" +
-              "*" + (attacker.getName() + " Attacked " + victim.getName()) + "*" +
-              "*                                                              *" +
-              "****************************************************************";
-
-        System.out.println(showActionDamageNotice);
         if (damagePoint < 0) {
             damagePoint = 0;
         }
-        System.out.println(attacker.getName() + " Created " + damagePoint + " Damage to " + victim.getName());
+
+
+                System.out.println();
+                System.out.println();
+                System.out.println();
+                System.out.println("*****************************************************************************************");
+                System.out.println("*****************************************************************************************");
+                System.out.println("*                                                                                       *");
+                System.out.println("*"+(attacker.getName() + " Created " + damagePoint + " Damage to " + victim.getName())+"*");
+                System.out.println("*                                                                                       *");
+                System.out.println("*****************************************************************************************");
+                System.out.println("*****************************************************************************************");
+                System.out.println();
+
+
+
+
+
+
+
     }
 
     public static void welcomePlayer() {
