@@ -16,5 +16,32 @@
     "magicPoint": 45,
     "defensePower": 55,
     "attackPower": 56
+  },
+  {
+    "name":"The Destroyer",
+    "occupation": "Clerk",
+    "race": "Human",
+    "hitPoint": 100,
+    "magicPoint": 245,
+    "defensePower": 40,
+    "attackPower": 28
+  },
+  {
+    "name":"Naruto",
+    "occupation": "Clerk",
+    "race": "Cartoon",
+    "hitPoint": 205,
+    "magicPoint": 55,
+    "defensePower": 45,
+    "attackPower": 30
+  },
+  {
+    "name":"THE Vandalizer",
+    "occupation": "Fighter",
+    "race": "Human",
+    "hitPoint": 255,
+    "magicPoint": 45,
+    "defensePower": 55,
+    "attackPower": 56
   }
 ]
