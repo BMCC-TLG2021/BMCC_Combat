@@ -25,19 +25,18 @@ public class Game {
     private List<Armor> armorList;
     private List<Item> itemList;
 
-    private Character[] charArray = {Character.getInstance("TEST", "Worker", "Boss", 100, 100, 100, 100),
-            Character.getInstance("KNIGHT", "Worker", "Boss", 100, 100, 100, 100)};
+//    private Character[] charArray = {Character.getInstance("TEST", "Worker", "Boss", 100, 100, 100, 100),
+//            Character.getInstance("KNIGHT", "Worker", "Boss", 100, 100, 100, 100)};
 
     public void play() throws Exception {
-
+        initGame();
         welcomeUser();
         pickCharacter();
+        createEnemyCharacter();
         setPlayers();
-
-
         controlFlow(userPlayer, enemyPlayer);
 
-    private void initGame(){
+    private void initGame() {
         // todo: init character, weapon, armor, item and magic lists
         characterList = Character.getCharacterListFromJsonFile("asset/sampleCharacters.json")
 
@@ -75,24 +74,29 @@ public class Game {
 
 
     private void pickCharacter() {
-        Random random = new Random();
-        int randInt = random.nextInt(charArray.length);
-        Character randChar = charArray[randInt];
-
         String characterInput = "";
 
-        while (!GameInput.isValidCharacter(characterInput, charArray)) {
-            GameOutput.displayAllCharacters(charArray);
+        while (!GameInput.isValidCharacter(characterInput, characterList)) {
+            GameOutput.displayAllCharacters(characterList);
             characterInput = GameInput.getUserInput("Please select your character from above list:");
 
-            for (Character aChar : charArray) {
+            for (Character aChar : characterList) {
                 if (aChar.getName().equals(characterInput)) {
                     userPlayer = aChar;
-                    enemyPlayer = randChar;
                 }
             }
         }
         System.out.println("Great!! You picked: " + userPlayer.getName());
+    }
+
+    private void createEnemyCharacter() {
+        while (enemyPlayer == null || enemyPlayer.equals(userPlayer)) {
+            Random random = new Random();
+            int randInt = random.nextInt(characterList.size());
+
+            Character randChar = characterList.get(randInt);
+            enemyPlayer = randChar;
+        }
         System.out.println("And you are playing against: " + enemyPlayer.getName());
     }
 
