@@ -58,8 +58,16 @@ public class GameOutput {
 
     }
 
-    public static void showActionDamage(Character attacker, Character victim, int damagePoint) {
-        System.out.println(attacker.getName() + " Attacked " + victim.getName());
+    public static  void showActionDamage(Character attacker, Character victim, int damagePoint) {
+        String showActionDamageNotice = "       " +
+
+              "****************************************************************" +
+              "*                                                              *" +
+              "*" + (attacker.getName() + " Attacked " + victim.getName()) + "*" +
+              "*                                                              *" +
+              "****************************************************************";
+
+        System.out.println(showActionDamageNotice);
         if (damagePoint < 0) {
             damagePoint = 0;
         }
