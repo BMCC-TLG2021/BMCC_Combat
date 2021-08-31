@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Apple",
+    "healHP": 10,
+    "healMP": 0
+  },
+  {
+    "name": "Magic fruit",
+    "healHP": 0,
+    "healMP": 10
+  },
+  {
+    "name": "Combo fruit",
+    "healHP": 10,
+    "healMP": 10
+  }
+]

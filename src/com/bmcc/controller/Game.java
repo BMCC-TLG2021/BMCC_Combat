@@ -4,6 +4,7 @@ import com.bmcc.model.character.Character;
 import com.bmcc.model.equipment.Armor;
 import com.bmcc.model.item.Item;
 import com.bmcc.model.skill.Magic;
+import com.bmcc.util.GameAudio;
 import com.bmcc.util.GameInput;
 import com.bmcc.util.GameOutput;
 import com.bmcc.model.equipment.Weapon;
@@ -11,6 +12,10 @@ import com.bmcc.model.equipment.Weapon;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
 public class Game {
     private Character userPlayer;
@@ -30,12 +35,10 @@ public class Game {
         createEnemyCharacter();
         setPlayers();
         controlFlow(userPlayer, enemyPlayer);
-    }
 
     private void initGame() {
         // todo: init character, weapon, armor, item and magic lists
-        characterList = Character.getCharacterListFromJsonFile("asset/sampleCharacters.json");
-    }
+        characterList = Character.getCharacterListFromJsonFile("asset/sampleCharacters.json")
 
 
     private void welcomeUser() {

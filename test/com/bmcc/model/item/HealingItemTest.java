@@ -4,6 +4,8 @@ import com.bmcc.model.item.HealingItem;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class HealingItemTest {
@@ -34,5 +36,14 @@ public class HealingItemTest {
         assertEquals("Apple", sampleHealingItem.getName());
         assertEquals(10, sampleHealingItem.getHealHP());
         assertEquals(0, sampleHealingItem.getHealMP());
+    }
+
+    @Test
+    public void getHealingItemListFromJsonFile() {
+        List<HealingItem> healingItemList = HealingItem.getHealItemListFromJsonFile("asset/sampleHealingItems.json");
+        HealingItem healingItem3 = healingItemList.get(2);
+        assertEquals("Combo fruit", healingItem3.getName());
+        assertEquals(10, healingItem3.getHealHP());
+        assertEquals(10, healingItem3.getHealMP());
     }
 }
