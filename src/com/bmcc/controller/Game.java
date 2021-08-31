@@ -9,13 +9,9 @@ import com.bmcc.util.GameInput;
 import com.bmcc.util.GameOutput;
 import com.bmcc.model.equipment.Weapon;
 
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Random;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
 
 public class Game {
     private Character userPlayer;
@@ -25,39 +21,45 @@ public class Game {
     private List<Armor> armorList;
     private List<Item> itemList;
 
-//    private Character[] charArray = {Character.getInstance("TEST", "Worker", "Boss", 100, 100, 100, 100),
-//            Character.getInstance("KNIGHT", "Worker", "Boss", 100, 100, 100, 100)};
 
     public void play() throws Exception {
         initGame();
         welcomeUser();
         pickCharacter();
         createEnemyCharacter();
+//        pickWeapon();
         setPlayers();
         controlFlow(userPlayer, enemyPlayer);
+    }
 
-    private void initGame() {
+    private void initGame() throws Exception {
         // todo: init character, weapon, armor, item and magic lists
-        characterList = Character.getCharacterListFromJsonFile("asset/sampleCharacters.json")
+        characterList = Character.getCharacterListFromJsonFile("asset/sampleCharacters.json");
+        weaponList = Weapon.getWeaponListFromJsonFile("asset/sampleWeapons.json");
 
+    }
 
-    private void welcomeUser() {
+    private void welcomeUser() throws Exception {
         GameOutput.welcomePlayer();
         System.out.println();
         System.out.println();
         System.out.println();
+        GameAudio.PlayWelcomeAudio();
         GameOutput.showInstructions();
 
     }
 
     private void setPlayers() throws Exception {
-        // Create player by using external JSON file
-//        userPlayer = Character.getInstanceFromJsonFile("asset/samplePlayerCharacter.json");
-//        enemyPlayer = Character.getInstanceFromJsonFile("asset/sampleEnemyCharacter.json");
+        String setCharacterName = null;
+        while (!("no".equalsIgnoreCase(setCharacterName) || "yes".equalsIgnoreCase(setCharacterName))){
+            setCharacterName = GameInput.getUserInput("Do you want to re-name your character? (yes or no) ");
+        }
 
-        // Let user pick custom name for their character
-        String userName = GameInput.getUserInput("Please enter name for your character:");
-        userPlayer.setName(userName);
+        if ("yes".equalsIgnoreCase(setCharacterName)){
+            // Let user pick custom name for their character
+            String userName = GameInput.getUserInput("Please enter name for your character:");
+            userPlayer.setName(userName);
+        }
 
         // Create weapon by using external JSON file
         Weapon pWeapon = Weapon.getInstanceFromJson("asset/samplePhysicalWeapon.json");
@@ -93,9 +95,7 @@ public class Game {
         while (enemyPlayer == null || enemyPlayer.equals(userPlayer)) {
             Random random = new Random();
             int randInt = random.nextInt(characterList.size());
-
-            Character randChar = characterList.get(randInt);
-            enemyPlayer = randChar;
+            enemyPlayer = characterList.get(randInt);
         }
         System.out.println("And you are playing against: " + enemyPlayer.getName());
     }
@@ -109,76 +109,42 @@ public class Game {
             String command = GameInput.getCommand();
             switch (command) {
                 case "ATTACK ENEMY":
-                    attackEnemy(userPlayer, enemyPlayer);
-                    userPlayerHP = userPlayer.getHitPoint();
-                    enemyPlayerHP = enemyPlayer.getHitPoint();
+                    Attacks.physicalAttack(userPlayer,enemyPlayer);
                     break;
                 case "USE MAGIC":
-                    useMagic(userPlayer, enemyPlayer);
-                    userPlayerHP = userPlayer.getHitPoint();
-                    enemyPlayerHP = enemyPlayer.getHitPoint();
+                    Attacks.magicalAttack(userPlayer, enemyPlayer,userPlayer.getMagic());
                     break;
                 case "END GAME":
                     System.out.println("GoodBye.....");
                     System.exit(0);
             }
+            userPlayerHP = userPlayer.getHitPoint();
+            enemyPlayerHP = enemyPlayer.getHitPoint();
+
+            checkWins(userPlayerHP, enemyPlayerHP);
+
+            GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
+
+            // enemy player attack back.
+            enemyAttack();
+
+            GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
         }
+    }
+
+    private void checkWins(int userPlayerHP, int enemyPlayerHP){
         if (enemyPlayerHP <= 0) {
             System.out.println(userPlayer.getName() + " Win!");
-
-        } else {
+            System.exit(0);
+        } else if (userPlayerHP <= 0) {
             System.out.println(userPlayer.getName() + " Fail!");
-        }
-        System.exit(0);
-    }
-
-    private void useMagic(Character userPlayer, Character enemyPlayer) throws InterruptedException {
-        int damagePoint = userPlayer.getTotalMagicalPower();
-
-        if (userPlayer.reduceMagicPoint()) {
-            enemyPlayer.damage(damagePoint);
-            GameOutput.attackShowGraphics("asset/fight.txt");
-            GameOutput.showActionDamage(userPlayer, enemyPlayer, damagePoint);
-            GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
-        } else {
-            System.out.println("Player does not have enough Magic Power..");
-        }
-
-        if (enemyPlayer.getHitPoint() > 0) {
-            letEnemyAttack(userPlayer, enemyPlayer);
+            System.exit(0);
         }
     }
 
-
-    private void attackEnemy(Character userPlayer, Character enemyPlayer) throws InterruptedException {
-        int damagePoint = userPlayer.getTotalPhysicalAttackPower() - enemyPlayer.getDefensePower();
-        if (damagePoint > 0) {
-            enemyPlayer.damage(damagePoint);
-
-        }
-        GameOutput.attackShowGraphics("asset/fight.txt");
-        GameOutput.showActionDamage(userPlayer, enemyPlayer, damagePoint);
-        GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
-
-
-        if (enemyPlayer.getHitPoint() > 0) {
-            letEnemyAttack(userPlayer, enemyPlayer);
-        }
+    private void enemyAttack() throws InterruptedException {
+        Thread.sleep(3000);
+        Attacks.physicalAttack(enemyPlayer, userPlayer);
     }
 
-
-    private void letEnemyAttack(Character userPlayer, Character enemyPlayer) throws InterruptedException {
-        Thread.sleep(1500);
-
-        int enemyDamagePoint = enemyPlayer.getTotalPhysicalAttackPower() - userPlayer.getDefensePower();
-        if (enemyDamagePoint > 0) {
-            userPlayer.damage(enemyDamagePoint);
-        }
-        GameOutput.attackShowGraphics("asset/fight2.txt");
-        GameOutput.showActionDamage(enemyPlayer, userPlayer, enemyDamagePoint);
-        GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
-    }
-
-
-//    private void decideWinner()
 }
