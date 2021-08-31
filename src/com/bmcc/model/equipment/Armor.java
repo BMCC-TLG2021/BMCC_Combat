@@ -1,5 +1,12 @@
 package com.bmcc.model.equipment;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
 public class Armor extends Equipment{
     private final int defenceIncrease;
 
@@ -22,8 +29,10 @@ public class Armor extends Equipment{
     }
 
 
-    public Equipment getInstanceFromJsonArray(String filePath) {
-        return null;
+    public List<Armor> getArmorListFromJsonFile(String filePath) throws IOException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        return Arrays.asList(mapper.readValue(new File(filePath), Armor[].class));
     }
 
 

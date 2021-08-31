@@ -1,6 +1,7 @@
 package com.bmcc.util;
 
 import com.bmcc.model.character.Character;
+import com.bmcc.model.equipment.Weapon;
 
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.IOException;
@@ -18,6 +19,14 @@ public class GameOutput {
         int userMagicPoint = userPlayer.getMagicPoint();
         int userDefensePower = userPlayer.getDefensePower();
         int userAttackPower = userPlayer.getAttackPower();
+        String userWeaponName = "";
+        int userWeaponIntegrity = 0;
+        Weapon userWeapon = userPlayer.getWeapon();
+        if (userWeapon != null){
+            userWeaponName = userWeapon.getName();
+            userWeaponIntegrity = userWeapon.getIntegrity();
+        }
+
 
         String enemyName = enemyPlayer.getName();
         String enemyOccupation = enemyPlayer.getOccupation();
@@ -26,6 +35,13 @@ public class GameOutput {
         int enemyMagicPoint = enemyPlayer.getMagicPoint();
         int enemyDefensePower = enemyPlayer.getDefensePower();
         int enemyAttackPower = enemyPlayer.getAttackPower();
+        String enemyWeaponName = "";
+        int enemyWeaponIntegrity = 0;
+        Weapon enemyWeapon = enemyPlayer.getWeapon();
+        if (enemyWeapon != null){
+            enemyWeaponName = enemyWeapon.getName();
+            enemyWeaponIntegrity = enemyWeapon.getIntegrity();
+        }
 
 
 //        System.out.printf("%30s %30s %30s", "Name", userName, enemyName);
@@ -48,14 +64,15 @@ public class GameOutput {
         TableBuilder st = new TableBuilder();
         //st.setRightAlign(true);//if true then cell text is right aligned
         st.setShowVerticalLines(true);//if false (default) then no vertical lines are shown
-        st.setHeaders(ConsoleColors.GREEN_BOLD + "You", userName, ConsoleColors.RESET
-                + ConsoleColors.RED + "Enemy", enemyName + ConsoleColors.RESET);//optional - if not used then there will be no header and horizontal lines
+        st.setHeaders("You", userName, "Enemy", enemyName);//optional - if not used then there will be no header and horizontal lines
         st.addRow("Occupation", userOccupation, "", enemyOccupation);
         st.addRow("Race", userRace, "", enemyRace);
         st.addRow("Hit Point", "" + userHitPoint, "", "" + enemyHitPoint);
         st.addRow("Magic Point", "" + userMagicPoint, "", "" + enemyMagicPoint);
         st.addRow("Defense Power", "" + userDefensePower, "", "" + enemyDefensePower);
         st.addRow("Attack Power", "" + userAttackPower, "", "" + enemyAttackPower);
+        st.addRow("Weapon", "" + userWeaponName, "", "" + enemyWeaponName);
+        st.addRow("Weapon Integrity", "" + userWeaponIntegrity, "", "" + enemyWeaponIntegrity);
         st.print();
     }
 
