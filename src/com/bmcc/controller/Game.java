@@ -28,7 +28,6 @@ public class Game {
         pickCharacter();
         createEnemyCharacter();
         pickWeapon(userPlayer);
-        pickWeapon(enemyPlayer);
         setPlayers();
         controlFlow(userPlayer, enemyPlayer);
     }
@@ -65,10 +64,7 @@ public class Game {
 
         // Create weapon by using external JSON file
         Weapon pWeapon = Weapon.getInstanceFromJson("asset/samplePhysicalWeapon.json");
-        Weapon mWeapon = Weapon.getInstanceFromJson("asset/sampleMagicalWeapon.json");
 
-        // Set user player's weapon and magic skill
-        userPlayer.setWeapon(mWeapon);
         Magic magic = Magic.getInstanceFromJsonFile("asset/sampleMagic.json");
         userPlayer.setMagic(magic);
 
@@ -98,7 +94,7 @@ public class Game {
         displayWeaponList(weaponList);
 
         int userInput = 0;
-        while (userInput <=1 || userInput > weaponList.size()){
+        while (userInput <1 || userInput > weaponList.size()){
             try {
                 userInput = Integer.parseInt(GameInput.getUserInput(
                         "Please choose your weapon from the above listed weapons."));
@@ -123,6 +119,8 @@ public class Game {
         int enemyPlayerHP = enemyPlayer.getHitPoint();
 
         while (userPlayerHP > 0 && enemyPlayerHP > 0) {
+
+
             String command = GameInput.getCommand();
             switch (command) {
                 case "ATTACK ENEMY":
@@ -137,15 +135,15 @@ public class Game {
             }
             userPlayerHP = userPlayer.getHitPoint();
             enemyPlayerHP = enemyPlayer.getHitPoint();
-
             checkWins(userPlayerHP, enemyPlayerHP);
 
             GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
 
             // enemy player attack back.
             enemyAttack();
-
-
+            userPlayerHP = userPlayer.getHitPoint();
+            enemyPlayerHP = enemyPlayer.getHitPoint();
+            checkWins(userPlayerHP, enemyPlayerHP);
             GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
         }
     }
@@ -172,6 +170,7 @@ public class Game {
             System.out.println("\nIndex: " + index);
             System.out.println("Name: "+weapon.getName());
             System.out.println("Physical damage:"+weapon.getPhysicalDamage());
+            index++;
         }
     }
 }
