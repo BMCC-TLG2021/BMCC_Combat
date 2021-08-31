@@ -5,7 +5,7 @@
     "race": "Human",
     "hitPoint": 125,
     "magicPoint": 245,
-    "defensePower": 35,
+    "defensePower": 25,
     "attackPower": 20
   },
   {
@@ -13,35 +13,26 @@
     "occupation": "Fighter",
     "race": "Dwarf",
     "hitPoint": 255,
-    "magicPoint": 45,
+    "magicPoint": 25,
     "defensePower": 55,
     "attackPower": 56
   },
   {
-    "name":"The Destroyer",
-    "occupation": "Clerk",
-    "race": "Human",
-    "hitPoint": 100,
-    "magicPoint": 245,
-    "defensePower": 40,
-    "attackPower": 28
+    "name":"Torbera Strakeln",
+    "occupation": "Barbarian",
+    "race": "Dwarf",
+    "hitPoint": 215,
+    "magicPoint": 35,
+    "defensePower": 50,
+    "attackPower": 60
   },
   {
-    "name":"Naruto",
-    "occupation": "Clerk",
-    "race": "Cartoon",
-    "hitPoint": 205,
-    "magicPoint": 55,
-    "defensePower": 45,
-    "attackPower": 30
-  },
-  {
-    "name":"THE Vandalizer",
+    "name":"Mara Shin",
     "occupation": "Fighter",
     "race": "Human",
-    "hitPoint": 255,
-    "magicPoint": 45,
-    "defensePower": 55,
-    "attackPower": 56
+    "hitPoint": 198,
+    "magicPoint": 56,
+    "defensePower": 45,
+    "attackPower": 57
   }
 ]

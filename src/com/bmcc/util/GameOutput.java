@@ -2,6 +2,7 @@ package com.bmcc.util;
 
 import com.bmcc.model.character.Character;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -83,15 +84,38 @@ public class GameOutput {
         System.out.println();
     }
 
+    public static  void showActionDamage(Character attacker, Character victim, int damagePoint) {
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("************************************************************");
+        System.out.println("************************************************************");
+        System.out.println("*                                                          *");
+        System.out.println("*"+(attacker.getName() + ConsoleColors.RED_BOLD + " ATTACKED " + ConsoleColors.RESET + victim.getName())+"*");
+        System.out.println("*                                                          *");
+        System.out.println("************************************************************");
+        System.out.println("************************************************************");
+        System.out.println();
+        System.out.println();
 
-
-    public static void showActionDamage(Character attacker, Character victim, int damagePoint) {
-        System.out.println(attacker.getName() + ConsoleColors.RED_BOLD + " ATTACKED " + ConsoleColors.RESET + victim.getName());
         if (damagePoint < 0) {
             damagePoint = 0;
         }
-        System.out.println(attacker.getName() + ConsoleColors.RED_BOLD + " CREATED " + damagePoint + " Damage to "
-                + ConsoleColors.RESET + victim.getName()+ "\n");
+
+
+                System.out.println();
+                System.out.println();
+                System.out.println();
+                System.out.println("*****************************************************************************************");
+                System.out.println("*****************************************************************************************");
+                System.out.println("*                                                                                       *");
+                System.out.println("*"+(attacker.getName() + ConsoleColors.RED_BOLD + " CREATED " + damagePoint + " Damage to "
+                + ConsoleColors.RESET + victim.getName())+"*");
+                System.out.println("*                                                                                       *");
+                System.out.println("*****************************************************************************************");
+                System.out.println("*****************************************************************************************");
+                System.out.println();
+
     }
 
     public static void welcomePlayer() {
