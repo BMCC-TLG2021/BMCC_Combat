@@ -113,8 +113,12 @@ public class Character {
         return magicPoint;
     }
 
-    public int getDefensePower() {
-        return defensePower;
+    public int getTotalDefensePower() {
+        if (getArmor() != null){
+            return getArmor().getDefenceIncrease() + defensePower;
+        } else {
+            return defensePower;
+        }
     }
 
     public int getAttackPower() {
