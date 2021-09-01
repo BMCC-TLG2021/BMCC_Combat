@@ -28,14 +28,17 @@ public class Game {
 
 
     public void play() throws Exception {
+        GameOutput.clearScreen();
         initGame();
         welcomeUser();
         pickCharacter();
-        createEnemyCharacter();
-        pickEquipment(userPlayer, "weapon");
-        pickEquipment(userPlayer, "armor");
-        pickMagics(userPlayer);
         renameCharacter();
+        pickEquipment(userPlayer, "weapon");
+        Thread.sleep(3000);
+        pickEquipment(userPlayer, "armor");
+        Thread.sleep(3000);
+        pickMagics(userPlayer);
+        createEnemyCharacter();
         setEnemyPlayer();
         CoreLogic.controlFlow(userPlayer, enemyPlayer);
     }
@@ -95,6 +98,7 @@ public class Game {
 
 
     private void pickEquipment(Character player, String type) throws IOException {
+        GameOutput.clearScreen();
         int listSize = 0;
         if ("weapon".equalsIgnoreCase(type)) {
             GameOutput.displayWeaponList(weaponList);
@@ -115,13 +119,13 @@ public class Game {
 
         if ("weapon".equalsIgnoreCase(type)) {
             player.setWeapon(weaponList.get(userInput - 1));
+            System.out.println("Awesome!! You now have " + userPlayer.getWeapon().getName() + " for Weapon.");
         } else if ("armor".equalsIgnoreCase(type)) {
             player.setArmor(armorList.get(userInput - 1));
+            System.out.println("Awesome!! You now have " + userPlayer.getArmor().getName() + " for Armor.");
+            System.out.println();
         }
 
-        GameOutput.clearScreen();
-
-        // to-do Print Weapon and Armor chosen
     }
 
 

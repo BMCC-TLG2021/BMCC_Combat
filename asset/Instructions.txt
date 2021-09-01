@@ -3,12 +3,11 @@ Instructions on How to play BMCC-COMBAT
 1. Pick a character from character list.
 2. Re-name your character if you want.
 3. Pick a weapon from the weapon list.
-4. Pick an armor from the weapon list.
+4. Pick an armor from the armor list.
 5. Start fight
    * You can use physical attack or magical attack.
    * Your get one attack per round. 
-   * After you attack once, you have to allow your opponent to attack you. 
-   * You can use health boosters to improve your health status. 
-   * Each game only last 2 minutes.
+   * After you attack once, you have to allow your opponent to attack you.
+   * You will lose your equipment once its integrity reaches 0.
    * You can quit the game anytime.
    * Game ends when either player's HP reach 0.
