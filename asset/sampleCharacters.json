@@ -1,0 +1,38 @@
+[
+  {
+    "name":"Kethoth Murnyethara",
+    "occupation": "Cleric",
+    "race": "Human",
+    "hitPoint": 125,
+    "magicPoint": 245,
+    "defensePower": 10,
+    "attackPower": 20
+  },
+  {
+    "name":"Gardain Dankil",
+    "occupation": "Fighter",
+    "race": "Dwarf",
+    "hitPoint": 255,
+    "magicPoint": 25,
+    "defensePower": 25,
+    "attackPower": 56
+  },
+  {
+    "name":"Torbera Strakeln",
+    "occupation": "Barbarian",
+    "race": "Dwarf",
+    "hitPoint": 215,
+    "magicPoint": 35,
+    "defensePower": 30,
+    "attackPower": 60
+  },
+  {
+    "name":"Mara Shin",
+    "occupation": "Fighter",
+    "race": "Human",
+    "hitPoint": 198,
+    "magicPoint": 56,
+    "defensePower": 25,
+    "attackPower": 57
+  }
+]

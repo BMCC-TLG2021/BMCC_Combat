@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Bad Ass Axe",
+    "integrity": 5,
+    "desc": "A powerful axe",
+    "physicalDamage": 35,
+    "magicPowerIncrease": 0.0
+  },
+  {
+    "name": "Harry Potter's wand",
+    "integrity": 5,
+    "desc": "A great powerful wand",
+    "physicalDamage": 5,
+    "magicPowerIncrease": 0.5
+  },
+  {
+    "name": "Bronze Dagger",
+    "integrity": 7,
+    "desc": "A Bronze Dagger that can perform quick attack and durable",
+    "physicalDamage": 15,
+    "magicPowerIncrease": 0.0
+  }
+]
