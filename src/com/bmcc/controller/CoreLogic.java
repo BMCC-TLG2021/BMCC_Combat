@@ -12,6 +12,8 @@ import java.io.IOException;
 public class CoreLogic {
 
     public static void controlFlow(Character userPlayer, Character enemyPlayer) throws Exception {
+        GameOutput.clearScreen();
+        GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
 
         while (userPlayer.getHitPoint() > 0 && enemyPlayer.getHitPoint() > 0) {
 
@@ -30,15 +32,14 @@ public class CoreLogic {
                     file.delete();
                     System.exit(0);
             }
-            checkWins(userPlayer, enemyPlayer);
 
             GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
+            checkWins(userPlayer, enemyPlayer);
 
             // enemy player attack back.
             enemyAttack(enemyPlayer, userPlayer);
-            checkWins(userPlayer, enemyPlayer);
-
             GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
+            checkWins(userPlayer, enemyPlayer);
         }
     }
 

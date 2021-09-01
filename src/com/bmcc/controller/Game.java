@@ -134,27 +134,16 @@ public class Game {
     }
 
     private void setEnemyPlayer() {
-        enemyPlayer.setWeapon(randomPicker(weaponList));
+        while (enemyPlayer.getWeapon() == null || enemyPlayer.getWeapon().equals(userPlayer.getWeapon())){
+            enemyPlayer.setWeapon(randomPicker(weaponList));
+        }
 
-        enemyPlayer.setArmor((randomPicker(armorList)));
+        while (enemyPlayer.getArmor() == null || enemyPlayer.getArmor().equals(userPlayer.getArmor())){
+            enemyPlayer.setArmor((randomPicker(armorList)));
+        }
+
     }
 
-//    private <T> void displayList(List<T> itemList) {
-//        int index = 1;
-//        for (T item : itemList) {
-//            System.out.println("\nIndex: " + index);
-//            if (item instanceof Equipment) {
-//                System.out.println("Name: " + ((Equipment) item).getName());
-//                System.out.println("Desc: " + ((Equipment) item).getDesc());
-//                System.out.println("Integrity: " + ((Equipment) item).getIntegrity());
-//            }
-//            if (item instanceof Weapon) {
-//                System.out.println("Physical Damage: " + ((Weapon) item).getPhysicalDamage());
-//                System.out.println("magicPowerIncrease: " + ((Weapon) item).getMagicPowerIncrease() * 100 + "%");
-//            }
-//            index++;
-//        }
-//    }
 
     private <T> T randomPicker(List<T> listOfThings) {
         Random random = new Random();

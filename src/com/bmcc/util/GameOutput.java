@@ -24,10 +24,15 @@ public class GameOutput {
         int userAttackPower = userPlayer.getTotalPhysicalAttackPower();
         String userWeaponName = "";
         int userWeaponIntegrity = 0;
-        Weapon userWeapon = userPlayer.getWeapon();
-        if (userWeapon != null) {
-            userWeaponName = userWeapon.getName();
-            userWeaponIntegrity = userWeapon.getIntegrity();
+        if (userPlayer.getWeapon() != null) {
+            userWeaponName = userPlayer.getWeapon().getName();
+            userWeaponIntegrity = userPlayer.getWeapon().getIntegrity();
+        }
+        String userArmorName = "";
+        int userArmorIntegrity = 0;
+        if (userPlayer.getArmor() != null) {
+            userArmorName = userPlayer.getArmor().getName();
+            userArmorIntegrity = userPlayer.getArmor().getIntegrity();
         }
 
 
@@ -40,10 +45,16 @@ public class GameOutput {
         int enemyAttackPower = enemyPlayer.getTotalPhysicalAttackPower();
         String enemyWeaponName = "";
         int enemyWeaponIntegrity = 0;
-        Weapon enemyWeapon = enemyPlayer.getWeapon();
-        if (enemyWeapon != null) {
-            enemyWeaponName = enemyWeapon.getName();
-            enemyWeaponIntegrity = enemyWeapon.getIntegrity();
+        if (enemyPlayer.getWeapon() != null) {
+            enemyWeaponName = enemyPlayer.getWeapon().getName();
+            enemyWeaponIntegrity = enemyPlayer.getWeapon().getIntegrity();
+        }
+
+        String enemyArmorName = "";
+        int enemyArmorIntegrity = 0;
+        if (enemyPlayer.getArmor() != null) {
+            enemyArmorName = enemyPlayer.getArmor().getName();
+            enemyArmorIntegrity = enemyPlayer.getArmor().getIntegrity();
         }
 
         TableBuilder st = new TableBuilder();
@@ -58,6 +69,8 @@ public class GameOutput {
         st.addRow("Attack Power", "" + userAttackPower, "", "" + enemyAttackPower);
         st.addRow("Weapon", "" + userWeaponName, "", "" + enemyWeaponName);
         st.addRow("Weapon Integrity", "" + userWeaponIntegrity, "", "" + enemyWeaponIntegrity);
+        st.addRow("Armor", "" + userArmorName, "", "" + enemyArmorName);
+        st.addRow("Armor Integrity", "" + userArmorIntegrity, "", "" + enemyArmorIntegrity);
         st.print();
     }
 

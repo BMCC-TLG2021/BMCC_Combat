@@ -33,7 +33,7 @@ public class Attacks {
 
     public static void magicalAttack(Character attacker, Character victim, Magic magic, String filePath) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         // reduce attacker's weapon integrity
-        updateEquipmentIntegrity(attacker, attacker.getWeapon(), "armor");
+        updateEquipmentIntegrity(attacker, attacker.getWeapon(), "weapon");
 
         // todo: should I reduce armor integrity for magic attack?
 
@@ -55,7 +55,9 @@ public class Attacks {
         if (equipment == null) {
             return;
         }
+
         equipment.reduceIntegrity();
+
         if (equipment.getIntegrity() == 0){
             if ("weapon".equalsIgnoreCase(target)){
                 player.setWeapon(null);
