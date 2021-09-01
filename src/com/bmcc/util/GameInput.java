@@ -24,7 +24,7 @@ public class GameInput {
     // parse user input
     public static boolean parseUserInput(String userInput) {
         boolean isValidInput = false;
-        String parsedInput = userInput.trim();
+        String parsedInput = userInput.trim().toUpperCase();
         if (isValidCommand(parsedInput)) {
             isValidInput = true;
         }
@@ -42,20 +42,11 @@ public class GameInput {
         return isValid;
     }
 
-    public static boolean isValidCharacter(String input, List<Character> characters) {
-        boolean isValidCharacter = false;
-        for (Character item : characters) {
-            if (item.getName().equalsIgnoreCase(input)) {
-                isValidCharacter = true;
-            }
-        }
-        return isValidCharacter;
-    }
 
     // looping to check for valid commands
     public static String getCommand() {
         String userInput = getUserInput(ConsoleColors.YELLOW_BOLD + "Please enter a command from below list:\n"
-                +ConsoleColors.RESET + Arrays.toString(validCommands));
+                +ConsoleColors.RESET + Arrays.toString(validCommands).toUpperCase());
         while (!parseUserInput(userInput)) {
             System.out.println("Valid commands: " + Arrays.toString(validCommands));
             userInput = getUserInput(ConsoleColors.YELLOW_BOLD + "Please enter a valid command" + ConsoleColors.RESET);
