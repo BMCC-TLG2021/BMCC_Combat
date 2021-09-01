@@ -4,7 +4,7 @@ import com.bmcc.model.character.Character;
 import com.bmcc.model.equipment.Weapon;
 
 import javax.swing.plaf.synth.SynthOptionPaneUI;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -98,38 +98,19 @@ public class GameOutput {
         st.print();
     }
 
-    public static void showActionDamage(Character attacker, Character victim, int damagePoint) {
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println("************************************************************");
-        System.out.println("************************************************************");
-        System.out.println("*                                                          *");
-        System.out.println("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " ATTACKED " + ConsoleColors.RESET + victim.getName()) + "*");
-        System.out.println("*                                                          *");
-        System.out.println("************************************************************");
-        System.out.println("************************************************************");
-        System.out.println();
-        System.out.println();
-
+    public static List<String> showActionDamage(Character attacker, Character victim, int damagePoint) {
+        List<String> actionDamage = new ArrayList<>();
+        actionDamage.add("************************************************************");
+        actionDamage.add("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " ATTACKED " + ConsoleColors.RESET + victim.getName()) + "*");
+        actionDamage.add("************************************************************");
         if (damagePoint < 0) {
             damagePoint = 0;
         }
-
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println("*****************************************************************************************");
-        System.out.println("*****************************************************************************************");
-        System.out.println("*                                                                                       *");
-        System.out.println("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " CREATED " + damagePoint + " Damage to "
+        actionDamage.add("*****************************************************************************************");
+        actionDamage.add("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " CREATED " + damagePoint + " Damage to "
                 + ConsoleColors.RESET + victim.getName()) + "*");
-        System.out.println("*                                                                                       *");
-        System.out.println("*****************************************************************************************");
-        System.out.println("*****************************************************************************************");
-        System.out.println();
-
+        actionDamage.add("*****************************************************************************************");
+        return actionDamage;
     }
 
     public static void welcomePlayer() {
@@ -162,4 +143,56 @@ public class GameOutput {
         }
     }
 
+    public static void writeToFile(String filePath) {
+        try {
+            FileReader reader = new FileReader(filePath);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+
+            FileWriter writer = new FileWriter("asset/outputFile.txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            bufferedWriter.flush();
+
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                bufferedWriter.write(line);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+            bufferedReader.close();
+
+            reader.close();
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeStringsToFile(List<String> input) {
+        try {
+            FileWriter writer = new FileWriter("asset/outputFile.txt", true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            for (String s : input) {
+                bufferedWriter.write(s);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void clearScreen() throws IOException {
+        String os = System.getProperty("os.name").toLowerCase();
+        ProcessBuilder process = (os.contains("windows")) ?
+                new ProcessBuilder("cmd", "/c", "cls") :
+                new ProcessBuilder("clear");
+        try {
+            process.inheritIO().start().waitFor();
+        } catch (InterruptedException ignored) {
+        }
+    }
 }
