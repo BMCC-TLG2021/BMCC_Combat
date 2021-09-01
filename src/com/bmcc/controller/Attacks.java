@@ -2,11 +2,18 @@ package com.bmcc.controller;
 
 import com.bmcc.model.equipment.Equipment;
 import com.bmcc.model.skill.Magic;
+import com.bmcc.util.GameAudio;
 import com.bmcc.util.GameOutput;
 import com.bmcc.model.character.Character;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.util.List;
+
 public class Attacks {
 
-    public static void physicalAttack(Character attacker, Character victim){
+    public static void physicalAttack(Character attacker, Character victim, String filePath) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         // reduce attacker's weapon integrity
         updateEquipmentIntegrity(attacker, attacker.getWeapon(), "weapon");
 
@@ -17,12 +24,14 @@ public class Attacks {
         if (damagePoint > 0) {
             victim.damage(damagePoint);
         }
-        GameOutput.attackShowGraphics("asset/fight.txt");
-        GameOutput.showActionDamage(attacker, victim, damagePoint);
-
+        GameOutput.writeToFile(filePath);
+        List<String> actionDamage = GameOutput.showActionDamage(attacker, victim, damagePoint);
+        GameOutput.writeStringsToFile(actionDamage);
+        GameOutput.attackShowGraphics("asset/outputFile.txt");
+        GameAudio.PlayAttackAudio();
     }
 
-    public static void magicalAttack(Character attacker, Character victim, Magic magic){
+    public static void magicalAttack(Character attacker, Character victim, Magic magic, String filePath) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         // reduce attacker's weapon integrity
         updateEquipmentIntegrity(attacker, attacker.getWeapon(), "armor");
 
@@ -32,8 +41,11 @@ public class Attacks {
 
         if (attacker.reduceMagicPoint()) {
             victim.damage(damagePoint);
-            GameOutput.attackShowGraphics("asset/fight.txt");
-            GameOutput.showActionDamage(attacker, victim, damagePoint);
+            GameOutput.writeToFile(filePath);
+            List<String> actionDamage = GameOutput.showActionDamage(attacker, victim, damagePoint);
+            GameOutput.writeStringsToFile(actionDamage);
+            GameOutput.attackShowGraphics("asset/outputFile.txt");
+            GameAudio.PlayMagicalAudio();
         } else {
             System.out.println("Player does not have enough Magic Power..");
         }

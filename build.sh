@@ -6,14 +6,14 @@
 #     In this example, any third-party library JARs are located in 'lib' and added to the classpath [-classpath option].
 #     Remove this -classpath "lib/*" if you're not using any, which results in the following:
 #     javac -d classes src/com/games/blackjack/client/*.java src/com/games/blackjack/controller/*.java src/com/games/blackjack/domain/*.java
-javac -d classes  -classpath "lib/*" src/com/bmcc/combat/*.java
+javac -d classes  -classpath "lib/*":"lib/jackson-2.12.5/*" src/com/bmcc/client/*.java src/com/bmcc/controller/*.java src/com/bmcc/model/character/*.java src/com/bmcc/model/equipment/*.java src/com/bmcc/model/item/*.java src/com/bmcc/model/skill/*.java src/com/bmcc/util/*.java
 
 
 #     Build the application JAR.
 #     This example adds the directory tree of .class files starting at 'classes'.
 #     Note that any third-party library JARs are *not* included in your application JAR, 
 #     nor are any resource files, e.g., config files, data files, banner.txt, etc.
-jar --create --file bmcc-combat-1.0.jar -C classes .
+jar --create --file bmcc-combat-1.1.jar -C classes .
 
 
 #     Create the Javadoc.
