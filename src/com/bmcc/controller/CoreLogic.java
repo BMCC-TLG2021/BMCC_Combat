@@ -19,7 +19,7 @@ public class CoreLogic {
 
             String command = GameInput.getCommand();
             GameOutput.clearScreen();
-            switch (command) {
+            switch (command.toUpperCase()) {
                 case "ATTACK ENEMY":
                     Attacks.physicalAttack(userPlayer, enemyPlayer, "asset/userFight.txt");
                     break;
@@ -60,7 +60,7 @@ public class CoreLogic {
 
 
     private static void enemyAttack(Character enemyPlayer, Character userPlayer) throws InterruptedException, IOException, UnsupportedAudioFileException, LineUnavailableException {
-        Thread.sleep(3000);
+        Thread.sleep(4500);
         GameOutput.clearScreen();
         Attacks.physicalAttack(enemyPlayer, userPlayer, "asset/enemyFight.txt");
     }
