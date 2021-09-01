@@ -1,6 +1,7 @@
 package com.bmcc.util;
 
 import com.bmcc.model.character.Character;
+import com.bmcc.model.equipment.Armor;
 import com.bmcc.model.equipment.Weapon;
 
 import javax.swing.plaf.synth.SynthOptionPaneUI;
@@ -20,7 +21,7 @@ public class GameOutput {
         int userHitPoint = userPlayer.getHitPoint();
         int userMagicPoint = userPlayer.getMagicPoint();
         int userDefensePower = userPlayer.getTotalDefensePower();
-        int userAttackPower = userPlayer.getAttackPower();
+        int userAttackPower = userPlayer.getTotalPhysicalAttackPower();
         String userWeaponName = "";
         int userWeaponIntegrity = 0;
         Weapon userWeapon = userPlayer.getWeapon();
@@ -36,7 +37,7 @@ public class GameOutput {
         int enemyHitPoint = enemyPlayer.getHitPoint();
         int enemyMagicPoint = enemyPlayer.getMagicPoint();
         int enemyDefensePower = enemyPlayer.getTotalDefensePower();
-        int enemyAttackPower = enemyPlayer.getAttackPower();
+        int enemyAttackPower = enemyPlayer.getTotalPhysicalAttackPower();
         String enemyWeaponName = "";
         int enemyWeaponIntegrity = 0;
         Weapon enemyWeapon = enemyPlayer.getWeapon();
@@ -85,15 +86,35 @@ public class GameOutput {
         TableBuilder st = new TableBuilder();
         st.setShowVerticalLines(true);
         int i = 1;
-        st.setHeaders("ID", "Name", "Physical damage");
+        st.setHeaders("ID", "Name", "Description", "Integrity", "Physical damage", "Magical Power Increased By");
         for (Weapon weapon: weaponList) {
-            String[] weaponAttributes =  new String[3];
+            String[] weaponAttributes =  new String[6];
             weaponAttributes[0] = "" + i;
             i++;
             weaponAttributes[1] = weapon.getName();
-            weaponAttributes[2] = "" + weapon.getPhysicalDamage();
-
+            weaponAttributes[2] = weapon.getDesc();
+            weaponAttributes[3] = "" + weapon.getIntegrity();
+            weaponAttributes[4] = "" + weapon.getPhysicalDamage();
+            weaponAttributes[5] = (weapon.getMagicPowerIncrease() * 100) + "%";
             st.addRow(weaponAttributes);
+        }
+        st.print();
+    }
+
+    public static void displayArmorList(List<Armor> armorList) {
+        TableBuilder st = new TableBuilder();
+        st.setShowVerticalLines(true);
+        int i = 1;
+        st.setHeaders("ID", "Name", "Description", "Integrity", "Defense Increase");
+        for (Armor armor: armorList) {
+            String[] armorAttributes =  new String[5];
+            armorAttributes[0] = "" + i;
+            i++;
+            armorAttributes[1] = armor.getName();
+            armorAttributes[2] = armor.getDesc();
+            armorAttributes[3] = "" + armor.getIntegrity();
+            armorAttributes[4] = "" + armor.getDefenceIncrease();
+            st.addRow(armorAttributes);
         }
         st.print();
     }

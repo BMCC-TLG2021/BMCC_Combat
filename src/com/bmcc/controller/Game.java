@@ -5,6 +5,7 @@ import com.bmcc.model.equipment.Armor;
 import com.bmcc.model.equipment.Equipment;
 import com.bmcc.model.item.Item;
 import com.bmcc.model.skill.Magic;
+import com.bmcc.util.ConsoleColors;
 import com.bmcc.util.GameAudio;
 import com.bmcc.util.GameInput;
 import com.bmcc.util.GameOutput;
@@ -12,6 +13,7 @@ import com.bmcc.model.equipment.Weapon;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -75,7 +77,7 @@ public class Game {
     }
 
 
-    private void pickCharacter() {
+    private void pickCharacter() throws IOException {
         GameOutput.displayCharacterList(characterList);
         int userInput = 0;
         while (userInput < 1 || userInput > characterList.size()) {
@@ -86,17 +88,19 @@ public class Game {
             }
         }
         userPlayer = characterList.get(userInput - 1);
-        System.out.println("Great!! You picked: " + userPlayer.getName());
+        GameOutput.clearScreen();
+        System.out.println("Great!! You picked: " + ConsoleColors.GREEN_BOLD + userPlayer.getName()
+        + ConsoleColors.RESET);
     }
 
 
-    private void pickEquipment(Character player, String type) {
+    private void pickEquipment(Character player, String type) throws IOException {
         int listSize = 0;
         if ("weapon".equalsIgnoreCase(type)) {
             GameOutput.displayWeaponList(weaponList);
             listSize = weaponList.size();
         } else if ("armor".equalsIgnoreCase(type)) {
-            displayList(armorList);
+            GameOutput.displayArmorList(armorList);
             listSize = armorList.size();
         }
 
@@ -114,6 +118,10 @@ public class Game {
         } else if ("armor".equalsIgnoreCase(type)) {
             player.setArmor(armorList.get(userInput - 1));
         }
+
+        GameOutput.clearScreen();
+
+        // to-do Print Weapon and Armor chosen
     }
 
 
@@ -121,7 +129,8 @@ public class Game {
         while (enemyPlayer == null || enemyPlayer.equals(userPlayer)) {
             enemyPlayer = randomPicker(characterList);
         }
-        System.out.println("And you are playing against: " + enemyPlayer.getName());
+        System.out.println("And you are playing against: " + ConsoleColors.RED_BOLD + enemyPlayer.getName()
+        + ConsoleColors.RESET);
     }
 
     private void setEnemyPlayer() {
@@ -130,22 +139,22 @@ public class Game {
         enemyPlayer.setArmor((randomPicker(armorList)));
     }
 
-    private <T> void displayList(List<T> itemList) {
-        int index = 1;
-        for (T item : itemList) {
-            System.out.println("\nIndex: " + index);
-            if (item instanceof Equipment) {
-                System.out.println("Name: " + ((Equipment) item).getName());
-                System.out.println("Desc: " + ((Equipment) item).getDesc());
-                System.out.println("Integrity: " + ((Equipment) item).getIntegrity());
-            }
-            if (item instanceof Weapon) {
-                System.out.println("Physical Damage: " + ((Weapon) item).getPhysicalDamage());
-                System.out.println("magicPowerIncrease: " + ((Weapon) item).getMagicPowerIncrease() * 100 + "%");
-            }
-            index++;
-        }
-    }
+//    private <T> void displayList(List<T> itemList) {
+//        int index = 1;
+//        for (T item : itemList) {
+//            System.out.println("\nIndex: " + index);
+//            if (item instanceof Equipment) {
+//                System.out.println("Name: " + ((Equipment) item).getName());
+//                System.out.println("Desc: " + ((Equipment) item).getDesc());
+//                System.out.println("Integrity: " + ((Equipment) item).getIntegrity());
+//            }
+//            if (item instanceof Weapon) {
+//                System.out.println("Physical Damage: " + ((Weapon) item).getPhysicalDamage());
+//                System.out.println("magicPowerIncrease: " + ((Weapon) item).getMagicPowerIncrease() * 100 + "%");
+//            }
+//            index++;
+//        }
+//    }
 
     private <T> T randomPicker(List<T> listOfThings) {
         Random random = new Random();
