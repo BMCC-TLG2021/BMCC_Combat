@@ -73,27 +73,28 @@ public class Character {
     }
 
     public int getTotalPhysicalAttackPower() {
-        if (this.getWeapon() != null){
-            return this.attackPower + this.getWeapon().getPhysicalDamage();
-        } else {
-            return this.attackPower;
+        if (this.getWeapon() != null) {
+            if (this.getWeapon().getIntegrity() > 0) {
+                return this.attackPower + this.getWeapon().getPhysicalDamage();
+            }
         }
-
-
+        return this.attackPower;
     }
 
     public int getTotalMagicalPower() {
         int originalDamage = 0;
-        if (this.getMagic() != null){
+        if (this.getMagic() != null) {
+
             originalDamage = this.getMagic().getDamage();
         }
 
         if (this.getWeapon() != null) {
-            double damageBuffer = this.getWeapon().getMagicPowerIncrease();
-            return (int) ((damageBuffer + 1) * originalDamage);
-        } else {
-            return originalDamage;
+            if (this.getWeapon().getIntegrity() > 0) {
+                double damageBuffer = this.getWeapon().getMagicPowerIncrease();
+                return (int) ((damageBuffer + 1) * originalDamage);
+            }
         }
+        return originalDamage;
     }
 
     // Getters
@@ -105,9 +106,13 @@ public class Character {
         this.name = name;
     }
 
-    public String getOccupation() {return occupation;}
+    public String getOccupation() {
+        return occupation;
+    }
 
-    public String getRace() {return race;}
+    public String getRace() {
+        return race;
+    }
 
     public int getHitPoint() {
         return hitPoint;
@@ -133,7 +138,7 @@ public class Character {
     }
 
     public int getTotalDefensePower() {
-        if (getArmor() != null){
+        if (getArmor() != null) {
             return getArmor().getDefenceIncrease() + defensePower;
         } else {
             return defensePower;
@@ -159,6 +164,7 @@ public class Character {
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
+
     public Armor getArmor() {
         return armor;
     }
@@ -189,12 +195,12 @@ public class Character {
         String name = (String) jo.get("name");
         String occupation = (String) jo.get("occupation");
         String race = (String) jo.get("race");
-        int hitPoint = (int)(long) jo.get("hitPoint");
-        int magicPoint = (int)(long) jo.get("magicPoint");
-        int defensePower = (int)(long) jo.get("defensePower");
-        int attackPower = (int)(long) jo.get("attackPower");
+        int hitPoint = (int) (long) jo.get("hitPoint");
+        int magicPoint = (int) (long) jo.get("magicPoint");
+        int defensePower = (int) (long) jo.get("defensePower");
+        int attackPower = (int) (long) jo.get("attackPower");
 
-        return new Character(name, occupation, race, hitPoint,magicPoint,defensePower,attackPower);
+        return new Character(name, occupation, race, hitPoint, magicPoint, defensePower, attackPower);
     }
 
     public static List<Character> getCharacterListFromJsonFile(String fileName) {
@@ -208,9 +214,9 @@ public class Character {
         return null;
     }
 
-    public static Character getInstance(String name, String occupation, String race,int hitPoint,
-                                 int magicPoint, int defensePower, int attackPower){
-        return new Character(name, occupation, race, hitPoint,magicPoint,defensePower,attackPower);
+    public static Character getInstance(String name, String occupation, String race, int hitPoint,
+                                        int magicPoint, int defensePower, int attackPower) {
+        return new Character(name, occupation, race, hitPoint, magicPoint, defensePower, attackPower);
     }
 
 
