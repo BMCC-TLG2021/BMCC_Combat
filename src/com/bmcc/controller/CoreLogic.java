@@ -49,7 +49,7 @@ public class CoreLogic {
         }
     }
 
-    private static void checkWins(Player userPlayer, Character enemyPlayer){
+    private static void checkWins(Player userPlayer, Character enemyPlayer) throws Exception {
         if (enemyPlayer.getHitPoint() <= 0) {
             System.out.println(userPlayer.getName() + " Win!");
             // delete outputFile.txt before game over
@@ -68,7 +68,8 @@ public class CoreLogic {
                     // don't need to do anything
                     break;
                 case "SEE VENDOR":
-//                    Vendor.seeVendor(userPlayer);
+                    Vendor v = Vendor.createInstance(userPlayer);
+                    v.tradeEquipment();
             }
         } else if (userPlayer.getHitPoint() <= 0) {
 
