@@ -1,6 +1,8 @@
 package com.bmcc.controller;
 
 import com.bmcc.model.character.Character;
+import com.bmcc.model.character.Player;
+import com.bmcc.model.equipment.Equipment;
 import com.bmcc.util.GameInput;
 import com.bmcc.util.GameOutput;
 
@@ -11,7 +13,8 @@ import java.io.IOException;
 
 public class CoreLogic {
 
-    public static void controlFlow(Character userPlayer, Character enemyPlayer) throws Exception {
+    public static void controlFlow(Player userPlayer, Character enemyPlayer) throws Exception {
+        userPlayer.getPlayerReadyToFight();
         GameOutput.clearScreen();
         GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
 
@@ -31,6 +34,9 @@ public class CoreLogic {
                     File file = new File("asset/outputFile.txt");
                     file.delete();
                     System.exit(0);
+                    break;
+                case "SAVE GAME":
+                    // todo: insert save game method.
             }
 
             GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
@@ -43,15 +49,32 @@ public class CoreLogic {
         }
     }
 
-    private static void checkWins(Character userPlayer, Character enemyPlayer){
+    private static void checkWins(Player userPlayer, Character enemyPlayer){
         if (enemyPlayer.getHitPoint() <= 0) {
             System.out.println(userPlayer.getName() + " Win!");
             // delete outputFile.txt before game over
             File file = new File("asset/outputFile.txt");
             file.delete();
-            System.exit(0);
+
+            // reward user.
+            userPlayer.addGold(100);
+            userPlayer.addEquipmentToBackpack((Equipment) enemyPlayer.getWeapon());
+            userPlayer.addEquipmentToBackpack((Equipment)enemyPlayer.getArmor());
+
+            // user now can go directly to next battle or see wendor
+            String command = GameInput.getSeeVendorCommand();
+            switch (command.toUpperCase()){
+                case "GO BATTLE":
+                    // don't need to do anything
+                    break;
+                case "SEE VENDOR":
+//                    Vendor.seeVendor(userPlayer);
+            }
         } else if (userPlayer.getHitPoint() <= 0) {
+
+            // todo: update failing store
             System.out.println(userPlayer.getName() + " Fail!");
+
             File file = new File("asset/outputFile.txt");
             file.delete();
             System.exit(0);
