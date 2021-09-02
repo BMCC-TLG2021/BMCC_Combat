@@ -39,7 +39,7 @@ public class Character {
     @JsonIgnore
     private List<Item> itemList;
     // Constructors
-    private Character(String name, String occupation, String race,int hitPoint, int magicPoint, int defensePower, int attackPower) {
+    Character(String name, String occupation, String race,int hitPoint, int magicPoint, int defensePower, int attackPower) {
         this.name = name;
         this.occupation = occupation;
         this.race = race;
