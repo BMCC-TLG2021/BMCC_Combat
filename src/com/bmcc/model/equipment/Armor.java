@@ -13,9 +13,11 @@ public class Armor extends Equipment{
 
     private Armor(@JsonProperty("name") String name,
                   @JsonProperty("integrity") int integrity,
+                  @JsonProperty("integrity") int maxIntegrity,
                   @JsonProperty("desc") String desc,
+                  @JsonProperty("moneyValue") int moneyValue,
                   @JsonProperty("defenceIncrease") int defenceIncrease) {
-        super(name, integrity, desc);
+        super(name, integrity, maxIntegrity, desc, moneyValue);
         this.defenceIncrease = defenceIncrease;
     }
 
@@ -23,8 +25,8 @@ public class Armor extends Equipment{
         return this.defenceIncrease;
     }
 
-    public Armor getInstance(String name, int integrity, String desc, int defenceIncrease) {
-        return new Armor(name, integrity, desc, defenceIncrease);
+    public Armor getInstance(String name, int integrity, int maxIntegrity, String desc, int moneyValue, int defenceIncrease) {
+        return new Armor(name, integrity, maxIntegrity, desc, moneyValue, defenceIncrease);
     }
 
 
