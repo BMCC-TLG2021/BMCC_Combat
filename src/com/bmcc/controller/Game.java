@@ -14,6 +14,7 @@ import com.bmcc.model.equipment.Weapon;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -21,6 +22,7 @@ public class Game {
     private Character userPlayer;
     private Character enemyPlayer;
     private List<Character> characterList;
+    private List<Character> enemyList;
     private List<Weapon> weaponList;
     private List<Armor> armorList;
     private List<Item> itemList;
@@ -32,6 +34,7 @@ public class Game {
         initGame();
         welcomeUser();
         pickCharacter();
+        createEnemyList(enemyList, userPlayer);
         renameCharacter();
         pickEquipment(userPlayer, "weapon");
         Thread.sleep(3000);
@@ -41,6 +44,11 @@ public class Game {
         createEnemyCharacter();
         setEnemyPlayer();
         CoreLogic.controlFlow(userPlayer, enemyPlayer);
+    }
+
+    private void createEnemyList(List<Character> enemyList, Character userPlayer) {
+        enemyList = new ArrayList<>(characterList);
+        enemyList.remove(userPlayer);
     }
 
     private void pickMagics(Character userPlayer) throws Exception {
@@ -93,7 +101,7 @@ public class Game {
         userPlayer = characterList.get(userInput - 1);
         GameOutput.clearScreen();
         System.out.println("Great!! You picked: " + ConsoleColors.GREEN_BOLD + userPlayer.getName()
-        + ConsoleColors.RESET);
+                + ConsoleColors.RESET);
     }
 
 
@@ -134,15 +142,15 @@ public class Game {
             enemyPlayer = randomPicker(characterList);
         }
         System.out.println("And you are playing against: " + ConsoleColors.RED_BOLD + enemyPlayer.getName()
-        + ConsoleColors.RESET);
+                + ConsoleColors.RESET);
     }
 
     private void setEnemyPlayer() {
-        while (enemyPlayer.getWeapon() == null || enemyPlayer.getWeapon().equals(userPlayer.getWeapon())){
+        while (enemyPlayer.getWeapon() == null || enemyPlayer.getWeapon().equals(userPlayer.getWeapon())) {
             enemyPlayer.setWeapon(randomPicker(weaponList));
         }
 
-        while (enemyPlayer.getArmor() == null || enemyPlayer.getArmor().equals(userPlayer.getArmor())){
+        while (enemyPlayer.getArmor() == null || enemyPlayer.getArmor().equals(userPlayer.getArmor())) {
             enemyPlayer.setArmor((randomPicker(armorList)));
         }
 
