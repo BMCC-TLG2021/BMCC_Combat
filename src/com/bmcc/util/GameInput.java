@@ -7,7 +7,8 @@ import com.bmcc.model.character.Character;
 public class GameInput {
     private static String userInput;
     private static final Scanner scanner = new Scanner(System.in);
-    private static final String[] validCommands = {"ATTACK ENEMY", "USE MAGIC", "END GAME"};
+    private static final String[] validCommands = {"ATTACK ENEMY", "USE MAGIC", "END GAME", "SAVE GAME"};
+    private static final String[] validSeeVendorCommands = {"GO BATTLE", "SEE VENDOR"};
 
 
     // Ingest user input
@@ -49,6 +50,17 @@ public class GameInput {
                 +ConsoleColors.RESET + Arrays.toString(validCommands).toUpperCase());
         while (!parseUserInput(userInput)) {
             System.out.println("Valid commands: " + Arrays.toString(validCommands));
+            userInput = getUserInput(ConsoleColors.YELLOW_BOLD + "Please enter a valid command" + ConsoleColors.RESET);
+        }
+        return userInput;
+    }
+
+    public static String getSeeVendorCommand(){
+        String userInput = getUserInput(ConsoleColors.YELLOW_BOLD + "Do you want to go directly to next battle, " +
+                "or see the vendor to update your equipment? \n"
+                +ConsoleColors.RESET + Arrays.toString(validSeeVendorCommands).toUpperCase());
+        while (!parseUserInput(userInput)) {
+            System.out.println("Valid commands: " + Arrays.toString(validSeeVendorCommands));
             userInput = getUserInput(ConsoleColors.YELLOW_BOLD + "Please enter a valid command" + ConsoleColors.RESET);
         }
         return userInput;
