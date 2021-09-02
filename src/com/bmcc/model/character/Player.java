@@ -13,7 +13,7 @@ public class Player extends Character {
     private final int maxAttack;
     private int gold = 100;
     private int rank = 8;
-    private Player instance;
+    private static Player instance = null;
 
     private Player(String name, String occupation, String race,int hitPoint, int magicPoint, int defensePower,
                    int attackPower) {
@@ -43,7 +43,10 @@ public class Player extends Character {
     //todo: reset status for player
 
     public void getPlayerReadyToFight(){
-
+        this.setHitPoint(maxHP);
+        this.setMagicPoint(maxMP);
+        this.setDefensePower(maxDefense);
+        this.setAttackPower(maxAttack);
     }
 
     public List<Equipment> getEquipmentFromBackpack() {
@@ -97,8 +100,8 @@ public class Player extends Character {
         }
     }
 
-    public Player createInstanceFromCharacter(Character character){
-        if (this.instance == null){
+    public static Player createInstanceFromCharacter(Character character){
+        if (instance == null){
             instance = new Player(character.getName(),
                     character.getOccupation(),
                     character.getRace(),
@@ -107,6 +110,6 @@ public class Player extends Character {
                     character.getTotalDefensePower(),
                     character.getAttackPower());
         }
-        return this.instance;
+        return instance;
     }
 }

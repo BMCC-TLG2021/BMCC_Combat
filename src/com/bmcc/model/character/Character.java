@@ -113,8 +113,23 @@ public class Character {
         return hitPoint;
     }
 
+    void setHitPoint(int point){
+        this.hitPoint = point;
+    }
+
     public int getMagicPoint() {
         return magicPoint;
+    }
+    void setMagicPoint(int point){
+        this.magicPoint = point;
+    }
+
+    public int getDefensePower() {
+        return defensePower;
+    }
+
+    void setDefensePower(int defensePower) {
+        this.defensePower = defensePower;
     }
 
     public int getTotalDefensePower() {
@@ -127,6 +142,10 @@ public class Character {
 
     public int getAttackPower() {
         return attackPower;
+    }
+
+    void setAttackPower(int attackPower) {
+        this.attackPower = attackPower;
     }
 
     public Magic getMagic() {

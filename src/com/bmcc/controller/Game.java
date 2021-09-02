@@ -1,6 +1,7 @@
 package com.bmcc.controller;
 
 import com.bmcc.model.character.Character;
+import com.bmcc.model.character.Player;
 import com.bmcc.model.equipment.Armor;
 import com.bmcc.model.equipment.Equipment;
 import com.bmcc.model.item.Item;
@@ -40,7 +41,7 @@ public class Game {
         pickMagics(userPlayer);
         createEnemyCharacter();
         setEnemyPlayer();
-        CoreLogic.controlFlow(userPlayer, enemyPlayer);
+        CoreLogic.controlFlow(Player.createInstanceFromCharacter(userPlayer) , enemyPlayer);
     }
 
     private void pickMagics(Character userPlayer) throws Exception {

@@ -14,7 +14,7 @@ import java.io.IOException;
 public class CoreLogic {
 
     public static void controlFlow(Player userPlayer, Character enemyPlayer) throws Exception {
-        userPlayer.resetStatus();
+        userPlayer.getPlayerReadyToFight();
         GameOutput.clearScreen();
         GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
 
@@ -68,7 +68,7 @@ public class CoreLogic {
                     // don't need to do anything
                     break;
                 case "SEE VENDOR":
-                    Vendor.seeVendor(userPlayer);
+//                    Vendor.seeVendor(userPlayer);
             }
         } else if (userPlayer.getHitPoint() <= 0) {
 
