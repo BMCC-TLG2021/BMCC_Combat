@@ -161,10 +161,11 @@ public class GameOutput {
 
     public static List<String> showActionDamage(Character attacker, Character victim, int damagePoint) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         List<String> actionDamage = new ArrayList<>();
-        GameAudio.PlayResultAudio();
+
         actionDamage.add("************************************************************");
         actionDamage.add("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " ATTACKED " + ConsoleColors.RESET + victim.getName()) + "*");
         actionDamage.add("************************************************************");
+        GameAudio.PlayResultAudio();
         if (damagePoint < 0) {
             damagePoint = 0;
         }
