@@ -35,19 +35,34 @@ public class Game {
         initGame();
         welcomeUser();
         pickCharacter();
-        createEnemyList(enemyList, userPlayer);
+        createEnemyList(userPlayer);
         renameCharacter();
+//        Player.visitVendor(Player.createInstanceFromCharacter(userPlayer));
+        pickMagics(userPlayer);
+        continuePlay();
+    }
+
+    private void continuePlay() throws Exception {
+        while (enemyList != null) {
+            for (Character enemy : enemyList) {
+                createEnemyCharacter();
+                setEnemyPlayer();
+                CoreLogic.controlFlow(Player.createInstanceFromCharacter(userPlayer), enemyPlayer);
+            }
+        }
+        System.out.println("You united 7 kingdoms and made your father's dream come true.");
+    }
+
+    private void visitVendor(Character userPlayer) throws Exception {
+        Vendor v = Vendor.createInstance((Player) userPlayer);
+        v.tradeEquipment();
         pickEquipment(userPlayer, "weapon");
         Thread.sleep(3000);
         pickEquipment(userPlayer, "armor");
         Thread.sleep(3000);
-        pickMagics(userPlayer);
-        createEnemyCharacter();
-        setEnemyPlayer();
-        CoreLogic.controlFlow(Player.createInstanceFromCharacter(userPlayer) , enemyPlayer);
     }
 
-    private void createEnemyList(List<Character> enemyList, Character userPlayer) {
+    private void createEnemyList(Character userPlayer) {
         enemyList = new ArrayList<>(characterList);
         enemyList.remove(userPlayer);
     }
@@ -61,8 +76,8 @@ public class Game {
     private void initGame() throws Exception {
         // todo: init character, weapon, armor, item and magic lists
         characterList = Character.getCharacterListFromJsonFile("asset/sampleCharacters.json");
-        weaponList = Weapon.getWeaponListFromJsonFile("asset/sampleWeapons.json");
-        armorList = Armor.getArmorListFromJsonFile("asset/sampleArmors.json");
+//        weaponList = Weapon.getWeaponListFromJsonFile("asset/sampleWeapons.json");
+//        armorList = Armor.getArmorListFromJsonFile("asset/sampleArmors.json");
     }
 
     private void welcomeUser() throws Exception {
@@ -140,7 +155,10 @@ public class Game {
 
     private void createEnemyCharacter() {
         while (enemyPlayer == null || enemyPlayer.equals(userPlayer)) {
-            enemyPlayer = randomPicker(characterList);
+//            enemyPlayer = randomPicker(characterList);
+            // create enemy for the list and remove from list once created
+            enemyPlayer = enemyList.get(0);
+            enemyList.remove(enemyPlayer);
         }
         System.out.println("And you are playing against: " + ConsoleColors.RED_BOLD + enemyPlayer.getName()
                 + ConsoleColors.RESET);
@@ -156,7 +174,6 @@ public class Game {
         }
 
     }
-
 
     private <T> T randomPicker(List<T> listOfThings) {
         Random random = new Random();
