@@ -2,19 +2,25 @@
   {
     "name": "Big Ass Shield",
     "integrity": 10,
+    "maxIntegrity": 10,
     "desc": "A very big, round shield",
+    "moneyValue": 600,
     "defenceIncrease": 35
   },
   {
     "name": "Golden knight's armor",
     "integrity": 3,
+    "maxIntegrity": 3,
     "desc": "A great looking gold armor set, but is not durable.",
+    "moneyValue": 500,
     "defenceIncrease": 25
   },
   {
     "name": "Bronze helmet",
     "integrity": 7,
+    "maxIntegrity": 7,
     "desc": "A Bronze helmet that can keep you away from a concussion",
+    "moneyValue": 100,
     "defenceIncrease": 5
   }
 ]

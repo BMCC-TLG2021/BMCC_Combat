@@ -3,11 +3,12 @@ package com.bmcc.model.character;
 import com.bmcc.controller.Vendor;
 import com.bmcc.model.equipment.Equipment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Character {
 
-    private List<Equipment> backpack;
+    private List<Equipment> backpack = new ArrayList<>();
     private final int maxHP;
     private final int maxMP;
     private final int maxDefense;
@@ -41,13 +42,19 @@ public class Player extends Character {
         return maxAttack;
     }
 
-    //todo: reset status for player
 
     public void getPlayerReadyToFight(){
         this.setHitPoint(maxHP);
         this.setMagicPoint(maxMP);
         this.setDefensePower(maxDefense);
         this.setAttackPower(maxAttack);
+        if (this.getWeapon() != null){
+            this.getWeapon().restoreIntegrity();
+        }
+        if (this.getArmor() != null){
+            this.getArmor().restoreIntegrity();
+        }
+
     }
 
     public List<Equipment> getEquipmentFromBackpack() {
