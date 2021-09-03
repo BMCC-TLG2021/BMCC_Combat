@@ -57,20 +57,8 @@ public class Player extends Character {
         this.backpack.add(equipment);
     }
 
-    public boolean removeEquipmentFromBackpack(String equipmentName){
-        int index = -1;
-        for (int i = 0; i < backpack.size(); i++){
-            if (equipmentName.equalsIgnoreCase(backpack.get(i).getName())){
-                index = i;
-                break;
-            }
-        }
-
-        if (index != -1) {
-            backpack.remove(index);
-        }
-
-        return index != -1;
+    public boolean removeEquipmentFromBackpack(Equipment equipment){
+        return backpack.remove(equipment);
     }
 
     public int getGold() {

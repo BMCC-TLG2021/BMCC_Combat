@@ -78,8 +78,6 @@ public class CoreLogic {
                 case "SEE VENDOR":
                     Vendor v = Vendor.createInstance(userPlayer);
                     v.tradeEquipment();
-                    GameAudio.PlayDoorAudio();
-                    GameOutput.showWelcomeToWeaponStore();
             }
         } else if (userPlayer.getHitPoint() <= 0) {
 
