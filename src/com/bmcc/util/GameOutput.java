@@ -2,6 +2,7 @@ package com.bmcc.util;
 
 import com.bmcc.model.character.Character;
 import com.bmcc.model.equipment.Armor;
+import com.bmcc.model.equipment.Equipment;
 import com.bmcc.model.equipment.Weapon;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -95,6 +96,20 @@ public class GameOutput {
             st.addRow(characterAttributes);
         }
         st.print();
+    }
+
+    public static void displayBackPack(List<Equipment> backpack) {
+        List<Weapon> weaponList = null;
+        List<Armor> armorList = null;
+        for (Equipment equipment : backpack) {
+            if (equipment instanceof Weapon) {
+                weaponList.add((Weapon) equipment);
+            } else {
+                armorList.add((Armor) equipment);
+            }
+        }
+        displayWeaponList(weaponList);
+        displayArmorList(armorList);
     }
 
     public static void displayWeaponList(List<Weapon> weaponList) {
