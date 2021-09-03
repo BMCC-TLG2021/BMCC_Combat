@@ -3,7 +3,6 @@ package com.bmcc.controller;
 import com.bmcc.model.character.Character;
 import com.bmcc.model.character.Player;
 import com.bmcc.model.equipment.Armor;
-import com.bmcc.model.equipment.Equipment;
 import com.bmcc.model.item.Item;
 import com.bmcc.model.skill.Magic;
 import com.bmcc.util.ConsoleColors;
@@ -13,7 +12,6 @@ import com.bmcc.util.GameOutput;
 import com.bmcc.model.equipment.Weapon;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,7 @@ public class Game {
 
     public void play() throws Exception {
         GameOutput.clearScreen();
-        initGame();
+        initCharacter();
         welcomeUser();
         pickCharacter();
         createEnemyList(userPlayer);
@@ -56,10 +54,6 @@ public class Game {
     private void visitVendor(Character userPlayer) throws Exception {
         Vendor v = Vendor.createInstance((Player) userPlayer);
         v.tradeEquipment();
-        pickEquipment(userPlayer, "weapon");
-        Thread.sleep(3000);
-        pickEquipment(userPlayer, "armor");
-        Thread.sleep(3000);
     }
 
     private void createEnemyList(Character userPlayer) {
@@ -73,18 +67,12 @@ public class Game {
     }
 
 
-    private void initGame() throws Exception {
-        // todo: init character, weapon, armor, item and magic lists
+    private void initCharacter() throws Exception {
         characterList = Character.getCharacterListFromJsonFile("asset/sampleCharacters.json");
-//        weaponList = Weapon.getWeaponListFromJsonFile("asset/sampleWeapons.json");
-//        armorList = Armor.getArmorListFromJsonFile("asset/sampleArmors.json");
     }
 
     private void welcomeUser() throws Exception {
         GameOutput.welcomePlayer();
-        System.out.println();
-        System.out.println();
-        System.out.println();
         GameAudio.PlayWelcomeAudio();
         GameOutput.showInstructions();
     }
@@ -92,19 +80,13 @@ public class Game {
 
     private void renameCharacter() throws Exception {
         String setCharacterName = null;
-        while (!("no".equalsIgnoreCase(setCharacterName) || "yes".equalsIgnoreCase(setCharacterName))) {
-            setCharacterName = GameInput.getUserInput("Do you want to re-name your character? (yes or no) ");
-            GameOutput.showGameStory();
-            GameAudio.PlayFightAudio();
-        }
+        // Let user pick custom name for their character
+        String userName = GameInput.getUserInput("Please enter name for your character:");
+        userPlayer.setName(userName);
+        GameOutput.showGameStory();
+        GameAudio.PlayFightAudio();
 
-        if ("yes".equalsIgnoreCase(setCharacterName)) {
-            // Let user pick custom name for their character
-            String userName = GameInput.getUserInput("Please enter name for your character:");
-            userPlayer.setName(userName);
-            GameOutput.showGameStory();
-            GameAudio.PlayFightAudio();
-        }
+        String anyKey = GameInput.getUserInput("Press enter to continue.... ");
     }
 
 
@@ -120,8 +102,6 @@ public class Game {
         }
         userPlayer = characterList.get(userInput - 1);
         GameOutput.clearScreen();
-        System.out.println("Great!! You picked: " + ConsoleColors.GREEN_BOLD + userPlayer.getName()
-                + ConsoleColors.RESET);
     }
 
 
