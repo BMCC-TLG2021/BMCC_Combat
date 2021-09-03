@@ -2,6 +2,7 @@ package com.bmcc.util;
 
 import com.bmcc.model.character.Character;
 import com.bmcc.model.equipment.Armor;
+import com.bmcc.model.equipment.Equipment;
 import com.bmcc.model.equipment.Weapon;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -97,6 +98,20 @@ public class GameOutput {
         st.print();
     }
 
+    public static void displayBackPack(List<Equipment> backpack) {
+        List<Weapon> weaponList = null;
+        List<Armor> armorList = null;
+        for (Equipment equipment : backpack) {
+            if (equipment instanceof Weapon) {
+                weaponList.add((Weapon) equipment);
+            } else {
+                armorList.add((Armor) equipment);
+            }
+        }
+        displayWeaponList(weaponList);
+        displayArmorList(armorList);
+    }
+
     public static void displayWeaponList(List<Weapon> weaponList) {
         TableBuilder st = new TableBuilder();
         st.setShowVerticalLines(true);
@@ -153,7 +168,7 @@ public class GameOutput {
 
     public static void welcomePlayer() {
         try {
-            String welcomeBanner = Files.readString(Path.of("asset/BMCC.txt"));
+            String welcomeBanner = Files.readString(Path.of("asset/graphics/BMCC.txt"));
             System.out.println(ConsoleColors.GREEN_BOLD + welcomeBanner + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
@@ -162,7 +177,7 @@ public class GameOutput {
 
     public static void showInstructions() {
         try {
-            String menu = Files.readString(Path.of("asset/Instructions.txt"));
+            String menu = Files.readString(Path.of("asset/graphics/Instructions.txt"));
             System.out.println(menu);
         } catch (IOException e) {
             e.printStackTrace();
@@ -170,7 +185,7 @@ public class GameOutput {
     }
     public static void showGameStory() {
         try {
-            String menu = Files.readString(Path.of("asset/1STORY.txt"));
+            String menu = Files.readString(Path.of("asset/graphics/1STORY.txt"));
             System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
@@ -178,7 +193,7 @@ public class GameOutput {
     }
     public static void showWelcomeToWeaponStore() {
         try {
-            String menu = Files.readString(Path.of("asset/WEAPONSTORE.txt"));
+            String menu = Files.readString(Path.of("asset/graphics/WEAPONSTORE.txt"));
             System.out.println(menu);
         } catch (IOException e) {
             e.printStackTrace();
@@ -187,7 +202,7 @@ public class GameOutput {
 
     public static void showYouWon() {
         try {
-            String menu = Files.readString(Path.of("asset/YOUWON.txt"));
+            String menu = Files.readString(Path.of("asset/graphics/YOUWON.txt"));
             System.out.println(menu);
         } catch (IOException e) {
             e.printStackTrace();
@@ -196,7 +211,7 @@ public class GameOutput {
 
     public static void showYouLost() {
         try {
-            String menu = Files.readString(Path.of("asset/YOULOST.txt"));
+            String menu = Files.readString(Path.of("asset/graphics/YOULOST.txt"));
             System.out.println(menu);
         } catch (IOException e) {
             e.printStackTrace();
@@ -204,7 +219,7 @@ public class GameOutput {
     }
     public static void showGameOver() {
         try {
-            String menu = Files.readString(Path.of("asset/GAMEOVER.txt"));
+            String menu = Files.readString(Path.of("asset/graphics/GAMEOVER.txt"));
             System.out.println(menu);
         } catch (IOException e) {
             e.printStackTrace();
@@ -212,12 +227,22 @@ public class GameOutput {
     }
     public static void showGameSaved() {
         try {
-            String menu = Files.readString(Path.of("asset/GAMESAVED.txt"));
+            String menu = Files.readString(Path.of("asset/graphics/GAMESAVED.txt"));
             System.out.println(menu);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public static void showWeaponGameGraphics() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/WEAPONFIGHT.txt"));
+            System.out.println(menu);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     public static void attackShowGraphics(String path) {
