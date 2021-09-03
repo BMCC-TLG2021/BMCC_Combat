@@ -171,7 +171,7 @@ public class GameOutput {
     public static void showGameStory() {
         try {
             String menu = Files.readString(Path.of("asset/1STORY.txt"));
-            System.out.println(menu);
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
         }
