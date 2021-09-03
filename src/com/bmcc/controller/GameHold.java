@@ -61,5 +61,23 @@ public class GameHold {
         }
     }
 
-
+    public Player retrieveGame() {
+        Player player = null;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            player = mapper.readValue(new File("asset/savedGame/player.json"), Player.class);
+            List<Equipment> backpack = player.getEquipmentFromBackpack();
+            List<Weapon> weaponList = new ArrayList<>(Arrays.asList(mapper.readValue(new File("asset/savedGame/weapons.json"), Weapon[].class)));
+            List<Armor> armorList = new ArrayList<>(Arrays.asList(mapper.readValue(new File("asset/savedGame/armors.json"), Armor[].class)));
+            for (Weapon weapon : weaponList) {
+                backpack.add(weapon);
+            }
+            for (Armor armor : armorList) {
+                backpack.add(armor);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return player;
+    }
 }
