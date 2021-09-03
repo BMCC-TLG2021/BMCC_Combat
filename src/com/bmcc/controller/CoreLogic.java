@@ -20,7 +20,7 @@ public class CoreLogic {
         GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
 
         while (userPlayer.getHitPoint() > 0 && enemyPlayer.getHitPoint() > 0) {
-
+            boolean userWin =false;
             String command = GameInput.getCommand();
             GameOutput.clearScreen();
             switch (command.toUpperCase()) {
@@ -46,16 +46,18 @@ public class CoreLogic {
             }
 
             GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
-            checkWins(userPlayer, enemyPlayer);
-
+            userWin = checkWins(userPlayer, enemyPlayer);
+            if (userWin){return;};
             // enemy player attack back.
             enemyAttack(enemyPlayer, userPlayer);
             GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
-            checkWins(userPlayer, enemyPlayer);
+            userWin = checkWins(userPlayer, enemyPlayer);
+
+            if (userWin){return;};
         }
     }
 
-    private static void checkWins(Player userPlayer, Character enemyPlayer) throws Exception {
+    private static boolean checkWins(Player userPlayer, Character enemyPlayer) throws Exception {
         if (enemyPlayer.getHitPoint() <= 0) {
             System.out.println(userPlayer.getName() + " Win!");
             GameAudio.PlayYouWonAudio();
@@ -68,16 +70,20 @@ public class CoreLogic {
             userPlayer.addGold(100);
             userPlayer.addEquipmentToBackpack((Equipment) enemyPlayer.getWeapon());
             userPlayer.addEquipmentToBackpack((Equipment)enemyPlayer.getArmor());
+            userPlayer.rankUp();
+            System.out.println(userPlayer.getRank());
 
             // user now can go directly to next battle or see wendor
             String command = GameInput.getSeeVendorCommand();
             switch (command.toUpperCase()){
                 case "GO BATTLE":
                     // don't need to do anything
-                    break;
+                    return true;
+
                 case "SEE VENDOR":
                     Vendor v = Vendor.createInstance(userPlayer);
                     v.tradeEquipment();
+                    return true;
             }
         } else if (userPlayer.getHitPoint() <= 0) {
 
@@ -92,6 +98,7 @@ public class CoreLogic {
             file.delete();
             System.exit(0);
         }
+        return false;
     }
 
 
