@@ -25,10 +25,10 @@ public class CoreLogic {
             GameOutput.clearScreen();
             switch (command.toUpperCase()) {
                 case "ATTACK ENEMY":
-                    Attacks.physicalAttack(userPlayer, enemyPlayer, "asset/userFight.txt");
+                    Attacks.physicalAttack(userPlayer, enemyPlayer, "asset/graphics/userFight.txt");
                     break;
                 case "USE MAGIC":
-                    Attacks.magicalAttack(userPlayer, enemyPlayer, userPlayer.getMagic(), "asset/userFight.txt");
+                    Attacks.magicalAttack(userPlayer, enemyPlayer, userPlayer.getMagic(), "asset/graphics/userFight.txt");
                     break;
                 case "END GAME":
                     System.out.println("GoodBye.....");
@@ -106,7 +106,7 @@ public class CoreLogic {
         Thread.sleep(4500);
         GameAudio.PlayAttackAudio();
         GameOutput.clearScreen();
-        Attacks.physicalAttack(enemyPlayer, userPlayer, "asset/enemyFight.txt");
+        Attacks.physicalAttack(enemyPlayer, userPlayer, "asset/graphics/enemyFight.txt");
 
     }
 }

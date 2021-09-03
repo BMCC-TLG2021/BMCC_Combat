@@ -3,19 +3,19 @@
     "name":"Kethoth Murnyethara",
     "occupation": "Cleric",
     "race": "Human",
-    "hitPoint": 125,
+    "hitPoint": 155,
     "magicPoint": 245,
-    "defensePower": 10,
+    "defensePower": 20,
     "attackPower": 20
   },
   {
     "name":"Gardain Dankil",
     "occupation": "Fighter",
-    "race": "Dwarf",
+    "race": "Elf",
     "hitPoint": 255,
     "magicPoint": 25,
     "defensePower": 25,
-    "attackPower": 56
+    "attackPower": 36
   },
   {
     "name":"Torbera Strakeln",
@@ -24,15 +24,51 @@
     "hitPoint": 215,
     "magicPoint": 35,
     "defensePower": 30,
-    "attackPower": 60
+    "attackPower": 25
   },
   {
     "name":"Mara Shin",
     "occupation": "Fighter",
-    "race": "Human",
+    "race": "Halfling",
     "hitPoint": 198,
     "magicPoint": 56,
     "defensePower": 25,
-    "attackPower": 57
+    "attackPower": 37
+  },
+  {
+    "name":"Mara Shin",
+    "occupation": "Knight",
+    "race": "Orc",
+    "hitPoint": 222,
+    "magicPoint": 67,
+    "defensePower": 25,
+    "attackPower": 37
+  },
+  {
+    "name":"Zora",
+    "occupation": "Artist",
+    "race": "Dwarf",
+    "hitPoint": 215,
+    "magicPoint": 35,
+    "defensePower": 30,
+    "attackPower": 25
+  },
+  {
+    "name":"Baby Yoda",
+    "occupation": "Ulumbar Crale",
+    "race": "Halfling",
+    "hitPoint": 198,
+    "magicPoint": 56,
+    "defensePower": 25,
+    "attackPower": 37
+  },
+  {
+    "name":"Waris Baltzan",
+    "occupation": "Goblin",
+    "race": "Orc",
+    "hitPoint": 222,
+    "magicPoint": 67,
+    "defensePower": 25,
+    "attackPower": 37
   }
 ]
