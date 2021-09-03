@@ -80,18 +80,18 @@ public class GameOutput {
         TableBuilder st = new TableBuilder();
         st.setShowVerticalLines(true);
         int i = 1;
-        st.setHeaders("ID", "Name", "Occupation", "Race", "Hit Point", "Magic Point", "Defense Power", "Attack Power");
+        st.setHeaders("ID", "Occupation", "Race", "Hit Point", "Magic Point", "Defense Power", "Attack Power");
         for (Character aChar : characterList) {
-            String[] characterAttributes = new String[8];
+            String[] characterAttributes = new String[7];
             characterAttributes[0] = "" + i;
             i++;
-            characterAttributes[1] = aChar.getName();
-            characterAttributes[2] = aChar.getOccupation();
-            characterAttributes[3] = aChar.getRace();
-            characterAttributes[4] = "" + aChar.getHitPoint();
-            characterAttributes[5] = "" + aChar.getMagicPoint();
-            characterAttributes[6] = "" + aChar.getTotalDefensePower();
-            characterAttributes[7] = "" + aChar.getAttackPower();
+//            characterAttributes[1] = aChar.getName();
+            characterAttributes[1] = aChar.getOccupation();
+            characterAttributes[2] = aChar.getRace();
+            characterAttributes[3] = "" + aChar.getHitPoint();
+            characterAttributes[4] = "" + aChar.getMagicPoint();
+            characterAttributes[5] = "" + aChar.getTotalDefensePower();
+            characterAttributes[6] = "" + aChar.getAttackPower();
             st.addRow(characterAttributes);
         }
         st.print();
@@ -171,7 +171,7 @@ public class GameOutput {
     public static void showGameStory() {
         try {
             String menu = Files.readString(Path.of("asset/1STORY.txt"));
-            System.out.println(menu);
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
         }
