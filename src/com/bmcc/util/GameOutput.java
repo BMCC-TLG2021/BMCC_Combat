@@ -99,8 +99,8 @@ public class GameOutput {
     }
 
     public static void displayBackPack(List<Equipment> backpack) {
-        List<Weapon> weaponList = null;
-        List<Armor> armorList = null;
+        List<Weapon> weaponList = new ArrayList<>();
+        List<Armor> armorList = new ArrayList<>();
         for (Equipment equipment : backpack) {
             if (equipment instanceof Weapon) {
                 weaponList.add((Weapon) equipment);
@@ -113,40 +113,50 @@ public class GameOutput {
     }
 
     public static void displayWeaponList(List<Weapon> weaponList) {
-        TableBuilder st = new TableBuilder();
-        st.setShowVerticalLines(true);
-        int i = 1;
-        st.setHeaders("ID", "Name", "Description", "Integrity", "Physical damage", "Magical Power Increased By");
-        for (Weapon weapon: weaponList) {
-            String[] weaponAttributes =  new String[6];
-            weaponAttributes[0] = "" + i;
-            i++;
-            weaponAttributes[1] = weapon.getName();
-            weaponAttributes[2] = weapon.getDesc();
-            weaponAttributes[3] = "" + weapon.getIntegrity();
-            weaponAttributes[4] = "" + weapon.getPhysicalDamage();
-            weaponAttributes[5] = (weapon.getMagicPowerIncrease() * 100) + "%";
-            st.addRow(weaponAttributes);
+        if (weaponList != null && weaponList.size() != 0) {
+            TableBuilder st = new TableBuilder();
+            st.setShowVerticalLines(true);
+            int i = 1;
+            st.setHeaders("ID", "Name", "Description", "Integrity", "Physical damage", "Magical Power Increased By", "Price");
+            for (Weapon weapon : weaponList) {
+                String[] weaponAttributes = new String[7];
+                weaponAttributes[0] = "" + i;
+                i++;
+                weaponAttributes[1] = weapon.getName();
+                weaponAttributes[2] = weapon.getDesc();
+                weaponAttributes[3] = "" + weapon.getMaxIntegrity();
+                weaponAttributes[4] = "" + weapon.getPhysicalDamage();
+                weaponAttributes[5] = (weapon.getMagicPowerIncrease() * 100) + "%";
+                weaponAttributes[6] = "" + weapon.getMoneyValue();
+                st.addRow(weaponAttributes);
+            }
+            st.print();
+        } else {
+            System.out.println("There is no weapon available.");
         }
-        st.print();
     }
 
     public static void displayArmorList(List<Armor> armorList) {
-        TableBuilder st = new TableBuilder();
-        st.setShowVerticalLines(true);
-        int i = 1;
-        st.setHeaders("ID", "Name", "Description", "Integrity", "Defense Increase");
-        for (Armor armor: armorList) {
-            String[] armorAttributes =  new String[5];
-            armorAttributes[0] = "" + i;
-            i++;
-            armorAttributes[1] = armor.getName();
-            armorAttributes[2] = armor.getDesc();
-            armorAttributes[3] = "" + armor.getIntegrity();
-            armorAttributes[4] = "" + armor.getDefenceIncrease();
-            st.addRow(armorAttributes);
+        if (armorList != null && armorList.size() != 0) {
+            TableBuilder st = new TableBuilder();
+            st.setShowVerticalLines(true);
+            int i = 1;
+            st.setHeaders("ID", "Name", "Description", "Integrity", "Defense Increase", "Price");
+            for (Armor armor : armorList) {
+                String[] armorAttributes = new String[6];
+                armorAttributes[0] = "" + i;
+                i++;
+                armorAttributes[1] = armor.getName();
+                armorAttributes[2] = armor.getDesc();
+                armorAttributes[3] = "" + armor.getMaxIntegrity();
+                armorAttributes[4] = "" + armor.getDefenceIncrease();
+                armorAttributes[5] = "" + armor.getMoneyValue();
+                st.addRow(armorAttributes);
+            }
+            st.print();
+        } else {
+            System.out.println("There is no armor available.");
         }
-        st.print();
     }
 
     public static List<String> showActionDamage(Character attacker, Character victim, int damagePoint) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -183,6 +193,7 @@ public class GameOutput {
             e.printStackTrace();
         }
     }
+
     public static void showGameStory() {
         try {
             String menu = Files.readString(Path.of("asset/graphics/1STORY.txt"));
@@ -191,6 +202,7 @@ public class GameOutput {
             e.printStackTrace();
         }
     }
+
     public static void showWelcomeToWeaponStore() {
         try {
             String menu = Files.readString(Path.of("asset/graphics/WEAPONSTORE.txt"));
@@ -217,6 +229,7 @@ public class GameOutput {
             e.printStackTrace();
         }
     }
+
     public static void showGameOver() {
         try {
             String menu = Files.readString(Path.of("asset/graphics/GAMEOVER.txt"));
@@ -225,6 +238,7 @@ public class GameOutput {
             e.printStackTrace();
         }
     }
+
     public static void showGameSaved() {
         try {
             String menu = Files.readString(Path.of("asset/graphics/GAMESAVED.txt"));
@@ -242,7 +256,6 @@ public class GameOutput {
             e.printStackTrace();
         }
     }
-
 
 
     public static void attackShowGraphics(String path) {

@@ -9,6 +9,7 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,9 +21,9 @@ public class Weapon extends Equipment {
 
     private Weapon(@JsonProperty("name") String name,
                    @JsonProperty("integrity") int integrity,
-                   @JsonProperty("integrity") int maxIntegrity,
+                   @JsonProperty("maxIntegrity") int maxIntegrity,
                    @JsonProperty("desc") String desc,
-                   @JsonProperty("integrity") int moneyValue,
+                   @JsonProperty("moneyValue") int moneyValue,
                    @JsonProperty("physicalDamage") int physicalDamage,
                    @JsonProperty("magicPowerIncrease") double magicPowerIncrease) {
         super(name, integrity, maxIntegrity, desc, moneyValue);
@@ -61,6 +62,7 @@ public class Weapon extends Equipment {
 
     public static List<Weapon> getWeaponListFromJsonFile(String filePath) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        return Arrays.asList(mapper.readValue(new File(filePath), Weapon[].class));
+        List<Weapon> weaponList = new ArrayList<>(Arrays.asList(mapper.readValue(new File(filePath), Weapon[].class)));
+        return weaponList;
     }
 }

@@ -45,7 +45,7 @@ public class Vendor {
             } else {
                 this.getArmorList().remove((Armor) equipment);
             }
-            System.out.println(equipment.getName() + "added to your backpack");
+            System.out.println(equipment.getName() + " added to your backpack");
         } else {
             System.out.println("Your remaining balance is not enough to purchase this equipment!");
         }
@@ -81,7 +81,7 @@ public class Vendor {
         } else {
             customer.setArmor((Armor) equipment);
         }
-        System.out.println(equipment.getName() + "equipped.");
+        System.out.println(equipment.getName() + " equipped.");
     }
 
     public static Vendor createInstance(Player player) throws Exception {
@@ -109,34 +109,44 @@ public class Vendor {
         while (stayIn) {
             String command = GameInput.getVendorCommand();
             GameOutput.clearScreen();
+
             switch (command.toUpperCase()) {
                 case "SELL":
                     System.out.println("Here are all the equipment in your backpack");
-                    GameOutput.displayWeaponList(weaponListBackpack);
-                    GameOutput.displayArmorList(armorListBackpack);
+                    System.out.println("------------ WEAPON LIST ------------");
+                    GameOutput.displayWeaponList(getWeaponInBackpack());
+                    System.out.println("------------ ARMOR LIST ------------");
+                    GameOutput.displayArmorList(getArmorInBackpack());
                     // Please pick the equipment you want to sell
-                    Equipment equipmentSell = pickEquipment(weaponListBackpack, armorListBackpack);
+                    Equipment equipmentSell = pickEquipment(getWeaponInBackpack(), getArmorInBackpack());
                     buyFromPlayer(equipmentSell);
+                    break;
                 case "BUY":
+                    System.out.println("You have $" + customer.getGold() + " to buy equipment.");
                     System.out.println("The following are all the equipment available in store");
+                    System.out.println("------------ WEAPON LIST ------------");
                     GameOutput.displayWeaponList(this.getWeaponList());
+                    System.out.println("------------ ARMOR LIST ------------");
                     GameOutput.displayArmorList(this.getArmorList());
                     // Please pick the equipment you want to buy
                     Equipment equipmentBuy = pickEquipment(this.getWeaponList(), this.getArmorList());
                     sellToPlayer(equipmentBuy);
+                    break;
                 case "CHANGE":
                     GameOutput.displayBackPack(customer.getEquipmentFromBackpack());
                     // Please pick the equipment you want to use
-                    Equipment equipmentEquipped = pickEquipment(weaponListBackpack, armorListBackpack);
+                    Equipment equipmentEquipped = pickEquipment(getWeaponInBackpack(), getArmorInBackpack());
                     changeEquipment(equipmentEquipped);
+                    break;
                 case "EXIT":
                   stayIn = false;
             }
         }
     }
 
+
     List<Weapon> getWeaponInBackpack() {
-        List<Weapon> weaponListBackpack = null;
+        List<Weapon> weaponListBackpack = new ArrayList<>();
         for (Equipment equipment : customer.getEquipmentFromBackpack()) {
             if (equipment instanceof Weapon) {
                 weaponListBackpack.add((Weapon) equipment);
@@ -145,8 +155,9 @@ public class Vendor {
         return weaponListBackpack;
     }
 
+
     List<Armor> getArmorInBackpack() {
-        List<Armor> armorListBackpack = null;
+        List<Armor> armorListBackpack = new ArrayList<>();
         for (Equipment equipment : customer.getEquipmentFromBackpack()) {
             if (equipment instanceof Armor) {
                 armorListBackpack.add((Armor) equipment);
