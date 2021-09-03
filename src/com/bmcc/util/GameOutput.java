@@ -4,6 +4,8 @@ import com.bmcc.model.character.Character;
 import com.bmcc.model.equipment.Armor;
 import com.bmcc.model.equipment.Weapon;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.*;
 import java.lang.reflect.Array;
@@ -132,18 +134,20 @@ public class GameOutput {
         st.print();
     }
 
-    public static List<String> showActionDamage(Character attacker, Character victim, int damagePoint) {
+    public static List<String> showActionDamage(Character attacker, Character victim, int damagePoint) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         List<String> actionDamage = new ArrayList<>();
+        GameAudio.PlayResultAudio();
         actionDamage.add("************************************************************");
         actionDamage.add("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " ATTACKED " + ConsoleColors.RESET + victim.getName()) + "*");
         actionDamage.add("************************************************************");
         if (damagePoint < 0) {
             damagePoint = 0;
         }
-        actionDamage.add("*****************************************************************************************");
+        actionDamage.add("*************************************************************");
         actionDamage.add("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " CREATED " + damagePoint + " Damage to "
                 + ConsoleColors.RESET + victim.getName()) + "*");
-        actionDamage.add("*****************************************************************************************");
+        actionDamage.add("**************************************************************");
+        GameAudio.PlayResultAudio();
         return actionDamage;
     }
 
@@ -164,6 +168,57 @@ public class GameOutput {
             e.printStackTrace();
         }
     }
+    public static void showGameStory() {
+        try {
+            String menu = Files.readString(Path.of("asset/1STORY.txt"));
+            System.out.println(menu);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void showWelcomeToWeaponStore() {
+        try {
+            String menu = Files.readString(Path.of("asset/WEAPONSTORE.txt"));
+            System.out.println(menu);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showYouWon() {
+        try {
+            String menu = Files.readString(Path.of("asset/YOUWON.txt"));
+            System.out.println(menu);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showYouLost() {
+        try {
+            String menu = Files.readString(Path.of("asset/YOULOST.txt"));
+            System.out.println(menu);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void showGameOver() {
+        try {
+            String menu = Files.readString(Path.of("asset/GAMEOVER.txt"));
+            System.out.println(menu);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void showGameSaved() {
+        try {
+            String menu = Files.readString(Path.of("asset/GAMESAVED.txt"));
+            System.out.println(menu);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static void attackShowGraphics(String path) {
         // clear console magic only works for Mac / linux
