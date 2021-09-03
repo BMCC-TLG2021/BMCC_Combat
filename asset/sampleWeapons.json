@@ -1,29 +1,74 @@
 [
   {
-    "name": "Bad Ass Axe",
-    "integrity": 5,
-    "maxIntegrity": 5,
-    "desc": "A powerful axe",
-    "moneyValue": 100,
-    "physicalDamage": 35,
-    "magicPowerIncrease": 0.0
-  },
-  {
-    "name": "Harry Potter's wand",
-    "integrity": 5,
-    "maxIntegrity": 5,
-    "desc": "A great powerful wand",
-    "moneyValue": 200,
+    "name": "Wooden sword",
+    "integrity": 4,
+    "maxIntegrity": 4,
+    "desc": "It's not a toy! It can damage.....well, something.",
+    "moneyValue": 50,
     "physicalDamage": 5,
-    "magicPowerIncrease": 0.5
+    "magicPowerIncrease": 0.1
   },
   {
     "name": "Bronze Dagger",
     "integrity": 7,
     "maxIntegrity": 7,
     "desc": "A Bronze Dagger that can perform quick attack and durable",
-    "moneyValue": 300,
-    "physicalDamage": 15,
+    "moneyValue": 100,
+    "physicalDamage": 10,
     "magicPowerIncrease": 0.0
+  },
+  {
+    "name": "Harry Potter's wand",
+    "integrity": 8,
+    "maxIntegrity": 8,
+    "desc": "A great powerful wand",
+    "moneyValue": 200,
+    "physicalDamage": 5,
+    "magicPowerIncrease": 1.0
+  },
+  {
+    "name": "Silver Dagger",
+    "integrity": 7,
+    "maxIntegrity": 7,
+    "desc": "A stainless Dagger that can perform quick attack and durable",
+    "moneyValue": 300,
+    "physicalDamage": 20,
+    "magicPowerIncrease": 0.25
+  },
+  {
+    "name": "Bad Ass Axe",
+    "integrity": 5,
+    "maxIntegrity": 5,
+    "desc": "A powerful axe, it's just super bad ass!",
+    "moneyValue": 400,
+    "physicalDamage": 35,
+    "magicPowerIncrease": 0.0
+  },
+  {
+    "name": "Chain Saw",
+    "integrity": 4,
+    "maxIntegrity": 4,
+    "desc": "A great powerful weapon can cause massive damage",
+    "moneyValue": 500,
+    "physicalDamage": 50,
+    "magicPowerIncrease": 0.0
+  },
+  {
+    "name": "Link's master sword",
+    "integrity": 20,
+    "maxIntegrity": 20,
+    "desc": "It can purify evil, also cuts monsters like cutting tofu",
+    "moneyValue": 600,
+    "physicalDamage": 45,
+    "magicPowerIncrease": 0.5
+  },
+  {
+    "name": "The ultimate knight's spear",
+    "integrity": 999,
+    "maxIntegrity": 999,
+    "desc": "Only the real knight knows how to use it",
+    "moneyValue": 700,
+    "physicalDamage": 55,
+    "magicPowerIncrease": 0.8
   }
 ]

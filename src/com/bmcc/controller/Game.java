@@ -43,6 +43,7 @@ public class Game {
         createUserPlayer(userCharacter);
         // todo create load game function
         createVendor(userPlayer);
+        vendor.tradeEquipment();
         continuePlay(userPlayer);
     }
 

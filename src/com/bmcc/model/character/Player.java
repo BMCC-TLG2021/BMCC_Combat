@@ -2,6 +2,7 @@ package com.bmcc.model.character;
 
 import com.bmcc.controller.Vendor;
 import com.bmcc.model.equipment.Equipment;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,32 @@ public class Player extends Character {
     private int rank = 8;
     private static Player instance = null;
 
-    private Player(String name, String occupation, String race,int hitPoint, int magicPoint, int defensePower,
-                   int attackPower) {
+    private Player(@JsonProperty("name") String name,
+                   @JsonProperty("occupation") String occupation,
+                   @JsonProperty("race") String race,
+                   @JsonProperty("hitPoint") int hitPoint,
+                   @JsonProperty("magicPoint") int magicPoint,
+                   @JsonProperty("defensePower") int defensePower,
+                   @JsonProperty("attackPower") int attackPower,
+                   @JsonProperty("gold") int gold,
+                   @JsonProperty("rank") int rank) {
+        super(name, occupation, race, hitPoint, magicPoint, defensePower, attackPower);
+        maxHP = hitPoint;
+        maxMP = magicPoint;
+        maxDefense = defensePower;
+        maxAttack = attackPower;
+        this.gold = gold;
+        this.rank = rank;
+    }
+
+    private Player(String name,
+                   String occupation,
+                   String race,
+                   int hitPoint,
+                   int magicPoint,
+                   int defensePower,
+                   int attackPower
+    ) {
         super(name, occupation, race, hitPoint, magicPoint, defensePower, attackPower);
         maxHP = hitPoint;
         maxMP = magicPoint;
@@ -43,15 +68,15 @@ public class Player extends Character {
     }
 
 
-    public void getPlayerReadyToFight(){
+    public void getPlayerReadyToFight() {
         this.setHitPoint(maxHP);
         this.setMagicPoint(maxMP);
         this.setDefensePower(maxDefense);
         this.setAttackPower(maxAttack);
-        if (this.getWeapon() != null){
+        if (this.getWeapon() != null) {
             this.getWeapon().restoreIntegrity();
         }
-        if (this.getArmor() != null){
+        if (this.getArmor() != null) {
             this.getArmor().restoreIntegrity();
         }
 
@@ -65,7 +90,7 @@ public class Player extends Character {
         this.backpack.add(equipment);
     }
 
-    public boolean removeEquipmentFromBackpack(Equipment equipment){
+    public boolean removeEquipmentFromBackpack(Equipment equipment) {
         return backpack.remove(equipment);
     }
 
@@ -77,11 +102,11 @@ public class Player extends Character {
         this.gold += gold;
     }
 
-    public boolean spendGold(int gold){
-        if (this.getGold() - gold >= 0){
+    public boolean spendGold(int gold) {
+        if (this.getGold() - gold >= 0) {
             this.gold -= gold;
             return true;
-        } else{
+        } else {
             return false;
         }
     }
@@ -91,13 +116,13 @@ public class Player extends Character {
     }
 
     public void rankUp() {
-        if (this.rank > 1){
+        if (this.rank > 1) {
             this.rank -= 1;
         }
     }
 
-    public static Player createInstanceFromCharacter(Character character){
-        if (instance == null){
+    public static Player createInstanceFromCharacter(Character character) {
+        if (instance == null) {
             instance = new Player(character.getName(),
                     character.getOccupation(),
                     character.getRace(),
@@ -106,12 +131,8 @@ public class Player extends Character {
                     character.getTotalDefensePower(),
                     character.getAttackPower());
         }
+        instance.setMagic(character.getMagic());
         return instance;
     }
 
-    public static void visitVendor(Player userPlayer) throws Exception {
-        Vendor v = Vendor.createInstance(userPlayer);
-        System.out.println("You are at vendor's shop. You have $ " + instance.getGold());
-        v.tradeEquipment();
-    }
 }
