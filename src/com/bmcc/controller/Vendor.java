@@ -27,6 +27,22 @@ public class Vendor {
         GameOutput.displayArmorList(this.armorList);
     }
 
+    void sellToPlayer(Equipment equipment) {
+        int cost = equipment.getMoneyValue();
+        int customerMoneyBalance = customer.getGold();
+        if (customerMoneyBalance >= cost) {
+            customer.addEquipmentToBackpack(equipment);
+            customer.spendGold(cost);
+            if (equipment instanceof Weapon) {
+                this.getWeaponList().remove((Weapon) equipment);
+            } else {
+                this.getArmorList().remove((Armor) equipment);
+            }
+        } else {
+            System.out.println("Your remaining balance is not enough to purchase this equipment!");
+        }
+    }
+
     void buyFromPlayer(String equipmentName) {
         boolean removed = customer.removeEquipmentFromBackpack(equipmentName);
         if (removed) {
