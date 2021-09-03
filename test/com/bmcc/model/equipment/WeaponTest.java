@@ -15,8 +15,8 @@ public class WeaponTest {
     public void setUp() throws Exception {
         sampleMagicalWeapon = Weapon.getInstance("testing wand", 3,"A test weapon",
                 10, 0.5);
-        samplePhysicalWeapon = Weapon.getInstance("test soward",10,"A testing soward",
-                50, 0.0);
+samplePhysicalWeapon = Weapon.getInstance("test soward",10,"A testing soward",
+50, 0.0);
     }
 
     @Test
