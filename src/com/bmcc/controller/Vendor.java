@@ -27,12 +27,44 @@ public class Vendor {
         GameOutput.displayArmorList(this.armorList);
     }
 
-
     void sellToPlayer(Equipment equipment) {
-
+        int cost = equipment.getMoneyValue();
+        int customerMoneyBalance = customer.getGold();
+        if (customerMoneyBalance >= cost) {
+            customer.addEquipmentToBackpack(equipment);
+            customer.spendGold(cost);
+            if (equipment instanceof Weapon) {
+                this.getWeaponList().remove((Weapon) equipment);
+            } else {
+                this.getArmorList().remove((Armor) equipment);
+            }
+        } else {
+            System.out.println("Your remaining balance is not enough to purchase this equipment!");
+        }
     }
 
-    void buyFromPlayer(Equipment equipment) {
+    void buyFromPlayer(String equipmentName) {
+        boolean removed = customer.removeEquipmentFromBackpack(equipmentName);
+        if (removed) {
+            Equipment tradeEquipment = null;
+            List<Equipment> backpack = customer.getEquipmentFromBackpack();
+            for (Equipment equipment : backpack) {
+                if (equipmentName.equalsIgnoreCase(equipment.getName())) {
+                    tradeEquipment = equipment;
+                }
+            }
+            int valueEquipment = tradeEquipment.getMoneyValue();
+            customer.addGold(valueEquipment);
+            // add trade equipment to vendor's lists
+            if (tradeEquipment instanceof Weapon) {
+                getWeaponList().add((Weapon)tradeEquipment);
+            } else {
+                getArmorList().add((Armor)tradeEquipment);
+            }
+            System.out.println("You made " + valueEquipment + " by selling " + equipmentName);
+        } else {
+            System.out.println("You can't sell equipment that not in your backpack");
+        }
 
     }
 

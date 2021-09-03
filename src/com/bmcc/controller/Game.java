@@ -94,12 +94,16 @@ public class Game {
         String setCharacterName = null;
         while (!("no".equalsIgnoreCase(setCharacterName) || "yes".equalsIgnoreCase(setCharacterName))) {
             setCharacterName = GameInput.getUserInput("Do you want to re-name your character? (yes or no) ");
+            GameOutput.showGameStory();
+            GameAudio.PlayFightAudio();
         }
 
         if ("yes".equalsIgnoreCase(setCharacterName)) {
             // Let user pick custom name for their character
             String userName = GameInput.getUserInput("Please enter name for your character:");
             userPlayer.setName(userName);
+            GameOutput.showGameStory();
+            GameAudio.PlayFightAudio();
         }
     }
 

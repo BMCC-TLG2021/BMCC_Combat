@@ -3,6 +3,7 @@ package com.bmcc.controller;
 import com.bmcc.model.character.Character;
 import com.bmcc.model.character.Player;
 import com.bmcc.model.equipment.Equipment;
+import com.bmcc.util.GameAudio;
 import com.bmcc.util.GameInput;
 import com.bmcc.util.GameOutput;
 
@@ -31,11 +32,16 @@ public class CoreLogic {
                     break;
                 case "END GAME":
                     System.out.println("GoodBye.....");
+                    GameAudio.PlayYouGameOverAudio();
+                    GameOutput.showGameOver();
                     File file = new File("asset/outputFile.txt");
                     file.delete();
                     System.exit(0);
                     break;
                 case "SAVE GAME":
+                    GameOutput.showGameSaved();
+                    GameAudio.PlayGameSavedAudio();
+
                     // todo: insert save game method.
             }
 
@@ -52,6 +58,8 @@ public class CoreLogic {
     private static void checkWins(Player userPlayer, Character enemyPlayer) throws Exception {
         if (enemyPlayer.getHitPoint() <= 0) {
             System.out.println(userPlayer.getName() + " Win!");
+            GameAudio.PlayYouWonAudio();
+            GameOutput.showYouWon();
             // delete outputFile.txt before game over
             File file = new File("asset/outputFile.txt");
             file.delete();
@@ -70,12 +78,18 @@ public class CoreLogic {
                 case "SEE VENDOR":
                     Vendor v = Vendor.createInstance(userPlayer);
                     v.tradeEquipment();
+                    GameAudio.PlayDoorAudio();
+                    GameOutput.showWelcomeToWeaponStore();
             }
         } else if (userPlayer.getHitPoint() <= 0) {
 
             // todo: update failing store
             System.out.println(userPlayer.getName() + " Fail!");
-
+            GameAudio.PlayYouLostAudio();
+            GameOutput.showYouLost();
+            Thread.sleep(300);
+            GameAudio.PlayYouGameOverAudio();
+            GameOutput.showGameOver();
             File file = new File("asset/outputFile.txt");
             file.delete();
             System.exit(0);
@@ -85,7 +99,9 @@ public class CoreLogic {
 
     private static void enemyAttack(Character enemyPlayer, Character userPlayer) throws InterruptedException, IOException, UnsupportedAudioFileException, LineUnavailableException {
         Thread.sleep(4500);
+        GameAudio.PlayAttackAudio();
         GameOutput.clearScreen();
         Attacks.physicalAttack(enemyPlayer, userPlayer, "asset/enemyFight.txt");
+
     }
 }
