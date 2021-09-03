@@ -144,7 +144,8 @@ public class Vendor {
         }
     }
 
-    private List<Weapon> getWeaponInBackpack() {
+
+    List<Weapon> getWeaponInBackpack() {
         List<Weapon> weaponListBackpack = new ArrayList<>();
         for (Equipment equipment : customer.getEquipmentFromBackpack()) {
             if (equipment instanceof Weapon) {
@@ -154,7 +155,8 @@ public class Vendor {
         return weaponListBackpack;
     }
 
-    private List<Armor> getArmorInBackpack() {
+
+    List<Armor> getArmorInBackpack() {
         List<Armor> armorListBackpack = new ArrayList<>();
         for (Equipment equipment : customer.getEquipmentFromBackpack()) {
             if (equipment instanceof Armor) {
