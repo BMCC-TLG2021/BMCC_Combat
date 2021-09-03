@@ -1,5 +1,6 @@
 package com.bmcc.model.character;
 
+import com.bmcc.controller.Vendor;
 import com.bmcc.model.equipment.Equipment;
 
 import java.util.List;
@@ -111,5 +112,11 @@ public class Player extends Character {
                     character.getAttackPower());
         }
         return instance;
+    }
+
+    public static void visitVendor(Player userPlayer) throws Exception {
+        Vendor v = Vendor.createInstance(userPlayer);
+        System.out.println("You are at vendor's shop. You have $ " + instance.getGold());
+        v.tradeEquipment();
     }
 }
