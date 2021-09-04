@@ -39,10 +39,12 @@ public class CoreLogic {
                     System.exit(0);
                     break;
                 case "SAVE GAME":
-                    GameOutput.showGameSaved();
-                    GameAudio.PlayGameSavedAudio();
-
-                    // todo: insert save game method.
+//                    GameOutput.showGameSaved();
+//                    GameAudio.PlayGameSavedAudio();
+                    GameHold gh = GameHold.createInstance(userPlayer);
+                    gh.saveGame();
+                    System.out.println("Okay, your game has been saved.");
+                    System.exit(0);
             }
 
             GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
@@ -84,6 +86,11 @@ public class CoreLogic {
                     Vendor v = Vendor.createInstance(userPlayer);
                     v.tradeEquipment();
                     return true;
+                case "SAVE GAME":
+                    GameHold gh = GameHold.createInstance(userPlayer);
+                    gh.saveGame();
+                    System.out.println("Okay, your game has been saved.");
+                    System.exit(0);
             }
         } else if (userPlayer.getHitPoint() <= 0) {
 
@@ -91,7 +98,6 @@ public class CoreLogic {
             System.out.println(userPlayer.getName() + " Fail!");
             GameAudio.PlayYouLostAudio();
             GameOutput.showYouLost();
-            Thread.sleep(300);
             GameAudio.PlayYouGameOverAudio();
             GameOutput.showGameOver();
             File file = new File("asset/outputFile.txt");
@@ -103,7 +109,7 @@ public class CoreLogic {
 
 
     private static void enemyAttack(Character enemyPlayer, Character userPlayer) throws InterruptedException, IOException, UnsupportedAudioFileException, LineUnavailableException {
-        Thread.sleep(4500);
+        String anyKey = GameInput.getUserInput("Press enter to continue....");
         GameAudio.PlayAttackAudio();
         GameOutput.clearScreen();
         Attacks.physicalAttack(enemyPlayer, userPlayer, "asset/graphics/enemyFight.txt");

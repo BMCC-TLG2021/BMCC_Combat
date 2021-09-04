@@ -16,10 +16,11 @@ import com.bmcc.model.equipment.Weapon;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class Game {
-    private Player userPlayer;
+    private Player userPlayer = null;
     private Character userCharacter;
     private Character enemyPlayer;
     private List<Character> characterList;
@@ -35,12 +36,17 @@ public class Game {
         GameOutput.clearScreen();
         initCharacter();
         welcomeUser();
-        pickCharacter();
+
+        if (userPlayer == null) {
+            pickCharacter();
+            renameCharacter();
+            createUserPlayer(userCharacter);
+        }
+
         createEnemyList(userCharacter);
-        renameCharacter();
-//        Player.visitVendor(Player.createInstanceFromCharacter(userPlayer));
-        pickMagics(userCharacter);
-        createUserPlayer(userCharacter);
+
+        pickMagics(userPlayer);
+
         // todo create load game function
         createVendor(userPlayer);
         vendor.tradeEquipment();
@@ -74,12 +80,16 @@ public class Game {
         vendor.tradeEquipment();
     }
 
-    private void createEnemyList(Character userPlayer) {
+    private void createEnemyList(Character userCharacter) {
         enemyList = new ArrayList<>(characterList);
-        enemyList.remove(userPlayer);
+        if (userCharacter == null && userPlayer != null){
+            enemyList.remove((Character) userPlayer);
+        }
+
+        enemyList.remove(userCharacter);
     }
 
-    private void pickMagics(Character userPlayer) throws Exception {
+    private void pickMagics(Player userPlayer) throws Exception {
         Magic magic = Magic.getInstanceFromJsonFile("asset/sampleMagic.json");
         userPlayer.setMagic(magic);
     }
@@ -93,6 +103,13 @@ public class Game {
         GameOutput.welcomePlayer();
         GameAudio.PlayWelcomeAudio();
         GameOutput.showInstructions();
+        String resumeGame = GameInput.getUserInput("Do you wish to continue from previous session? [ YES OR NO ]");
+        while(!resumeGame.equalsIgnoreCase("yes") && !resumeGame.equalsIgnoreCase("no")) {
+            resumeGame = GameInput.getUserInput("Do you wish to continue from previous session? [ YES OR NO ]");
+        }
+        if (resumeGame.equalsIgnoreCase("yes")) {
+            userPlayer = GameHold.retrieveGame();
+        }
     }
 
 

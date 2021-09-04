@@ -68,8 +68,8 @@ public class CharacterTest {
     @Test
     public void getTotalMagicalPower() {
         sampleCharacter.setWeapon(sampleMagicalWeapon);
-        int actual = sampleCharacter.getTotalMagicalPower();
-        assertEquals(60, sampleCharacter.getTotalMagicalPower());
+        int actual = sampleCharacter.retrieveTotalMagicalPower();
+        assertEquals(60, sampleCharacter.retrieveTotalMagicalPower());
     }
 
 

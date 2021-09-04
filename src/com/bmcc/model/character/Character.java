@@ -72,6 +72,7 @@ public class Character {
         return false;
     }
 
+    @JsonIgnore
     public int getTotalPhysicalAttackPower() {
         if (this.getWeapon() != null) {
             if (this.getWeapon().getIntegrity() > 0) {
@@ -81,7 +82,8 @@ public class Character {
         return this.attackPower;
     }
 
-    public int getTotalMagicalPower() {
+    @JsonIgnore
+    public int retrieveTotalMagicalPower() {
         int originalDamage = 0;
         if (this.getMagic() != null) {
 
@@ -137,6 +139,7 @@ public class Character {
         this.defensePower = defensePower;
     }
 
+    @JsonIgnore
     public int getTotalDefensePower() {
         if (getArmor() != null) {
             return getArmor().getDefenceIncrease() + defensePower;

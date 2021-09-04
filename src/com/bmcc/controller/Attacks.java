@@ -37,7 +37,7 @@ public class Attacks {
 
         // todo: should I reduce armor integrity for magic attack?
 
-        int damagePoint = attacker.getTotalMagicalPower();
+        int damagePoint = attacker.retrieveTotalMagicalPower();
 
         if (attacker.reduceMagicPoint()) {
             victim.damage(damagePoint);

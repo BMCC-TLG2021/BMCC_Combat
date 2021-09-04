@@ -81,6 +81,7 @@ public class Vendor {
         } else {
             customer.setArmor((Armor) equipment);
         }
+        customer.removeEquipmentFromBackpack(equipment);
         System.out.println(equipment.getName() + " equipped.");
     }
 
@@ -101,6 +102,7 @@ public class Vendor {
     }
 
     public void tradeEquipment() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        GameOutput.clearScreen();
         GameAudio.PlayDoorAudio();
         GameOutput.showWelcomeToWeaponStore();
         boolean stayIn = true;
@@ -132,13 +134,15 @@ public class Vendor {
                     Equipment equipmentBuy = pickEquipment(this.getWeaponList(), this.getArmorList());
                     sellToPlayer(equipmentBuy);
                     break;
-                case "CHANGE":
-                    GameOutput.displayBackPack(customer.getEquipmentFromBackpack());
+                case "EQUIP":
+//                    GameOutput.displayBackPack(customer.getEquipmentFromBackpack());
+                    GameOutput.displayWeaponList(getWeaponInBackpack());
+                    GameOutput.displayArmorList(getArmorInBackpack());
                     // Please pick the equipment you want to use
                     Equipment equipmentEquipped = pickEquipment(getWeaponInBackpack(), getArmorInBackpack());
                     changeEquipment(equipmentEquipped);
                     break;
-                case "EXIT":
+                case "EXIT STORE":
                   stayIn = false;
             }
         }
@@ -188,10 +192,10 @@ public class Vendor {
 
         if ("weapon".equalsIgnoreCase(type)) {
             equipment = weaponList.get(userInput - 1);
-            System.out.println("Awesome!! You picked " + equipment.getName() + ".");
+            System.out.println("You chose " + equipment.getName() + ".");
         } else if ("armor".equalsIgnoreCase(type)) {
             equipment = armorList.get(userInput - 1);
-            System.out.println("Awesome!! You now have " + equipment.getName() + ".");
+            System.out.println("You chose " + equipment.getName() + ".");
         }
         return equipment;
     }
