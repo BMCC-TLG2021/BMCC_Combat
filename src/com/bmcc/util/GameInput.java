@@ -2,15 +2,16 @@ package com.bmcc.util;
 
 import java.util.*;
 
+import com.bmcc.controller.Game;
 import com.bmcc.model.character.Character;
 
 public class GameInput {
     private static String userInput;
     private static final Scanner scanner = new Scanner(System.in);
     private static final String[] validCommands = {"ATTACK ENEMY", "USE MAGIC", "END GAME", "SAVE GAME"};
-    private static final List<String> validSeeVendorCommands = new ArrayList<>(Arrays.asList("GO BATTLE", "SEE VENDOR"));
-    private static final String[] validVendorCommands = {"SELL", "BUY", "CHANGE", "EXIT"};
-    private static final String[] equipmentType = {"WEAPON", "ARMOR"};
+    private static final List<String> validSeeVendorCommands = new ArrayList<>(Arrays.asList("GO BATTLE", "SEE VENDOR", "SAVE GAME"));
+    private static final String[] validVendorCommands = {"SELL", "BUY", "EQUIP", "EXIT STORE"};
+    private static final String[] equipmentType = {"WEAPON", "ARMOR", "GO BACK"};
 
 
     // Ingest user input
@@ -83,7 +84,8 @@ public class GameInput {
         while (!parseUserInput(userInput, equipmentType)) {
             System.out.println("Valid commands: " + Arrays.toString(equipmentType));
             userInput = getUserInput(ConsoleColors.YELLOW_BOLD + "Please enter a valid command" + ConsoleColors.RESET);
+
         }
-        return userInput;
+         return userInput;
     }
 }

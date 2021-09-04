@@ -1,5 +1,7 @@
 package com.bmcc.model.equipment;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Equipment {
 
     private final String name;
@@ -9,7 +11,11 @@ public class Equipment {
     private final int moneyValue;
 
 
-    Equipment(String name, int integrity, int maxIntegrity, String desc, int moneyValue) {
+    Equipment(@JsonProperty("name") String name,
+              @JsonProperty("integrity") int integrity,
+              @JsonProperty("maxIntegrity") int maxIntegrity,
+              @JsonProperty("desc") String desc,
+              @JsonProperty("moneyValue") int moneyValue) {
         this.name = name;
         this.integrity = integrity;
         this.maxIntegrity = maxIntegrity;

@@ -36,6 +36,8 @@ public class GameHold {
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File("asset/savedGame/player.json"), currentPlayer);
+            mapper.writeValue(new File("asset/savedGame/playerWeapon.json"), currentPlayer.getWeapon());
+            mapper.writeValue(new File("asset/savedGame/playerArmor.json"), currentPlayer.getArmor());
             saveWeapons(weaponListInBackpack);
             saveArmors(armorListInBackpack);
         } catch (Exception e) {
@@ -61,7 +63,7 @@ public class GameHold {
         }
     }
 
-    public Player retrieveGame() {
+    public static Player retrieveGame() {
         Player player = null;
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -69,6 +71,12 @@ public class GameHold {
             List<Equipment> backpack = player.getEquipmentFromBackpack();
             List<Weapon> weaponList = new ArrayList<>(Arrays.asList(mapper.readValue(new File("asset/savedGame/weapons.json"), Weapon[].class)));
             List<Armor> armorList = new ArrayList<>(Arrays.asList(mapper.readValue(new File("asset/savedGame/armors.json"), Armor[].class)));
+            Weapon currentWeapon = mapper.readValue(new File("asset/savedGame/playerWeapon.json"), Weapon.class);
+            Armor currentArmor = mapper.readValue(new File("asset/savedGame/playerArmor.json"), Armor.class);
+
+            player.setWeapon(currentWeapon);
+            player.setArmor(currentArmor);
+
             for (Weapon weapon : weaponList) {
                 backpack.add(weapon);
             }

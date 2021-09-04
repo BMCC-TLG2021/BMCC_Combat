@@ -2,13 +2,15 @@ package com.bmcc.model.character;
 
 import com.bmcc.controller.Vendor;
 import com.bmcc.model.equipment.Equipment;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Character {
-
+    @JsonIgnore
     private List<Equipment> backpack = new ArrayList<>();
     private final int maxHP;
     private final int maxMP;
@@ -17,6 +19,7 @@ public class Player extends Character {
     private int gold = 100;
     private int rank = 8;
     private static Player instance = null;
+
 
     private Player(@JsonProperty("name") String name,
                    @JsonProperty("occupation") String occupation,
