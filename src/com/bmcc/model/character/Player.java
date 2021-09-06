@@ -85,6 +85,7 @@ public class Player extends Character {
 
     }
 
+    @JsonIgnore
     public List<Equipment> getEquipmentFromBackpack() {
         return backpack;
     }

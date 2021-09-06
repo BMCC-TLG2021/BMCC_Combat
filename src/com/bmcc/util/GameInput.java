@@ -79,7 +79,7 @@ public class GameInput {
     }
 
     public static String getEquipmentType() {
-        String userInput = getUserInput(ConsoleColors.YELLOW_BOLD + "Please Choose a equipment type from below list:\n"
+        String userInput = getUserInput(ConsoleColors.YELLOW_BOLD + "Please Choose a equipment type from below list or go back to vendor:\n"
                 +ConsoleColors.RESET + Arrays.toString(equipmentType).toUpperCase());
         while (!parseUserInput(userInput, equipmentType)) {
             System.out.println("Valid commands: " + Arrays.toString(equipmentType));
@@ -87,5 +87,19 @@ public class GameInput {
 
         }
          return userInput;
+    }
+
+    public static int getUserEquipmentChoice(int listSize) {
+        int userChoice = 0;
+        while (userChoice < 1 || userChoice > listSize) {
+            try {
+                String message = String.format("Please choose equipment from the list. (input number only)");
+                userChoice = Integer.parseInt(GameInput.getUserInput(message));
+                return userChoice;
+            } catch (Exception ignored) {
+
+            }
+        }
+        return userChoice;
     }
 }

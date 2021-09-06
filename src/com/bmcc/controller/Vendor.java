@@ -106,8 +106,6 @@ public class Vendor {
         GameAudio.PlayDoorAudio();
         GameOutput.showWelcomeToWeaponStore();
         boolean stayIn = true;
-        List<Weapon> weaponListBackpack = getWeaponInBackpack();
-        List<Armor> armorListBackpack = getArmorInBackpack();
         while (stayIn) {
             String command = GameInput.getVendorCommand();
             GameOutput.clearScreen();
@@ -121,7 +119,9 @@ public class Vendor {
                     GameOutput.displayArmorList(getArmorInBackpack());
                     // Please pick the equipment you want to sell
                     Equipment equipmentSell = pickEquipment(getWeaponInBackpack(), getArmorInBackpack());
-                    buyFromPlayer(equipmentSell);
+                    if (equipmentSell != null) {
+                        buyFromPlayer(equipmentSell);
+                    }
                     break;
                 case "BUY":
                     System.out.println("You have $" + customer.getGold() + " to buy equipment.");
@@ -132,7 +132,9 @@ public class Vendor {
                     GameOutput.displayArmorList(this.getArmorList());
                     // Please pick the equipment you want to buy
                     Equipment equipmentBuy = pickEquipment(this.getWeaponList(), this.getArmorList());
-                    sellToPlayer(equipmentBuy);
+                    if (equipmentBuy != null) {
+                        sellToPlayer(equipmentBuy);
+                    }
                     break;
                 case "EQUIP":
 //                    GameOutput.displayBackPack(customer.getEquipmentFromBackpack());
@@ -140,7 +142,9 @@ public class Vendor {
                     GameOutput.displayArmorList(getArmorInBackpack());
                     // Please pick the equipment you want to use
                     Equipment equipmentEquipped = pickEquipment(getWeaponInBackpack(), getArmorInBackpack());
-                    changeEquipment(equipmentEquipped);
+                    if (equipmentEquipped != null) {
+                        changeEquipment(equipmentEquipped);
+                    }
                     break;
                 case "EXIT STORE":
                   stayIn = false;
@@ -173,29 +177,37 @@ public class Vendor {
     // Let user pick the equipment
     private Equipment pickEquipment(List<Weapon> weaponList, List<Armor> armorList) {
         Equipment equipment = null;
-        String type = GameInput.getEquipmentType();
-        int listSize = 0;
-        if ("weapon".equalsIgnoreCase(type)) {
-            listSize = weaponList.size();
-        } else if ("armor".equalsIgnoreCase(type)) {
-            listSize = armorList.size();
-        }
-        int userInput = 0;
-        while (userInput < 1 || userInput > listSize) {
-            try {
-                String message = String.format("Please choose %s from the list. (input number only)", type);
-                userInput = Integer.parseInt(GameInput.getUserInput(message));
-            } catch (Exception ignored) {
+        boolean keepPick = true;
+        while (keepPick) {
+            String commandPick = GameInput.getEquipmentType();
+            int listSize = 0;
+            switch(commandPick.toUpperCase()) {
+                case "WEAPON":
+                    listSize = weaponList.size();
 
+                    if (listSize > 0) {
+                        int userWeaponChoice = GameInput.getUserEquipmentChoice(listSize);
+                        equipment = weaponList.get(userWeaponChoice - 1);
+                        System.out.println("You chose " + equipment.getName() + ".");
+                        keepPick = false;
+                    } else {
+                        System.out.println("There is no weapon available to pick");
+                    }
+                    break;
+                case "ARMOR":
+                    listSize = armorList.size();
+                    if (listSize > 0) {
+                        int userArmorChoice = GameInput.getUserEquipmentChoice(listSize);
+                        equipment = armorList.get(userArmorChoice - 1);
+                        System.out.println("You chose " + equipment.getName() + ".");
+                        keepPick = false;
+                    } else {
+                        System.out.println("There is no armor available to pick");
+                    }
+                    break;
+                case "GO BACK":
+                    keepPick = false;
             }
-        }
-
-        if ("weapon".equalsIgnoreCase(type)) {
-            equipment = weaponList.get(userInput - 1);
-            System.out.println("You chose " + equipment.getName() + ".");
-        } else if ("armor".equalsIgnoreCase(type)) {
-            equipment = armorList.get(userInput - 1);
-            System.out.println("You chose " + equipment.getName() + ".");
         }
         return equipment;
     }
