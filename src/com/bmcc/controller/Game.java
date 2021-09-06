@@ -83,7 +83,9 @@ public class Game {
     private void createEnemyList(Character userCharacter) {
         enemyList = new ArrayList<>(characterList);
         if (userCharacter == null && userPlayer != null){
-            enemyList.remove((Character) userPlayer);
+            enemyList.removeIf(enemy -> userPlayer.getOccupation().equalsIgnoreCase(enemy.getOccupation())
+                    && userPlayer.getRace().equalsIgnoreCase(enemy.getRace())
+                    && userPlayer.getHitPoint() == enemy.getHitPoint());
         }
 
         enemyList.remove(userCharacter);
