@@ -12,9 +12,9 @@ Instructions on How to play BMCC-COMBAT
    * Your get one attack per round. 
    * After you attack once, you have to allow your opponent to attack you.
    * You will lose your equipment once its integrity reaches 0.
+   * Each round ends when either player's HP reach 0.
    * You can quit the game anytime.
    * You can save the game after a fight, and can resume the game later.
-   * Game ends when either player's HP reach 0.
 5. If you win, your RANK will increase as you defeat more enemies. 
    * You will also be rewarded with $100.
    * You will also get defeated enemy's weapon and armors if their integrity is above 0.
