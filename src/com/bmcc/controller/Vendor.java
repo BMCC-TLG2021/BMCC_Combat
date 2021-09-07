@@ -112,7 +112,7 @@ public class Vendor {
 
             switch (command.toUpperCase()) {
                 case "SELL":
-                    System.out.println("Here are all the equipment in your backpack");
+                    System.out.println("Here are all the equipment in your backpack. \n");
                     System.out.println("------------ WEAPON LIST ------------");
                     GameOutput.displayWeaponList(getWeaponInBackpack());
                     System.out.println("------------ ARMOR LIST ------------");
@@ -124,8 +124,8 @@ public class Vendor {
                     }
                     break;
                 case "BUY":
-                    System.out.println("You have $" + customer.getGold() + " to buy equipment.");
-                    System.out.println("The following are all the equipment available in store");
+                    System.out.println("\n You have $" + customer.getGold() + " to buy equipment. \n");
+                    System.out.println("The following are all the equipment available in store \n");
                     System.out.println("------------ WEAPON LIST ------------");
                     GameOutput.displayWeaponList(this.getWeaponList());
                     System.out.println("------------ ARMOR LIST ------------");
