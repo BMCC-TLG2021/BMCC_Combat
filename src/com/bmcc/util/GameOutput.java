@@ -269,7 +269,7 @@ public class GameOutput {
     public static void showEnemyFight2() {
         try {
             String menu = Files.readString(Path.of("asset/graphics/enemyFight2.txt"));
-            System.out.println(menu);
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -277,7 +277,7 @@ public class GameOutput {
     public static void showUserFight2() {
         try {
             String menu = Files.readString(Path.of("asset/graphics/userFight2.txt"));
-            System.out.println(menu);
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
         }
