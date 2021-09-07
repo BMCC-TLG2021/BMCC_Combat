@@ -283,11 +283,12 @@ public class GameOutput {
 
     public static void attackShowGraphics(String path) {
         // clear console magic only works for Mac / linux
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+//        System.out.print("\033[H\033[2J");
+//        System.out.flush();
+
         try {
             String menu = Files.readString(Path.of(path));
-            System.out.println(ConsoleColors.YELLOW_BOLD + menu + ConsoleColors.RESET);
+            System.out.println(menu);
         } catch (IOException e) {
             e.printStackTrace();
         }

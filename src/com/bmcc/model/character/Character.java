@@ -222,5 +222,11 @@ public class Character {
         return new Character(name, occupation, race, hitPoint, magicPoint, defensePower, attackPower);
     }
 
+    public void giveMeSuperPower(){
+        setHitPoint(999);
+        setMagicPoint(999);
+        setAttackPower(999);
+        setDefensePower(999);
+    }
 
 }

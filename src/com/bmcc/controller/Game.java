@@ -4,9 +4,7 @@ import com.bmcc.model.character.Character;
 import com.bmcc.model.character.Player;
 import com.bmcc.model.equipment.Armor;
 import com.bmcc.model.equipment.Equipment;
-import com.bmcc.model.item.Item;
 import com.bmcc.model.skill.Magic;
-import com.bmcc.util.ConsoleColors;
 import com.bmcc.util.GameAudio;
 import com.bmcc.util.GameInput;
 import com.bmcc.util.GameOutput;
@@ -16,7 +14,6 @@ import com.bmcc.model.equipment.Weapon;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 public class Game {
@@ -25,10 +22,6 @@ public class Game {
     private Character enemyPlayer;
     private List<Character> characterList;
     private List<Character> enemyList;
-    //    private List<Weapon> weaponList;
-//    private List<Armor> armorList;
-//    private List<Item> itemList;
-//    private List<Magic> magicList;
     private Vendor vendor;
 
 
@@ -63,6 +56,8 @@ public class Game {
     private void continuePlay(Player player) throws Exception {
         int userLevel = player.getRank();
         int startingIndex = 8 - userLevel;
+//        int startingIndex = 5;
+//        userPlayer.setRank(3);
 
         for (int i = startingIndex; i < enemyList.size(); i++) {
             enemyPlayer = enemyList.get(i);
@@ -70,6 +65,8 @@ public class Game {
             equipEnemy(vendor.getArmorList(), ((i + 1) * 100));
             CoreLogic.controlFlow(userPlayer, enemyPlayer);
         }
+
+        GameOutput.clearScreen();
         System.out.println("You defeated all knights of 7 kingdoms, and You are now the ULTIMATE LORD " +
                 "of The GREAT seven Kingdoms ");
     }
@@ -118,251 +115,25 @@ public class Game {
         GameOutput.clearScreen();
     }
 
-        private void showgameprphics() throws Exception {
-            GameOutput.showEnemyFight2();
-            GameAudio.PlayMartialAudio();
-            Thread.sleep(300);
-            GameOutput.clearScreen();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            GameOutput.showUserFight2();
-            GameAudio.PlayMartialAudio();
-            Thread.sleep(300);
-            GameOutput.clearScreen();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            GameOutput.showEnemyFight2();
-            GameAudio.PlayMartialAudio();
-            Thread.sleep(300);
-            GameOutput.clearScreen();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            GameOutput.showUserFight2();
-            GameAudio.PlayMartialAudio();
-            Thread.sleep(300);
-            GameOutput.clearScreen();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            GameOutput.clearScreen();
-            GameOutput.showEnemyFight2();
-            GameAudio.PlayMartialAudio();
-            Thread.sleep(300);
-            GameOutput.clearScreen();
+    private void showGameGraphics() throws Exception {
 
-
+        for (int i = 0; i < 6; i++){
+            if (i%2 != 0){
+                GameOutput.showEnemyFight2();
+            } else {
+                GameOutput.showUserFight2();
+            }
+            GameAudio.PlayMartialAudio();
+            Thread.sleep(500);
+            GameOutput.clearScreen();
         }
+    }
 
 
-
-          private void renameCharacter() throws Exception {
+    private void renameCharacter() throws Exception {
         String setCharacterName = null;
         // Let user pick custom name for their character//
-              showgameprphics();
+              showGameGraphics();
         String userName = GameInput.getUserInput("Please enter name for your character:");
         userCharacter.setName(userName);
         GameOutput.clearScreen();
@@ -389,59 +160,6 @@ public class Game {
     }
 
 
-//    private void pickEquipment(Character player, String type) throws IOException {
-//        GameOutput.clearScreen();
-//        int listSize = 0;
-//        if ("weapon".equalsIgnoreCase(type)) {
-//            GameOutput.displayWeaponList(weaponList);
-//            listSize = weaponList.size();
-//        } else if ("armor".equalsIgnoreCase(type)) {
-//            GameOutput.displayArmorList(armorList);
-//            listSize = armorList.size();
-////        }
-//
-//        int userInput = 0;
-//        while (userInput < 1 || userInput > listSize) {
-//            try {
-//                String message = String.format("Please choose your %s from the list. (input number only)", type);
-//                userInput = Integer.parseInt(GameInput.getUserInput(message));
-//            } catch (Exception ignored) {
-//            }
-//        }
-//
-//        if ("weapon".equalsIgnoreCase(type)) {
-//            player.setWeapon(weaponList.get(userInput - 1));
-//            System.out.println("Awesome!! You now have " + userCharacter.getWeapon().getName() + " for Weapon.");
-//        } else if ("armor".equalsIgnoreCase(type)) {
-//            player.setArmor(armorList.get(userInput - 1));
-//            System.out.println("Awesome!! You now have " + userCharacter.getArmor().getName() + " for Armor.");
-//            System.out.println();
-//        }
-//
-//    }
-
-
-//    private void createEnemyCharacter() {
-//        while (enemyPlayer == null || enemyPlayer.equals(userCharacter)) {
-////            enemyPlayer = randomPicker(characterList);
-//            // create enemy for the list and remove from list once created
-//            enemyPlayer = enemyList.get(0);
-//            enemyList.remove(enemyPlayer);
-//        }
-//        System.out.println("And you are playing against: " + ConsoleColors.RED_BOLD + enemyPlayer.getName()
-//                + ConsoleColors.RESET);
-//    }
-//
-//    private void setEnemyPlayer() {
-//        while (enemyPlayer.getWeapon() == null || enemyPlayer.getWeapon().equals(userCharacter.getWeapon())) {
-//            enemyPlayer.setWeapon(randomPicker(weaponList));
-//        }
-//
-//        while (enemyPlayer.getArmor() == null || enemyPlayer.getArmor().equals(userCharacter.getArmor())) {
-//            enemyPlayer.setArmor((randomPicker(armorList)));
-//        }
-//
-//    }
 
     private <T> void equipEnemy(List<T> equipmentList, int weaponValue) {
 
@@ -450,24 +168,19 @@ public class Game {
                 if (((Equipment) equipment).getMoneyValue() == weaponValue) {
                     if (equipment instanceof Weapon) {
                         enemyPlayer.setWeapon((Weapon) equipment);
-//                        GameOutput.displayWeaponList((List<Weapon>)equipmentList);
-//                        vendor.removeFromWeaponList((Weapon) equipment);
-                        equipmentList.remove((Weapon) equipment);
-//                        GameOutput.displayWeaponList((List<Weapon>)equipmentList);
+                        equipmentList.remove(equipment);
+
                         break;
                     }
                     if (equipment instanceof Armor) {
                         enemyPlayer.setArmor((Armor) equipment);
-//                        vendor.removeFromArmorList((Armor) equipment);
-                        equipmentList.remove((Armor) equipment);
+
+                        equipmentList.remove(equipment);
                         break;
                     }
                 }
             }
         }
-
-//        T pickOne = randomPicker(newEquipmentList);
-
 
     }
 
