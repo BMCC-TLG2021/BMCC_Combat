@@ -17,6 +17,8 @@ public class CoreLogic {
     public static void controlFlow(Player userPlayer, Character enemyPlayer) throws Exception {
         userPlayer.getPlayerReadyToFight();
         GameOutput.clearScreen();
+        System.out.println("Your RANK is " + userPlayer.getRank() + ". You will FIGHT against " + enemyPlayer.getName()
+        + ".");
         GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
 
         while (userPlayer.getHitPoint() > 0 && enemyPlayer.getHitPoint() > 0) {
@@ -25,9 +27,11 @@ public class CoreLogic {
             GameOutput.clearScreen();
             switch (command.toUpperCase()) {
                 case "ATTACK ENEMY":
+                    GameOutput.emptyOutputFile();
                     Attacks.physicalAttack(userPlayer, enemyPlayer, "asset/graphics/userFight.txt");
                     break;
                 case "USE MAGIC":
+                    GameOutput.emptyOutputFile();
                     Attacks.magicalAttack(userPlayer, enemyPlayer, userPlayer.getMagic(), "asset/graphics/userFight.txt");
                     break;
                 case "END GAME":
@@ -38,13 +42,16 @@ public class CoreLogic {
                     file.delete();
                     System.exit(0);
                     break;
-                case "SAVE GAME":
-//                    GameOutput.showGameSaved();
-//                    GameAudio.PlayGameSavedAudio();
-                    GameHold gh = GameHold.createInstance(userPlayer);
-                    gh.saveGame();
-                    System.out.println("Okay, your game has been saved.");
-                    System.exit(0);
+//                case "SAVE GAME":
+//                    GameHold gh = GameHold.createInstance(userPlayer);
+//                    gh.saveGame();
+//                    System.out.println("Great, your game has been saved.");
+//                    System.exit(0);
+//                    break;
+                case "GIVE ME SUPERPOWER":
+                    userPlayer.giveMeSuperPower();
+                    System.out.println("BOOOM!! You're the superman NOW!!! ");
+                    break;
             }
 
             GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
@@ -60,8 +67,14 @@ public class CoreLogic {
     }
 
     private static boolean checkWins(Player userPlayer, Character enemyPlayer) throws Exception {
+
+        if (userPlayer.getRank() == 1){
+            return true;
+        }
+
         if (enemyPlayer.getHitPoint() <= 0) {
-            System.out.println(userPlayer.getName() + " Win!");
+            GameOutput.clearScreen();
+
             GameAudio.PlayYouWonAudio();
             GameOutput.showYouWon();
             // delete outputFile.txt before game over
@@ -73,13 +86,13 @@ public class CoreLogic {
             userPlayer.addEquipmentToBackpack((Equipment) enemyPlayer.getWeapon());
             userPlayer.addEquipmentToBackpack((Equipment)enemyPlayer.getArmor());
             userPlayer.rankUp();
-            System.out.println(userPlayer.getRank());
 
             // user now can go directly to next battle or see wendor
             String command = GameInput.getSeeVendorCommand();
             switch (command.toUpperCase()){
                 case "GO BATTLE":
                     // don't need to do anything
+                    GameAudio.PlayNextRoundAudio();
                     return true;
 
                 case "SEE VENDOR":
@@ -95,7 +108,7 @@ public class CoreLogic {
         } else if (userPlayer.getHitPoint() <= 0) {
 
             // todo: update failing store
-            System.out.println(userPlayer.getName() + " Fail!");
+            System.out.println(userPlayer.getName() + " Failed!");
             GameAudio.PlayYouLostAudio();
             GameOutput.showYouLost();
             GameAudio.PlayYouGameOverAudio();
