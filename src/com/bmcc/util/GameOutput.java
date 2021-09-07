@@ -207,7 +207,7 @@ public class GameOutput {
     public static void showWelcomeToWeaponStore() {
         try {
             String menu = Files.readString(Path.of("asset/graphics/WEAPONSTORE.txt"));
-            System.out.println(menu);
+            System.out.println(ConsoleColors.YELLOW_BOLD + menu + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -216,7 +216,7 @@ public class GameOutput {
     public static void showYouWon() {
         try {
             String menu = Files.readString(Path.of("asset/graphics/YOUWON.txt"));
-            System.out.println(menu);
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -224,7 +224,7 @@ public class GameOutput {
     public static void showYourBackPack() {
         try {
             String menu = Files.readString(Path.of("asset/graphics/BACKPACK.txt"));
-            System.out.println(menu);
+            System.out.println(ConsoleColors.YELLOW_BOLD + menu + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -233,7 +233,7 @@ public class GameOutput {
     public static void showYouLost() {
         try {
             String menu = Files.readString(Path.of("asset/graphics/YOULOST.txt"));
-            System.out.println(menu);
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -242,7 +242,7 @@ public class GameOutput {
     public static void showGameOver() {
         try {
             String menu = Files.readString(Path.of("asset/graphics/GAMEOVER.txt"));
-            System.out.println(menu);
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -251,7 +251,7 @@ public class GameOutput {
     public static void showGameSaved() {
         try {
             String menu = Files.readString(Path.of("asset/graphics/GAMESAVED.txt"));
-            System.out.println(menu);
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -291,7 +291,7 @@ public class GameOutput {
         System.out.flush();
         try {
             String menu = Files.readString(Path.of(path));
-            System.out.println(menu);
+            System.out.println(ConsoleColors.YELLOW_BOLD + menu + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
         }
