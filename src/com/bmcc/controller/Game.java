@@ -56,6 +56,8 @@ public class Game {
     private void continuePlay(Player player) throws Exception {
         int userLevel = player.getRank();
         int startingIndex = 8 - userLevel;
+//        int startingIndex = 5;
+//        userPlayer.setRank(3);
 
         for (int i = startingIndex; i < enemyList.size(); i++) {
             enemyPlayer = enemyList.get(i);
@@ -63,6 +65,8 @@ public class Game {
             equipEnemy(vendor.getArmorList(), ((i + 1) * 100));
             CoreLogic.controlFlow(userPlayer, enemyPlayer);
         }
+
+        GameOutput.clearScreen();
         System.out.println("You defeated all knights of 7 kingdoms, and You are now the ULTIMATE LORD " +
                 "of The GREAT seven Kingdoms ");
     }

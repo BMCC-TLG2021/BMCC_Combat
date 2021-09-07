@@ -8,7 +8,7 @@ import com.bmcc.model.character.Character;
 public class GameInput {
     private static String userInput;
     private static final Scanner scanner = new Scanner(System.in);
-    private static final String[] validCommands = {"ATTACK ENEMY", "USE MAGIC", "END GAME", "SAVE GAME"};
+    private static final String[] validCommands = {"ATTACK ENEMY", "USE MAGIC", "END GAME"};
     private static final List<String> validSeeVendorCommands = new ArrayList<>(Arrays.asList("GO BATTLE", "SEE VENDOR", "SAVE GAME"));
     private static final String[] validVendorCommands = {"SELL", "BUY", "EQUIP", "EXIT STORE"};
     private static final String[] equipmentType = {"WEAPON", "ARMOR", "GO BACK"};

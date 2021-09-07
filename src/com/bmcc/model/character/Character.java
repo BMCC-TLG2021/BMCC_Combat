@@ -229,5 +229,4 @@ public class Character {
         setDefensePower(999);
     }
 
-
 }

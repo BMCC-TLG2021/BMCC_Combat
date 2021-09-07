@@ -42,12 +42,12 @@ public class CoreLogic {
                     file.delete();
                     System.exit(0);
                     break;
-                case "SAVE GAME":
-                    GameHold gh = GameHold.createInstance(userPlayer);
-                    gh.saveGame();
-                    System.out.println("Great, your game has been saved.");
-                    System.exit(0);
-                    break;
+//                case "SAVE GAME":
+//                    GameHold gh = GameHold.createInstance(userPlayer);
+//                    gh.saveGame();
+//                    System.out.println("Great, your game has been saved.");
+//                    System.exit(0);
+//                    break;
                 case "GIVE ME SUPERPOWER":
                     userPlayer.giveMeSuperPower();
                     System.out.println("BOOOM!! You're the superman NOW!!! ");
@@ -67,6 +67,11 @@ public class CoreLogic {
     }
 
     private static boolean checkWins(Player userPlayer, Character enemyPlayer) throws Exception {
+
+        if (userPlayer.getRank() == 1){
+            return true;
+        }
+
         if (enemyPlayer.getHitPoint() <= 0) {
             GameOutput.clearScreen();
 
@@ -87,6 +92,7 @@ public class CoreLogic {
             switch (command.toUpperCase()){
                 case "GO BATTLE":
                     // don't need to do anything
+                    GameAudio.PlayNextRoundAudio();
                     return true;
 
                 case "SEE VENDOR":
