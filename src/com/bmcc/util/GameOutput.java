@@ -2,8 +2,11 @@ package com.bmcc.util;
 
 import com.bmcc.model.character.Character;
 import com.bmcc.model.equipment.Armor;
+import com.bmcc.model.equipment.Equipment;
 import com.bmcc.model.equipment.Weapon;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.*;
 import java.lang.reflect.Array;
@@ -78,78 +81,105 @@ public class GameOutput {
         TableBuilder st = new TableBuilder();
         st.setShowVerticalLines(true);
         int i = 1;
-        st.setHeaders("ID", "Name", "Occupation", "Race", "Hit Point", "Magic Point", "Defense Power", "Attack Power");
+        st.setHeaders("ID", "Occupation", "Race", "Hit Point", "Magic Point", "Defense Power", "Attack Power");
         for (Character aChar : characterList) {
-            String[] characterAttributes = new String[8];
+            String[] characterAttributes = new String[7];
             characterAttributes[0] = "" + i;
             i++;
-            characterAttributes[1] = aChar.getName();
-            characterAttributes[2] = aChar.getOccupation();
-            characterAttributes[3] = aChar.getRace();
-            characterAttributes[4] = "" + aChar.getHitPoint();
-            characterAttributes[5] = "" + aChar.getMagicPoint();
-            characterAttributes[6] = "" + aChar.getTotalDefensePower();
-            characterAttributes[7] = "" + aChar.getAttackPower();
+//            characterAttributes[1] = aChar.getName();
+            characterAttributes[1] = aChar.getOccupation();
+            characterAttributes[2] = aChar.getRace();
+            characterAttributes[3] = "" + aChar.getHitPoint();
+            characterAttributes[4] = "" + aChar.getMagicPoint();
+            characterAttributes[5] = "" + aChar.getTotalDefensePower();
+            characterAttributes[6] = "" + aChar.getAttackPower();
             st.addRow(characterAttributes);
         }
         st.print();
     }
 
-    public static void displayWeaponList(List<Weapon> weaponList) {
-        TableBuilder st = new TableBuilder();
-        st.setShowVerticalLines(true);
-        int i = 1;
-        st.setHeaders("ID", "Name", "Description", "Integrity", "Physical damage", "Magical Power Increased By");
-        for (Weapon weapon: weaponList) {
-            String[] weaponAttributes =  new String[6];
-            weaponAttributes[0] = "" + i;
-            i++;
-            weaponAttributes[1] = weapon.getName();
-            weaponAttributes[2] = weapon.getDesc();
-            weaponAttributes[3] = "" + weapon.getIntegrity();
-            weaponAttributes[4] = "" + weapon.getPhysicalDamage();
-            weaponAttributes[5] = (weapon.getMagicPowerIncrease() * 100) + "%";
-            st.addRow(weaponAttributes);
+    public static void displayBackPack(List<Equipment> backpack) {
+        List<Weapon> weaponList = new ArrayList<>();
+        List<Armor> armorList = new ArrayList<>();
+        for (Equipment equipment : backpack) {
+            if (equipment instanceof Weapon) {
+                weaponList.add((Weapon) equipment);
+            } else {
+                armorList.add((Armor) equipment);
+            }
         }
-        st.print();
+        displayWeaponList(weaponList);
+        displayArmorList(armorList);
+    }
+
+    public static void displayWeaponList(List<Weapon> weaponList) {
+        if (weaponList != null && weaponList.size() != 0) {
+            TableBuilder st = new TableBuilder();
+            st.setShowVerticalLines(true);
+            int i = 1;
+            st.setHeaders("ID", "Name", "Description", "Integrity", "Physical damage", "Magical Power Increased By", "Price");
+            for (Weapon weapon : weaponList) {
+                String[] weaponAttributes = new String[7];
+                weaponAttributes[0] = "" + i;
+                i++;
+                weaponAttributes[1] = weapon.getName();
+                weaponAttributes[2] = weapon.getDesc();
+                weaponAttributes[3] = "" + weapon.getMaxIntegrity();
+                weaponAttributes[4] = "" + weapon.getPhysicalDamage();
+                weaponAttributes[5] = (weapon.getMagicPowerIncrease() * 100) + "%";
+                weaponAttributes[6] = "" + weapon.getMoneyValue();
+                st.addRow(weaponAttributes);
+            }
+            st.print();
+        } else {
+            System.out.println("There is no weapon available.");
+        }
     }
 
     public static void displayArmorList(List<Armor> armorList) {
-        TableBuilder st = new TableBuilder();
-        st.setShowVerticalLines(true);
-        int i = 1;
-        st.setHeaders("ID", "Name", "Description", "Integrity", "Defense Increase");
-        for (Armor armor: armorList) {
-            String[] armorAttributes =  new String[5];
-            armorAttributes[0] = "" + i;
-            i++;
-            armorAttributes[1] = armor.getName();
-            armorAttributes[2] = armor.getDesc();
-            armorAttributes[3] = "" + armor.getIntegrity();
-            armorAttributes[4] = "" + armor.getDefenceIncrease();
-            st.addRow(armorAttributes);
+        if (armorList != null && armorList.size() != 0) {
+            TableBuilder st = new TableBuilder();
+            st.setShowVerticalLines(true);
+            int i = 1;
+            st.setHeaders("ID", "Name", "Description", "Integrity", "Defense Increase", "Price");
+            for (Armor armor : armorList) {
+                String[] armorAttributes = new String[6];
+                armorAttributes[0] = "" + i;
+                i++;
+                armorAttributes[1] = armor.getName();
+                armorAttributes[2] = armor.getDesc();
+                armorAttributes[3] = "" + armor.getMaxIntegrity();
+                armorAttributes[4] = "" + armor.getDefenceIncrease();
+                armorAttributes[5] = "" + armor.getMoneyValue();
+                st.addRow(armorAttributes);
+            }
+            st.print();
+        } else {
+            System.out.println("There is no armor available.");
         }
-        st.print();
     }
 
-    public static List<String> showActionDamage(Character attacker, Character victim, int damagePoint) {
+    public static List<String> showActionDamage(Character attacker, Character victim, int damagePoint) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         List<String> actionDamage = new ArrayList<>();
+
         actionDamage.add("************************************************************");
         actionDamage.add("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " ATTACKED " + ConsoleColors.RESET + victim.getName()) + "*");
         actionDamage.add("************************************************************");
+        GameAudio.PlayResultAudio();
         if (damagePoint < 0) {
             damagePoint = 0;
         }
-        actionDamage.add("*****************************************************************************************");
+        actionDamage.add("*************************************************************");
         actionDamage.add("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " CREATED " + damagePoint + " Damage to "
                 + ConsoleColors.RESET + victim.getName()) + "*");
-        actionDamage.add("*****************************************************************************************");
+        actionDamage.add("**************************************************************");
+        GameAudio.PlayResultAudio();
         return actionDamage;
     }
 
     public static void welcomePlayer() {
         try {
-            String welcomeBanner = Files.readString(Path.of("asset/BMCC.txt"));
+            String welcomeBanner = Files.readString(Path.of("asset/graphics/BMCC.txt"));
             System.out.println(ConsoleColors.GREEN_BOLD + welcomeBanner + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
@@ -158,12 +188,102 @@ public class GameOutput {
 
     public static void showInstructions() {
         try {
-            String menu = Files.readString(Path.of("asset/Instructions.txt"));
+            String menu = Files.readString(Path.of("asset/graphics/Instructions.txt"));
             System.out.println(menu);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public static void showGameStory() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/1STORY.txt"));
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showWelcomeToWeaponStore() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/WEAPONSTORE.txt"));
+            System.out.println(ConsoleColors.YELLOW_BOLD + menu + ConsoleColors.RESET);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showYouWon() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/YOUWON.txt"));
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void showYourBackPack() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/BACKPACK.txt"));
+            System.out.println(ConsoleColors.YELLOW_BOLD + menu + ConsoleColors.RESET);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showYouLost() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/YOULOST.txt"));
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showGameOver() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/GAMEOVER.txt"));
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showGameSaved() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/GAMESAVED.txt"));
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showWeaponGameGraphics() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/WEAPONFIGHT.txt"));
+            System.out.println(menu);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showEnemyFight2() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/enemyFight2.txt"));
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void showUserFight2() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/userFight2.txt"));
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     public static void attackShowGraphics(String path) {
         // clear console magic only works for Mac / linux
@@ -171,7 +291,7 @@ public class GameOutput {
         System.out.flush();
         try {
             String menu = Files.readString(Path.of(path));
-            System.out.println(menu);
+            System.out.println(ConsoleColors.YELLOW_BOLD + menu + ConsoleColors.RESET);
         } catch (IOException e) {
             e.printStackTrace();
         }

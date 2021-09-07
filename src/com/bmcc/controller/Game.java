@@ -1,6 +1,7 @@
 package com.bmcc.controller;
 
 import com.bmcc.model.character.Character;
+import com.bmcc.model.character.Player;
 import com.bmcc.model.equipment.Armor;
 import com.bmcc.model.equipment.Equipment;
 import com.bmcc.model.item.Item;
@@ -12,71 +13,364 @@ import com.bmcc.util.GameOutput;
 import com.bmcc.model.equipment.Weapon;
 
 
-import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class Game {
-    private Character userPlayer;
+    private Player userPlayer = null;
+    private Character userCharacter;
     private Character enemyPlayer;
     private List<Character> characterList;
-    private List<Weapon> weaponList;
-    private List<Armor> armorList;
-    private List<Item> itemList;
-    private List<Magic> magicList;
+    private List<Character> enemyList;
+    //    private List<Weapon> weaponList;
+//    private List<Armor> armorList;
+//    private List<Item> itemList;
+//    private List<Magic> magicList;
+    private Vendor vendor;
 
 
     public void play() throws Exception {
         GameOutput.clearScreen();
-        initGame();
+        initCharacter();
         welcomeUser();
-        pickCharacter();
-        renameCharacter();
-        pickEquipment(userPlayer, "weapon");
-        Thread.sleep(3000);
-        pickEquipment(userPlayer, "armor");
-        Thread.sleep(3000);
+
+
+
+        if (userPlayer == null) {
+            pickCharacter();
+            renameCharacter();
+            createUserPlayer(userCharacter);
+        }
+
+        createEnemyList(userCharacter);
+
         pickMagics(userPlayer);
-        createEnemyCharacter();
-        setEnemyPlayer();
-        CoreLogic.controlFlow(userPlayer, enemyPlayer);
+
+        // todo create load game function
+        createVendor(userPlayer);
+        vendor.tradeEquipment();
+        continuePlay(userPlayer);
     }
 
-    private void pickMagics(Character userPlayer) throws Exception {
+    private void createUserPlayer(Character userCharacter) {
+        userPlayer = Player.createInstanceFromCharacter(userCharacter);
+    }
+
+
+    private void continuePlay(Player player) throws Exception {
+        int userLevel = player.getRank();
+        int startingIndex = 8 - userLevel;
+
+        for (int i = startingIndex; i < enemyList.size(); i++) {
+            enemyPlayer = enemyList.get(i);
+            equipEnemy(vendor.getWeaponList(), ((i + 1) * 100));
+            equipEnemy(vendor.getArmorList(), ((i + 1) * 100));
+            CoreLogic.controlFlow(userPlayer, enemyPlayer);
+        }
+        System.out.println("You defeated all knights of 7 kingdoms, and You are now the ULTIMATE LORD " +
+                "of The GREAT seven Kingdoms ");
+    }
+
+
+    private void createVendor(Player userPlayer) throws Exception {
+        vendor = Vendor.createInstance((Player) userPlayer);
+    }
+
+    private void visitVendor(Character userPlayer) throws Exception {
+        vendor.tradeEquipment();
+    }
+
+    private void createEnemyList(Character userCharacter) {
+        enemyList = new ArrayList<>(characterList);
+        if (userCharacter == null && userPlayer != null) {
+            enemyList.removeIf(enemy -> userPlayer.getOccupation().equalsIgnoreCase(enemy.getOccupation())
+                    && userPlayer.getRace().equalsIgnoreCase(enemy.getRace())
+                    && userPlayer.getHitPoint() == enemy.getHitPoint());
+        }
+
+        enemyList.remove(userCharacter);
+    }
+
+    private void pickMagics(Player userPlayer) throws Exception {
         Magic magic = Magic.getInstanceFromJsonFile("asset/sampleMagic.json");
         userPlayer.setMagic(magic);
     }
 
 
-    private void initGame() throws Exception {
-        // todo: init character, weapon, armor, item and magic lists
+    private void initCharacter() throws Exception {
         characterList = Character.getCharacterListFromJsonFile("asset/sampleCharacters.json");
-        weaponList = Weapon.getWeaponListFromJsonFile("asset/sampleWeapons.json");
-        armorList = Armor.getArmorListFromJsonFile("asset/sampleArmors.json");
     }
 
     private void welcomeUser() throws Exception {
         GameOutput.welcomePlayer();
-        System.out.println();
-        System.out.println();
-        System.out.println();
         GameAudio.PlayWelcomeAudio();
         GameOutput.showInstructions();
+        String resumeGame = GameInput.getUserInput("Do you wish to continue from previous session? [ YES OR NO ]");
+        while (!resumeGame.equalsIgnoreCase("yes") && !resumeGame.equalsIgnoreCase("no")) {
+            resumeGame = GameInput.getUserInput("Do you wish to continue from previous session? [ YES OR NO ]");
+        }
+        if (resumeGame.equalsIgnoreCase("yes")) {
+            userPlayer = GameHold.retrieveGame();
+        }
+        GameOutput.clearScreen();
     }
 
+        private void showgameprphics() throws Exception {
+            GameOutput.showEnemyFight2();
+            GameAudio.PlayMartialAudio();
+            Thread.sleep(300);
+            GameOutput.clearScreen();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            GameOutput.showUserFight2();
+            GameAudio.PlayMartialAudio();
+            Thread.sleep(300);
+            GameOutput.clearScreen();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            GameOutput.showEnemyFight2();
+            GameAudio.PlayMartialAudio();
+            Thread.sleep(300);
+            GameOutput.clearScreen();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            GameOutput.showUserFight2();
+            GameAudio.PlayMartialAudio();
+            Thread.sleep(300);
+            GameOutput.clearScreen();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            GameOutput.clearScreen();
+            GameOutput.showEnemyFight2();
+            GameAudio.PlayMartialAudio();
+            Thread.sleep(300);
+            GameOutput.clearScreen();
 
-    private void renameCharacter() throws Exception {
+
+        }
+
+
+
+          private void renameCharacter() throws Exception {
         String setCharacterName = null;
-        while (!("no".equalsIgnoreCase(setCharacterName) || "yes".equalsIgnoreCase(setCharacterName))) {
-            setCharacterName = GameInput.getUserInput("Do you want to re-name your character? (yes or no) ");
-        }
+        // Let user pick custom name for their character//
+              showgameprphics();
+        String userName = GameInput.getUserInput("Please enter name for your character:");
+        userCharacter.setName(userName);
+        GameOutput.clearScreen();
 
-        if ("yes".equalsIgnoreCase(setCharacterName)) {
-            // Let user pick custom name for their character
-            String userName = GameInput.getUserInput("Please enter name for your character:");
-            userPlayer.setName(userName);
-        }
+        GameOutput.showGameStory();
+        GameAudio.PlayFightAudio();
+
+        String anyKey = GameInput.getUserInput("Press enter to continue.... ");
     }
 
 
@@ -90,64 +384,92 @@ public class Game {
             } catch (Exception ignored) {
             }
         }
-        userPlayer = characterList.get(userInput - 1);
+        userCharacter = characterList.get(userInput - 1);
         GameOutput.clearScreen();
-        System.out.println("Great!! You picked: " + ConsoleColors.GREEN_BOLD + userPlayer.getName()
-        + ConsoleColors.RESET);
     }
 
 
-    private void pickEquipment(Character player, String type) throws IOException {
-        GameOutput.clearScreen();
-        int listSize = 0;
-        if ("weapon".equalsIgnoreCase(type)) {
-            GameOutput.displayWeaponList(weaponList);
-            listSize = weaponList.size();
-        } else if ("armor".equalsIgnoreCase(type)) {
-            GameOutput.displayArmorList(armorList);
-            listSize = armorList.size();
-        }
+//    private void pickEquipment(Character player, String type) throws IOException {
+//        GameOutput.clearScreen();
+//        int listSize = 0;
+//        if ("weapon".equalsIgnoreCase(type)) {
+//            GameOutput.displayWeaponList(weaponList);
+//            listSize = weaponList.size();
+//        } else if ("armor".equalsIgnoreCase(type)) {
+//            GameOutput.displayArmorList(armorList);
+//            listSize = armorList.size();
+////        }
+//
+//        int userInput = 0;
+//        while (userInput < 1 || userInput > listSize) {
+//            try {
+//                String message = String.format("Please choose your %s from the list. (input number only)", type);
+//                userInput = Integer.parseInt(GameInput.getUserInput(message));
+//            } catch (Exception ignored) {
+//            }
+//        }
+//
+//        if ("weapon".equalsIgnoreCase(type)) {
+//            player.setWeapon(weaponList.get(userInput - 1));
+//            System.out.println("Awesome!! You now have " + userCharacter.getWeapon().getName() + " for Weapon.");
+//        } else if ("armor".equalsIgnoreCase(type)) {
+//            player.setArmor(armorList.get(userInput - 1));
+//            System.out.println("Awesome!! You now have " + userCharacter.getArmor().getName() + " for Armor.");
+//            System.out.println();
+//        }
+//
+//    }
 
-        int userInput = 0;
-        while (userInput < 1 || userInput > listSize) {
-            try {
-                String message = String.format("Please choose your %s from the list. (input number only)", type);
-                userInput = Integer.parseInt(GameInput.getUserInput(message));
-            } catch (Exception ignored) {
+
+//    private void createEnemyCharacter() {
+//        while (enemyPlayer == null || enemyPlayer.equals(userCharacter)) {
+////            enemyPlayer = randomPicker(characterList);
+//            // create enemy for the list and remove from list once created
+//            enemyPlayer = enemyList.get(0);
+//            enemyList.remove(enemyPlayer);
+//        }
+//        System.out.println("And you are playing against: " + ConsoleColors.RED_BOLD + enemyPlayer.getName()
+//                + ConsoleColors.RESET);
+//    }
+//
+//    private void setEnemyPlayer() {
+//        while (enemyPlayer.getWeapon() == null || enemyPlayer.getWeapon().equals(userCharacter.getWeapon())) {
+//            enemyPlayer.setWeapon(randomPicker(weaponList));
+//        }
+//
+//        while (enemyPlayer.getArmor() == null || enemyPlayer.getArmor().equals(userCharacter.getArmor())) {
+//            enemyPlayer.setArmor((randomPicker(armorList)));
+//        }
+//
+//    }
+
+    private <T> void equipEnemy(List<T> equipmentList, int weaponValue) {
+
+        for (T equipment : equipmentList) {
+            if (equipment instanceof Equipment) {
+                if (((Equipment) equipment).getMoneyValue() == weaponValue) {
+                    if (equipment instanceof Weapon) {
+                        enemyPlayer.setWeapon((Weapon) equipment);
+//                        GameOutput.displayWeaponList((List<Weapon>)equipmentList);
+//                        vendor.removeFromWeaponList((Weapon) equipment);
+                        equipmentList.remove((Weapon) equipment);
+//                        GameOutput.displayWeaponList((List<Weapon>)equipmentList);
+                        break;
+                    }
+                    if (equipment instanceof Armor) {
+                        enemyPlayer.setArmor((Armor) equipment);
+//                        vendor.removeFromArmorList((Armor) equipment);
+                        equipmentList.remove((Armor) equipment);
+                        break;
+                    }
+                }
             }
         }
 
-        if ("weapon".equalsIgnoreCase(type)) {
-            player.setWeapon(weaponList.get(userInput - 1));
-            System.out.println("Awesome!! You now have " + userPlayer.getWeapon().getName() + " for Weapon.");
-        } else if ("armor".equalsIgnoreCase(type)) {
-            player.setArmor(armorList.get(userInput - 1));
-            System.out.println("Awesome!! You now have " + userPlayer.getArmor().getName() + " for Armor.");
-            System.out.println();
-        }
+//        T pickOne = randomPicker(newEquipmentList);
+
 
     }
-
-
-    private void createEnemyCharacter() {
-        while (enemyPlayer == null || enemyPlayer.equals(userPlayer)) {
-            enemyPlayer = randomPicker(characterList);
-        }
-        System.out.println("And you are playing against: " + ConsoleColors.RED_BOLD + enemyPlayer.getName()
-        + ConsoleColors.RESET);
-    }
-
-    private void setEnemyPlayer() {
-        while (enemyPlayer.getWeapon() == null || enemyPlayer.getWeapon().equals(userPlayer.getWeapon())){
-            enemyPlayer.setWeapon(randomPicker(weaponList));
-        }
-
-        while (enemyPlayer.getArmor() == null || enemyPlayer.getArmor().equals(userPlayer.getArmor())){
-            enemyPlayer.setArmor((randomPicker(armorList)));
-        }
-
-    }
-
 
     private <T> T randomPicker(List<T> listOfThings) {
         Random random = new Random();

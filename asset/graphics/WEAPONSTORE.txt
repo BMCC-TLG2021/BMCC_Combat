@@ -1,0 +1,26 @@
+                    ██     ██ ███████ ██       ██████  ██████  ███    ███ ███████                      
+                    ██     ██ ██      ██      ██      ██    ██ ████  ████ ██                           
+                    ██  █  ██ █████   ██      ██      ██    ██ ██ ████ ██ █████                        
+                    ██ ███ ██ ██      ██      ██      ██    ██ ██  ██  ██ ██                           
+                     ███ ███  ███████ ███████  ██████  ██████  ██      ██ ███████                      
+                                                                                                       
+                                                                                                       
+                                    ████████  ██████                                                   
+                                       ██    ██    ██                                                  
+                                       ██    ██    ██                                                  
+                                       ██    ██    ██                                                  
+                                       ██     ██████                                                   
+                                                                                                       
+                                                                                                       
+██     ██ ███████  █████  ██████   ██████  ███    ██     ███████ ████████  ██████  ██████  ███████     
+██     ██ ██      ██   ██ ██   ██ ██    ██ ████   ██     ██         ██    ██    ██ ██   ██ ██          
+██  █  ██ █████   ███████ ██████  ██    ██ ██ ██  ██     ███████    ██    ██    ██ ██████  █████       
+██ ███ ██ ██      ██   ██ ██      ██    ██ ██  ██ ██          ██    ██    ██    ██ ██   ██ ██          
+ ███ ███  ███████ ██   ██ ██       ██████  ██   ████     ███████    ██     ██████  ██   ██ ███████     
+
+
+
+1. You can Sell and Buy Weapons and Armor here.
+2. Each Weapon will have a Name, Description,Integrity, Physical Damage, Magical Power and Price.
+3. Each Armor will have a Name, Description, Integrity, Defense Increase and Price.
+4. You can Exit Store after you are done shopping in Weapon Store.
