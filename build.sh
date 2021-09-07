@@ -13,7 +13,7 @@ javac -d classes  -classpath "lib/*":"lib/jackson-2.12.5/*" src/com/bmcc/client/
 #     This example adds the directory tree of .class files starting at 'classes'.
 #     Note that any third-party library JARs are *not* included in your application JAR, 
 #     nor are any resource files, e.g., config files, data files, banner.txt, etc.
-jar --create --file bmcc-combat-1.1.jar -C classes .
+jar --create --file bmcc-combat-1.2.jar -C classes .
 
 
 #     Create the Javadoc.
