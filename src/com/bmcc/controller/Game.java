@@ -67,8 +67,10 @@ public class Game {
         }
 
         GameOutput.clearScreen();
-        System.out.println("You defeated all knights of 7 kingdoms, and You are now the ULTIMATE LORD " +
-                "of The GREAT seven Kingdoms ");
+//        System.out.println("You defeated all knights of 7 kingdoms, and You are now the ULTIMATE LORD " +
+//                "of The GREAT seven Kingdoms ");
+        GameOutput.showFinalWin();
+        GameAudio.PlayGameFinalWinAudio();
     }
 
 
