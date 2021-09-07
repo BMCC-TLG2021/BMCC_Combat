@@ -7,4 +7,10 @@ public class Main {
         Game game = new Game();
         game.play();
     }
+
+
+    private Main() {
+        //no instance
+    }
+
 }

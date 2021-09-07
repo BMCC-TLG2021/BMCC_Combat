@@ -2,13 +2,21 @@
 Instructions on How to play BMCC-COMBAT
 ----------------------------------------
 1. Pick a character from character list.
-2. Re-name your character if you want.
-3. Pick a weapon from the weapon list.
-4. Pick an armor from the armor list.
-5. Start fight
+2. Re-name your character.
+3. Visit Vendor Store.
+   * You will be provided with $100 to start.
+   * BUY or SELL Weapons and Armors.
+   * EQUIP your character to fight enemies.
+4. Start fight
    * You can use physical attack or magical attack.
    * Your get one attack per round. 
    * After you attack once, you have to allow your opponent to attack you.
    * You will lose your equipment once its integrity reaches 0.
    * You can quit the game anytime.
+   * You can save the game after a fight, and can resume the game later.
    * Game ends when either player's HP reach 0.
+5. If you win, your RANK will increase as you defeat more enemies. 
+   * You will also be rewarded with $100.
+   * You will also get defeated enemy's weapon and armors if their integrity is above 0.
+   * Once you defeat all 7 enemies or knights, you will be ULTIMATE LORD of GREAT 7 kingdoms.
+     
