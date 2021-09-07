@@ -25,7 +25,7 @@ public class Game {
     private Character enemyPlayer;
     private List<Character> characterList;
     private List<Character> enemyList;
-//    private List<Weapon> weaponList;
+    //    private List<Weapon> weaponList;
 //    private List<Armor> armorList;
 //    private List<Item> itemList;
 //    private List<Magic> magicList;
@@ -70,7 +70,8 @@ public class Game {
             equipEnemy(vendor.getArmorList(), ((i + 1) * 100));
             CoreLogic.controlFlow(userPlayer, enemyPlayer);
         }
-        System.out.println("You united 7 kingdoms and made your father's dream come true.");
+        System.out.println("You defeated all knights of 7 kingdoms, and You are now the ULTIMATE LORD " +
+                "of The GREAT seven Kingdoms ");
     }
 
 
@@ -84,7 +85,7 @@ public class Game {
 
     private void createEnemyList(Character userCharacter) {
         enemyList = new ArrayList<>(characterList);
-        if (userCharacter == null && userPlayer != null){
+        if (userCharacter == null && userPlayer != null) {
             enemyList.removeIf(enemy -> userPlayer.getOccupation().equalsIgnoreCase(enemy.getOccupation())
                     && userPlayer.getRace().equalsIgnoreCase(enemy.getRace())
                     && userPlayer.getHitPoint() == enemy.getHitPoint());
@@ -108,12 +109,13 @@ public class Game {
         GameAudio.PlayWelcomeAudio();
         GameOutput.showInstructions();
         String resumeGame = GameInput.getUserInput("Do you wish to continue from previous session? [ YES OR NO ]");
-        while(!resumeGame.equalsIgnoreCase("yes") && !resumeGame.equalsIgnoreCase("no")) {
+        while (!resumeGame.equalsIgnoreCase("yes") && !resumeGame.equalsIgnoreCase("no")) {
             resumeGame = GameInput.getUserInput("Do you wish to continue from previous session? [ YES OR NO ]");
         }
         if (resumeGame.equalsIgnoreCase("yes")) {
             userPlayer = GameHold.retrieveGame();
         }
+        GameOutput.clearScreen();
     }
 
         private void showgameprphics() throws Exception {

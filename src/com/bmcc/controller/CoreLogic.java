@@ -17,6 +17,8 @@ public class CoreLogic {
     public static void controlFlow(Player userPlayer, Character enemyPlayer) throws Exception {
         userPlayer.getPlayerReadyToFight();
         GameOutput.clearScreen();
+        System.out.println("Your RANK is " + userPlayer.getRank() + ". You will FIGHT against " + enemyPlayer.getName()
+        + ".");
         GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
 
         while (userPlayer.getHitPoint() > 0 && enemyPlayer.getHitPoint() > 0) {
@@ -43,7 +45,7 @@ public class CoreLogic {
 //                    GameAudio.PlayGameSavedAudio();
                     GameHold gh = GameHold.createInstance(userPlayer);
                     gh.saveGame();
-                    System.out.println("Okay, your game has been saved.");
+                    System.out.println("Great, your game has been saved.");
                     System.exit(0);
             }
 
@@ -61,7 +63,7 @@ public class CoreLogic {
 
     private static boolean checkWins(Player userPlayer, Character enemyPlayer) throws Exception {
         if (enemyPlayer.getHitPoint() <= 0) {
-            System.out.println(userPlayer.getName() + " Win!");
+            System.out.println(userPlayer.getName() + " WON!");
             GameAudio.PlayYouWonAudio();
             GameOutput.showYouWon();
             // delete outputFile.txt before game over
@@ -73,8 +75,8 @@ public class CoreLogic {
             userPlayer.addEquipmentToBackpack((Equipment) enemyPlayer.getWeapon());
             userPlayer.addEquipmentToBackpack((Equipment)enemyPlayer.getArmor());
             userPlayer.rankUp();
-            System.out.println(userPlayer.getRank());
 
+            GameOutput.clearScreen();
             // user now can go directly to next battle or see wendor
             String command = GameInput.getSeeVendorCommand();
             switch (command.toUpperCase()){
@@ -95,7 +97,7 @@ public class CoreLogic {
         } else if (userPlayer.getHitPoint() <= 0) {
 
             // todo: update failing store
-            System.out.println(userPlayer.getName() + " Fail!");
+            System.out.println(userPlayer.getName() + " Failed!");
             GameAudio.PlayYouLostAudio();
             GameOutput.showYouLost();
             GameAudio.PlayYouGameOverAudio();
