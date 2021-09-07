@@ -257,6 +257,17 @@ public class GameOutput {
         }
     }
 
+    public static void showFinalWin() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/GAMEFINALOVER.txt"));
+            System.out.println(ConsoleColors.RED_BOLD + menu + ConsoleColors.RESET);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     public static void showWeaponGameGraphics() {
         try {
             String menu = Files.readString(Path.of("asset/graphics/WEAPONFIGHT.txt"));

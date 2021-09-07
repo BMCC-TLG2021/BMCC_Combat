@@ -152,6 +152,20 @@ public class GameAudio {
 
     }
 
+    public static void PlayGameFinalWinAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+        Scanner scanner = new Scanner(System.in);
+
+        File file = new File("asset/audio/FINALWIN.wav");
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioStream);
+        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(-10.0f);
+        clip.start();
+
+    }
+
+
     public static void PlayAttackAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
         Scanner scanner = new Scanner(System.in);
 
