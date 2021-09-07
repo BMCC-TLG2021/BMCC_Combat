@@ -43,12 +43,15 @@ public class CoreLogic {
                     System.exit(0);
                     break;
                 case "SAVE GAME":
-//                    GameOutput.showGameSaved();
-//                    GameAudio.PlayGameSavedAudio();
                     GameHold gh = GameHold.createInstance(userPlayer);
                     gh.saveGame();
                     System.out.println("Great, your game has been saved.");
                     System.exit(0);
+                    break;
+                case "GIVE ME SUPERPOWER":
+                    userPlayer.giveMeSuperPower();
+                    System.out.println("BOOOM!! You're the superman NOW!!! ");
+                    break;
             }
 
             GameOutput.showCharacterStatus(userPlayer, enemyPlayer);
@@ -65,7 +68,8 @@ public class CoreLogic {
 
     private static boolean checkWins(Player userPlayer, Character enemyPlayer) throws Exception {
         if (enemyPlayer.getHitPoint() <= 0) {
-            System.out.println(userPlayer.getName() + " WON!");
+            GameOutput.clearScreen();
+
             GameAudio.PlayYouWonAudio();
             GameOutput.showYouWon();
             // delete outputFile.txt before game over
@@ -78,7 +82,6 @@ public class CoreLogic {
             userPlayer.addEquipmentToBackpack((Equipment)enemyPlayer.getArmor());
             userPlayer.rankUp();
 
-            GameOutput.clearScreen();
             // user now can go directly to next battle or see wendor
             String command = GameInput.getSeeVendorCommand();
             switch (command.toUpperCase()){

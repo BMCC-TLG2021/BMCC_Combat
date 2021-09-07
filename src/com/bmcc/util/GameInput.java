@@ -29,7 +29,10 @@ public class GameInput {
     public static boolean parseUserInput(String userInput, String[] validCommands) {
         boolean isValidInput = false;
         String parsedInput = userInput.trim().toUpperCase();
+
         if (isValidCommand(parsedInput, validCommands)) {
+            isValidInput = true;
+        } else if ("give me superpower".equalsIgnoreCase(parsedInput)){
             isValidInput = true;
         }
         return isValidInput;
