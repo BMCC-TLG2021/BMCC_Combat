@@ -347,7 +347,7 @@ public class Game {
             System.out.println();
             System.out.println();
             GameOutput.clearScreen();
-            GameOutput.showUserFight2();
+            GameOutput.showEnemyFight2();
             GameAudio.PlayMartialAudio();
             Thread.sleep(300);
             GameOutput.clearScreen();
