@@ -25,9 +25,11 @@ public class CoreLogic {
             GameOutput.clearScreen();
             switch (command.toUpperCase()) {
                 case "ATTACK ENEMY":
+                    GameOutput.emptyOutputFile();
                     Attacks.physicalAttack(userPlayer, enemyPlayer, "asset/graphics/userFight.txt");
                     break;
                 case "USE MAGIC":
+                    GameOutput.emptyOutputFile();
                     Attacks.magicalAttack(userPlayer, enemyPlayer, userPlayer.getMagic(), "asset/graphics/userFight.txt");
                     break;
                 case "END GAME":
