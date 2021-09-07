@@ -162,17 +162,13 @@ public class GameOutput {
     public static List<String> showActionDamage(Character attacker, Character victim, int damagePoint) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         List<String> actionDamage = new ArrayList<>();
 
-        actionDamage.add("************************************************************");
-        actionDamage.add("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " ATTACKED " + ConsoleColors.RESET + victim.getName()) + "*");
-        actionDamage.add("************************************************************");
-        GameAudio.PlayResultAudio();
+        actionDamage.add("*****************************************************************************");
         if (damagePoint < 0) {
             damagePoint = 0;
         }
-        actionDamage.add("*************************************************************");
-        actionDamage.add("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " CREATED " + damagePoint + " Damage to "
+        actionDamage.add("*" + (attacker.getName() + ConsoleColors.RED_BOLD + " ATTACKED " + ConsoleColors.RESET + victim.getName()) + (attacker.getName() + ConsoleColors.RED_BOLD + " CREATED " + damagePoint + " Damage to "
                 + ConsoleColors.RESET + victim.getName()) + "*");
-        actionDamage.add("**************************************************************");
+        actionDamage.add("*****************************************************************************");
         GameAudio.PlayResultAudio();
         return actionDamage;
     }
@@ -347,6 +343,19 @@ public class GameOutput {
         try {
             process.inheritIO().start().waitFor();
         } catch (InterruptedException ignored) {
+        }
+    }
+
+    public static void emptyOutputFile() {
+        try {
+
+            FileWriter writer = new FileWriter("asset/outputFile.txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            bufferedWriter.flush();
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
