@@ -221,6 +221,14 @@ public class GameOutput {
             e.printStackTrace();
         }
     }
+    public static void showYourBackPack() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/BACKPACK.txt"));
+            System.out.println(menu);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void showYouLost() {
         try {
@@ -257,6 +265,24 @@ public class GameOutput {
             e.printStackTrace();
         }
     }
+
+    public static void showEnemyFight2() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/enemyFight2.txt"));
+            System.out.println(menu);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void showUserFight2() {
+        try {
+            String menu = Files.readString(Path.of("asset/graphics/userFight2.txt"));
+            System.out.println(menu);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     public static void attackShowGraphics(String path) {
