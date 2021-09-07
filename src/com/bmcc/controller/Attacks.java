@@ -24,31 +24,31 @@ public class Attacks {
         if (damagePoint > 0) {
             victim.damage(damagePoint);
         }
-        GameOutput.writeToFile(filePath);
-        List<String> actionDamage = GameOutput.showActionDamage(attacker, victim, damagePoint);
-        GameOutput.writeStringsToFile(actionDamage);
-        GameOutput.attackShowGraphics("asset/outputFile.txt");
+        showFightInfo(attacker, victim, filePath, damagePoint);
         GameAudio.PlayAttackAudio();
     }
 
     public static void magicalAttack(Character attacker, Character victim, Magic magic, String filePath) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         // reduce attacker's weapon integrity
         updateEquipmentIntegrity(attacker, attacker.getWeapon(), "weapon");
-
-        // todo: should I reduce armor integrity for magic attack?
+        updateEquipmentIntegrity(victim, victim.getArmor(), "armor");
 
         int damagePoint = attacker.retrieveTotalMagicalPower();
 
         if (attacker.reduceMagicPoint()) {
             victim.damage(damagePoint);
-            GameOutput.writeToFile(filePath);
-            List<String> actionDamage = GameOutput.showActionDamage(attacker, victim, damagePoint);
-            GameOutput.writeStringsToFile(actionDamage);
-            GameOutput.attackShowGraphics("asset/outputFile.txt");
+            showFightInfo(attacker, victim, filePath, damagePoint);
             GameAudio.PlayMagicalAudio();
         } else {
             System.out.println("Player does not have enough Magic Power..");
         }
+    }
+
+    private static void showFightInfo(Character attacker, Character victim, String filePath, int damagePoint) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        GameOutput.attackShowGraphics(filePath); // show the attack graphic
+        List<String> actionDamage = GameOutput.showActionDamage(attacker, victim, damagePoint);
+        GameOutput.writeStringsToFile(actionDamage);
+        GameOutput.attackShowGraphics("asset/outputFile.txt");
     }
 
     private static void updateEquipmentIntegrity(Character player, Equipment equipment, String target){

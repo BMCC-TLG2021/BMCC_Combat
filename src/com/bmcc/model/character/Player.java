@@ -139,4 +139,7 @@ public class Player extends Character {
         return instance;
     }
 
+    public void setRank(int rank){
+        this.rank = rank;
+    }
 }
